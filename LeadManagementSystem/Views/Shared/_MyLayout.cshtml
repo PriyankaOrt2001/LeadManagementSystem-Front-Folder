@@ -1,0 +1,243 @@
+﻿<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Lead Management System</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link href="~/ThemeContent/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/ThemeContent/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/ThemeContent/css/ionicons.min.css" rel="stylesheet" />
+    <link href="~/ThemeContent/css/AdminLTE.min.css" rel="stylesheet" />
+    <link href="~/ThemeContent/css/skin-blue.min.css" rel="stylesheet" />
+    <link href="~/ThemeContent/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/ThemeContent/css/blue.css" rel="stylesheet" />
+    <script src="~/ThemeContent/js/bootbox.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link href="~/ThemeContent/css/datepicker3.css" rel="stylesheet" />
+    <link href="~/ThemeContent/css/ToggleSwitch.css" rel="stylesheet" />
+    <link href="https://unpkg.com/bootstrap-multiselect@0.9.13/dist/css/bootstrap-multiselect.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css" rel="stylesheet" />
+
+    <link href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css" />
+    <style>
+        .login-title {
+            display: grid;
+            color: #fff;
+            padding: 4px 15px;
+        }
+
+        img.loginlogo {
+            height: 31px;
+            border-radius: 19px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .ui-corner-all.ui-widget.ui-widget-content {
+            display: none !important;
+        }
+
+        #slider-range.ui-corner-all.ui-widget.ui-widget-content {
+            display: block !important;
+        }
+
+        ul.multiselect-container.dropdown-menu {
+            overflow-y: scroll;
+            height: 10rem;
+        }
+
+        .multiselect-container > li > a > label {
+            margin: 0;
+            height: 25% !important;
+            cursor: pointer;
+            font-weight: 400;
+            padding: 3px 20px 3px 40px;
+        }
+        #logout {
+            color: royalblue;
+            background-color: transparent;
+            border: none;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            height: 35px;
+            width: 100px;
+        }
+        body {
+            width: 100%;
+            padding: unset;
+            height: auto;
+        }
+    </style>
+
+</head>
+
+<body class="skin-blue sidebar-mini sidebar-collapse" id="body" style="padding-right: unset">
+    <div class="wrapper" style="height: auto;">
+        <header class="main-header">
+            <a href="/Dashboard/Index " class="logo">
+                <span class="logo-mini" style="font-size: 16px;"><b>LMS</b></span>
+                <span style="font-size: 16px;">Lead Management System</span>
+            </a>
+            <nav class="navbar navbar-static-top fixed-width" role="navigation">
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown user-menu">
+                            <a href="@Url.Action("Index","Dashboard")" style="color: white">Home</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary" onclick="ShowFormforlist();" style="color: white; border:0px">Lead Details</a>
+                        </li>
+                        <li id="addLead_li">
+                            <a class="btn btn-primary" onclick="ShowForm();" style="color: white; border:0px">Add Lead</a>
+                        </li>
+                        <li>
+                            <a href="#" style="color: white">Email</a>
+                        </li>
+                        <li class="dropdown user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa-user-circle-o"></i>
+                                <span class="hidden-xs"><i class="fa fa-user"></i>&nbsp;&nbsp;@Session["AdminUname"]</span>
+                            </a>
+                            <ul class="dropdown-menu" style="width: 140px;margin-right: 0px;border-right-width: 0px;">
+                                <li class="user-header" style="height: 80px;width: 160px;">
+                                    <i class="fa fa-user" style="font-size: 30px;"></i>
+                                    <p style="margin-top: 4px;margin-bottom: 6px;">@Session["AdminUname"]</p>
+                                </li>
+                                <li class="user-footer" style="margin-right: 0px;width: 163px;padding-right: 13px;height: 37px;padding-top: 5px;">
+                                    <div class="pull-right">
+                                        <a class="btn btn-primary" onclick="Logout();" id="logout">Log Out&nbsp;<i class="fa fa-sign-out"></i></a>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <aside class="main-sidebar">
+            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 305px;">
+                <section class="sidebar" style="overflow: hidden; width: auto; height: 305px;">
+                    <ul class="sidebar-menu tree" data-widget="tree">
+                        <li class="treeview myLi">
+
+                            <a href="@Url.Action("Index","Dashboard")">
+                                <i class="fa fa-dashboard"></i><span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="treeview myLi">
+
+
+                            <a href="">
+                                <i class="fa fa-gears"></i><span>Masters</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="myInnerLi"><a href="@Url.Action("Index","LeadManagement")" id="3"><i class="fa fa-circle-o"></i>Lead Master</a></li>
+                                <li class="myInnerLi"><a href="@Url.Action("Index","Category")" id="4"><i class="fa fa-circle-o"></i>Category Master</a></li>
+                                <li class="myInnerLi"><a href="@Url.Action("Index","TypeOfLead")" id="5"><i class="fa fa-circle-o"></i>Type Of Lead Master</a></li>
+                                <li class="myInnerLi"><a href="@Url.Action("Index","Company")" id="5"><i class="fa fa-circle-o"></i>Company Master</a></li>
+                                <li class="myInnerLi"><a href="@Url.Action("Index","Employee")" id="5"><i class="fa fa-circle-o"></i>Assign To Master</a></li>
+                                <li class="myInnerLi"><a href="@Url.Action("Index","Source")" id="5"><i class="fa fa-circle-o"></i>Lead Source</a></li>
+                                <li class="myInnerLi"><a href="@Url.Action("Index","PlanDetail")" id="5"><i class="fa fa-circle-o"></i>Plan Detail Master</a></li>
+
+                            </ul>
+                        </li>
+                        
+                    </ul>
+
+                </section><div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 292.531px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+            </div>
+        </aside>
+        <div class="content-wrapper" style="min-height: 229px; background-color: white;">
+            <section class="content" style="padding-top: 0px;padding-right: 25px;">
+                @RenderBody()
+            </section>
+        </div>
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                Version @System.Configuration.ConfigurationManager.AppSettings["AppVersion"]
+            </div>
+            <strong>Copyright © @DateTime.Now.Year  @System.Configuration.ConfigurationManager.AppSettings["ProjectName"].</strong> All rights reserved.
+        </footer>
+    </div>
+    <script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
+    <script src="~/ThemeContent/js/jquery-2.2.3.min.js"></script>
+    <script src="~/ThemeContent/js/bootstrap.min.js"></script>
+    <script src="~/ThemeContent/js/app.min.js"></script>
+    <script src="~/ThemeContent/js/icheck.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="~/ThemeContent/js/bootstrap-datepicker.js"></script>
+    <script src="~/ThemeContent/js/jquery.dataTables.min.js"></script>
+    <script src="~/ThemeContent/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/ThemeContent/js/bootbox.min.js"></script>
+    <script src="~/ThemeContent/js/crypto-js.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-multiselect@0.9.13/dist/js/bootstrap-multiselect.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
+    <script type="text/javascript">
+        var ServerURL = "@System.Configuration.ConfigurationManager.AppSettings["ScreenURL"].ToString()";
+        function Logout() {
+            debugger;
+            bootbox.confirm({
+                message: "Are You sure you want to Logout ?",
+                buttons: {
+                    confirm: {
+                        label: 'Yes',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'No',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+                    if (result == true) {
+                        debugger;
+                        $.ajax({
+                            type: 'POST',
+                            url: '' + ServerURL + 'LogIn/Logout',
+                            
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (return_Data) {
+                                if (return_Data.n == 1) {
+                                    window.location.href = '' + ServerURL + 'LogIn/LogInForm';
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        location.reload();
+                    }
+                }
+            });
+        }
+
+
+       
+        function ShowForm() {
+            debugger;
+            window.location.href = '' + ServerURL + 'LeadManagement/AddLeadForm';
+            
+        }
+
+        function ShowFormforlist() {
+            debugger;
+            window.location.href = '' + ServerURL + 'LeadManagement/Index';            
+        }
+    </script>
+    @RenderSection("LocalJS", false)
+</body>
+</html>
+

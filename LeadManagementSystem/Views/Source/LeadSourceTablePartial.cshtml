@@ -1,0 +1,50 @@
+﻿
+@model LeadManagementSystem.MODEL.LeadSourceModel
+
+@if (Model.LeadSourceDetails.Count < 0 || Model.LeadSourceDetails != null)
+{
+
+    <table class="table" id="TableLeadSource">
+        <thead>
+            <tr>
+                <th class="text-center">Sr.No</th>
+                <th class="text-center">Lead Source Name</th>
+                <th class="text-center" id="colAction">Action</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            @for (int i = 0; i < Model.LeadSourceDetails.Count; i++)
+            {
+                <tr>
+                    <td>@Model.LeadSourceDetails[i].RowNum</td>
+                    <td>@Model.LeadSourceDetails[i].Source_Name</td>
+
+                    <td style="padding: 3px;">
+                        <div class="btn-group">
+
+                            <a data-toggle="tooltip" title="Update" data-placement="left" class="btn btn-sm waves-effect" style="padding-left: 3px; padding-right: 3px; width: 25px; height: 29px;"><i class="fa fa-edit" onclick="EditLeadSource(@Model.LeadSourceDetails[i].Source_Id);"></i></a>
+                            <a data-toggle="tooltip" title="delete" data-placement="left" class="btn btn-sm waves-effect" style="padding-left: 3px; padding-right: 3px; width: 25px; height: 29px;"><i class="fa fa-trash" onclick="RemoveLeadSource(@Model.LeadSourceDetails[i].Source_Id);"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <table class="table" id="TableLeadSource">
+        <thead>
+            <tr>
+                <th class="text-center">Sr.No</th>
+                <th class="text-center">Lead Source Name</th>
+                <th class="text-center" id="colAction">Action</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            <tr>
+                <td class="text-center">No data Found</td>
+            </tr>
+        </tbody>
+    </table>
+}

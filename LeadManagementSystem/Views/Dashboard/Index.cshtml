@@ -1,0 +1,209 @@
+﻿@model LeadManagementSystem.MODEL.LeadModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+<section class="content-header" style="padding-bottom:15px;">
+    <h1>Dashboard</h1>
+</section>
+<section class="content" style="padding-top: 0px;padding-left: 0px;padding-right: 0px;padding-bottom: 0px;">
+
+    <div class="row" id="dashboardpanel">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-info" style="height:250px;">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Lead Details</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="col-md-6">
+                                <div class="small-box bg-orange" style="height: 90px; margin-bottom: 10px;">
+                                    <div class="inner" style="padding-bottom: 0px;">
+                                        <h3>@ViewBag.ConvertedLeads</h3>
+
+                                        <p>Converted Lead</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="small-box bg-orange" style="height: 90px; margin-bottom: 10px;">
+                                    <div class="inner" style="padding-bottom: 0px;">
+                                        <h3>@ViewBag.GhostLeads</h3>
+
+                                        <p>Ghost Lead</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="small-box bg-orange" style="height: 90px; margin-bottom: 10px;">
+                                    <div class="inner" style="padding-bottom: 0px;">
+                                        <h3>@ViewBag.TotalLeads</h3>
+
+                                        <p>Total Lead</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="small-box bg-orange" style="height: 90px; margin-bottom: 10px;">
+                                    <div class="inner" style="padding-bottom: 0px;">
+                                        <h3>@ViewBag.ClosedLeads</h3>
+
+                                        <p>Closed Lead</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <div class="box box-info" style="height:350px;">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Lead Details In Line Chart</h3>
+
+                        </div>
+                        <div class="box-body">
+                            <div id="chartContainer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-info" style="height:300px;">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Chart of Lead</h3>
+                        </div>
+                        <div class="box-body">
+                            <canvas id="myPieChart" height="220" width="600" style="display: block;height: 80%;width: 600px;"></canvas>
+                        </div>
+                    </div>
+                    <div class="box box-info" style="height: 300px;">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Recent Leads</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="col-md-12 table-responsive">
+                                @if (Model.LeadList.Count > 0 || Model.LeadList != null)
+                                {
+
+                                    <table id="TableLead" class="table no-margin">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Sr.No</th>
+                                                <th class="text-center">Lead Date</th>
+                                                <th class="text-center">Client Name</th>
+                                                <th class="text-center">Location</th>
+                                                <th class="text-center">Mobile No</th>
+                                                <th class="text-center">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                            @for (int i = 0; i < Model.LeadList.Count; i++)
+                                            {
+                                            <tr>
+                                                <td>@Model.LeadList[i].RowNum</td>
+                                                <td>@Model.LeadList[i].CreatedDate</td>
+                                                <td>@Model.LeadList[i].ClientName</td>
+                                                <td>@Model.LeadList[i].SpokesAddress</td>
+                                                <td>@Model.LeadList[i].SpokesMobileNumber</td>
+                                                <td>@Model.LeadList[i].StatusType</td>
+                                            </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                                else
+                                {
+                                    <table class="table no-margin" id="TableLead">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Sr.No</th>
+                                                <th class="text-center">Lead Date</th>
+                                                <th class="text-center">Client Name</th>
+                                                <th class="text-center">Location</th>
+                                                <th class="text-center">Mobile No</th>
+                                                <th class="text-center">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                            <tr>
+                                                <td class="text-center">No data Found</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script src="~/MyJavascripts/Dashboard.js"></script>
+@section LocalJs{
+    <script>
+
+        window.onload = function () {
+            debugger;
+
+            var TotalLeads ="@Html.Raw(ViewBag.TotalLeads)";
+            var ClosedLeads ="@Html.Raw(ViewBag.ClosedLeads)";
+            var OpenLeads = "@Html.Raw(ViewBag.OpenLeads)";
+            var HoldLeads = "@Html.Raw(ViewBag.OnHold)";
+            var LineChartData=@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.LineChartData));
+            var data = LineChartData;
+
+
+            var procChart = new Morris.Line({
+                element: 'chartContainer',
+                data: data,
+                xkey: ['MonthName'],
+                ykeys: ['CountOfTotalLeads', 'CountOfClosedLeads','CountOfHoldLeads'],
+                labels: ['Total Leads', "Closed Leads","Hold Leads"],
+                lineColors: ["#3498db",
+                    "#9b59b6","#FF3131"],
+                hideHover: 'auto',
+                resize: true,
+                parseTime: false
+            });
+
+            const ctx = document.getElementById('myPieChart');
+
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: [
+                        
+                        'Open Leads',
+                        'Closed Leads',
+                        'Hold Leads'
+                    ],
+                    datasets: [{
+                        label: 'My First Dataset',
+                        data: [OpenLeads, ClosedLeads, HoldLeads],
+                        backgroundColor: [
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)',
+                            'rgb(255, 99, 132)'
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+        }
+    </script>
+}
