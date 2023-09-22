@@ -18,7 +18,7 @@
                         </div>
                         <div class="box-body">
                             <div class="col-md-4">
-                                <div class="small-box bg-orange" style="height: 90px; margin-bottom: 10px;">
+                                <div class="small-box bg-green" style="height: 90px; margin-bottom: 10px;">
                                     <div class="inner" style="padding-bottom: 0px;">
                                         <h3>@ViewBag.TotalLeads</h3>
 
@@ -28,7 +28,7 @@
                             </div>
 
                             <div class="col-md-4">
-                                <div class="small-box bg-orange" style="height: 90px; margin-bottom: 10px;">
+                                <div class="small-box bg-purple" style="height: 90px; margin-bottom: 10px;">
                                     <div class="inner" style="padding-bottom: 0px;">
                                         <h3>@ViewBag.ClosedLeads</h3>
 
@@ -37,7 +37,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="small-box bg-orange" style="height: 90px; margin-bottom: 10px;">
+                                <div class="small-box" style="height: 90px; margin-bottom: 10px; background-color: #19BDFF">
                                     <div class="inner" style="padding-bottom: 0px;">
                                         <h3>@ViewBag.GhostLeads</h3>
 
@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="small-box bg-orange" style="height: 90px; margin-bottom: 10px;">
+                                <div class="small-box" style="height: 90px; margin-bottom: 10px; background-color: #efcc00">
                                     <div class="inner" style="padding-bottom: 0px;">
                                         <h3>@ViewBag.OnHold</h3>
 
@@ -64,7 +64,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="small-box bg-orange" style="height: 90px; margin-bottom: 10px;">
+                                <div class="small-box" style="height: 90px; margin-bottom: 10px; background-color:#73D7FF">
                                     <div class="inner" style="padding-bottom: 0px;">
                                         <h3>@ViewBag.OpenLeads</h3>
 
@@ -180,6 +180,12 @@
             var LineChartData=@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.LineChartData));
             var data = LineChartData;
 
+            var TotalPriceOfTotalLeads ="@Html.Raw(ViewBag.TotalPriceOfTotalLeads)";
+            var TotalPriceOfOpenLeads ="@Html.Raw(ViewBag.TotalPriceOfOpenLeads)";
+            var TotalPriceOfClosedLeads = "@Html.Raw(ViewBag.TotalPriceOfClosedLeads)";
+            var TotalPriceOfHoldLeads = "@Html.Raw(ViewBag.TotalPriceOfHoldLeads)";
+            var TotalPriceOfConvertedLeads = "@Html.Raw(ViewBag.TotalPriceOfConvertedLeads)";
+            var TotalPriceOfGhostLeads = "@Html.Raw(ViewBag.TotalPriceOfGhostLeads)";
 
             var procChart = new Morris.Line({
                 element: 'chartContainer',
@@ -200,18 +206,24 @@
                 type: 'pie',
                 data: {
                     labels: [
-                        
-                        'Open Leads',
-                        'Closed Leads',
-                        'Hold Leads'
+
+                        'Total Price Of Leads',
+                        'Total Price Of Open Leads',
+                        'Total Price Of Closed Leads',
+                        'Total Price Of Hold Leads',
+                        'Total Price Of Converted Leads',
+                        'Total Price Of Ghost Leads'
                     ],
                     datasets: [{
                         label: 'My First Dataset',
-                        data: [OpenLeads, ClosedLeads, HoldLeads],
+                        data: [TotalPriceOfTotalLeads, TotalPriceOfOpenLeads, TotalPriceOfClosedLeads, TotalPriceOfHoldLeads, TotalPriceOfConvertedLeads, TotalPriceOfGhostLeads],
                         backgroundColor: [
-                            'rgb(54, 162, 235)',
-                            'rgb(255, 205, 86)',
-                            'rgb(255, 99, 132)'
+                            'rgb(0, 166, 90)',
+                            'rgb(115, 215, 255)',
+                            'rgb(96, 92, 168)',
+                            'rgb(239,204,0)',
+                            'rgb(255, 168, 54)',
+                            'rgb(25, 189, 255)'
                         ],
                         hoverOffset: 4
                     }]

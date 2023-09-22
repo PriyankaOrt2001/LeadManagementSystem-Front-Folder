@@ -385,7 +385,7 @@
                             </div>
 
                             <div class="box-footer text-center">
-                                <button type="button" class="btn btn-success" id="btnDraft" onclick="SaveFormData();" style="margin-right: 10px;width:110px;">Save</button>
+                                <button type="button" class="btn btn-success" id="btnDraft" onclick="SaveFormData();" style="margin-right: 10px; width: 110px; background-color: #0073cf">Save as Draft</button>
                                 <button type="button" class="btn btn-danger" id="btnreset" onclick="ResetFormData();" style="width:110px;">Reset</button>
                             </div>
                         </div>
@@ -411,14 +411,14 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group" id="SpokesMobileDIV">
-                                            <label>Spokes Person Mobile Number</label>
+                                            <label>Mobile Number</label>
                                             <input type="text" class="form-control" id="TxtSpokesMobile" maxlength="10" placeholder="Enter Mobile Number" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" />
                                             <span class="help-block" id="ErrorForSpokesMobile"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group" id="SpokesEmailDIV">
-                                            <label>Spokes Person Email Address</label>
+                                            <label>Email Address</label>
                                             <input type="email" class="form-control" id="TxtSpokesEmailAddress" placeholder="Enter Email Address" autocomplete="off" />
                                             <span class="help-block" id="ErrorForSpokesEmail"></span>
                                         </div>
@@ -438,7 +438,7 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group" id="AlternateSpokesNameDIV">
-                                            <label>Spokes Person Name</label>
+                                            <label>Spokes Person 2</label>
                                             <input type="text" class="form-control" id="TxtAlternateSpokesName" placeholder="Enter Spokes Name" autocomplete="off" />
                                             <span class="help-block" id="ErrorForAlternateSpokesName"></span>
                                         </div>
@@ -446,14 +446,14 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group" id="AlternateMobileDIV">
-                                            <label>Spokes Person Mobile Number</label>
+                                            <label>Mobile Number</label>
                                             <input type="text" class="form-control" id="TxtAlternateMobile" maxlength="10" placeholder="Enter Mobile Number" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" />
                                             <span class="help-block" id="ErrorForAlternateMobile"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group" id="AlternateEmailDIV">
-                                            <label>Spokes Person Email Address</label>
+                                            <label>Email Address</label>
                                             <input type="email" class="form-control" id="TxtAlternateEmailAddress" placeholder="Enter Email Address" autocomplete="off" />
                                             <span class="help-block" id="ErrorForAlternateEmail"></span>
                                         </div>
@@ -464,7 +464,7 @@
                                 </div>
                             </div>
                             <div class="box-footer text-center">
-                                <button type="button" class="btn btn-success" id="btnDraft2" onclick="SaveFormData();" style="margin-right: 10px;width:110px;">Draft</button>
+                                <button type="button" class="btn btn-success" id="btnDraft2" onclick="SaveFormData();" style="margin-right: 10px; width: 110px; background-color: #0073cf">Save as Draft</button>
 
                                 <button type="button" class="btn btn-danger" id="btnExit2" onclick="ExitForm2();" style="width:110px;">Exit</button>
                             </div>
@@ -501,7 +501,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group" id="ChangeStatusDIV">
-                                            <label>Change Status<span class="text-danger">*</span></label>
+                                            <label>Change Status</label>
                                             <select id="TxtStatusType" class="form-control">
                                                 <option selected="" value="">--Select Status--</option>
                                                 <option value="Open">Open</option>
@@ -515,7 +515,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group" id="AssignLeadDIV">
-                                            <label>Assign Lead<span class="text-danger">*</span></label>
+                                            <label>Assign Lead</label>
                                             <select id="TxtPerson" class="form-control">
                                                 <option selected="" value="">--Select Person--</option>
                                                 @Html.Raw(ViewBag.AssignTo)
@@ -548,7 +548,7 @@
                             </div>
                             <div class="box-footer text-center">
                                 <button type="button" class="btn btn-success" id="btnSave" onclick="SaveFormData();" style="margin-right: 10px;width:110px;">Save</button>
-                                <button type="button" class="btn btn-success" id="btnDraft3" onclick="UpdateFinalDraftLead();" style="width:110px;">Draft</button>
+                                <button type="button" class="btn btn-success" id="btnDraft3" onclick="UpdateFinalDraftLead();" style="width: 110px; background-color: #0073cf">Save as Draft</button>
                                 <button type="button" class="btn btn-danger" id="btnExit3" onclick="ExitForm3();" style="width:110px;">Exit</button>
                             </div>
                         </div>

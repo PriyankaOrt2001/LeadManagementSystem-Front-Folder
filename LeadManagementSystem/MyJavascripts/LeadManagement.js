@@ -371,17 +371,19 @@ function UpdateFirstDraftLead(id) {
 				$("#ContactDetails").css("display", "block");
 				$("#LeadTable").css("display", "none");
 
-				$('#btnDraft2').text('Update');
+				$('#btnDraft2').text('Save');
 				$('#btnDraft2').attr('onclick', 'UpdateDraft1(' + "'" + id + "'" + ');');
 				$('#btnDraft2').css("display", "inline-block");
+				$('#btnDraft2').css("background-color", "green");
 
 				$('#btnSave').text('Save');
 				$('#btnSave').attr('onclick', 'UpdateFinal(' + "'" + id + "'" + ');');
 				$('#btnSave').css("display", "inline-block");
 
-				$('#btnDraft3').text('Draft');
+				$('#btnDraft3').text('Save as Draft');
 				$('#btnDraft3').attr('onclick', 'UpdateFinalDraftLead(' + "'" + id + "'" + ');');
 				$('#btnDraft3').css("display", "inline-block");
+				$('#btnDraft3').css("background-color", "#0073cf");
 
 				$("#boxTitle").text('Add Contact Details');
 			} else {
@@ -809,9 +811,10 @@ function UpdateDraft1(id) {
 				$('#btnSave').attr('onclick', 'UpdateFinal(' + "'" + id + "'" + ');');
 				$('#btnSave').css("display", "inline-block");
 
-				$('#btnDraft3').text('Draft');
+				$('#btnDraft3').text('Save as Draft');
 				$('#btnDraft3').attr('onclick', 'UpdateFinalDraftLead(' + "'" + id + "'" + ');');
-				$('#btnDraft3').css("display", "inline-block");
+				$('#btnDraft3').css("display", "initial");
+				$('#btnDraft3').css("background-color", "#0073cf");
 
 
 				$("#boxTitle").text('Add Project Details');
@@ -1032,21 +1035,27 @@ function View(id) {
 				//$('#btnSave').attr('onclick', 'Update('+"'" + id +"'"+');');
 				//$('#btnSave').css("display", "inline-block");
 
-				$('#btnDraft').text('Update');
+				$('#btnDraft').text('Save');
+				$('#btnDraft').css("background-color", "green");
 				$('#btnDraft').attr('onclick', 'UpdateFirstDraftLead(' + "'" + id + "'" + ');');
 				$('#btnDraft').css("display", "inline-block");
 
-				$('#btnDraft2').text('Update');
+				$('#btnDraft2').text('Save');
+				$('#btnDraft2').css("background-color", "green");
 				$('#btnDraft2').attr('onclick', 'UpdateDraft1(' + "'" + id + "'" + ');');
 				$('#btnDraft2').css("display", "inline-block");
 
-				$('#btnDraft3').text('Draft');
+				$('#btnDraft3').text('Save');
+				$('#btnDraft3').css("background-color", "green");
 				$('#btnDraft3').attr('onclick', 'UpdateFinalDraftLead(' + "'" + id + "'" + ');');
 				$('#btnDraft3').css("display", "inline-block");
 
-				$('#btnSave').text('Save');
+				$('#btnSave').css("background-color", "green");
 				$('#btnSave').attr('onclick', 'UpdateFinal(' + "'" + id + "'" + ');');
 				$('#btnSave').css("display", "inline-block");
+
+				$('#btnreset').attr('onclick', 'Leadtable()');
+				$('#btnreset').text('Cancel');
 
 				$('#TxtTypeOfLead').find('option').remove().end();
 				$('#TxtTypeOfLead').append(`<option selected="" value="">--Select Type Of Lead--</option>`);
@@ -1114,7 +1123,8 @@ function ShowAddLeadForm() {
 	$("#btnDraft").show();
 	$("#btnreset").show();
 	//$("#btnSave").text('Add');
-	$("#btnDraft").text('Draft');
+	$("#btnDraft").text('Save as Draft');
+	$('#btnDraft').css("background-color", "#0073cf");
 	$('#btnAddLead').css('display', 'none');
 	$('#TxtFilterDate').css('display', 'none');
 	$('#LeadIdRow').css('display', 'none');
@@ -1140,7 +1150,8 @@ function ShowForm() {
 	$("#btnreset").show();
 
 	/*$("#btnSave").text('Add');*/
-	$("#btnDraft").text('Draft');
+	$("#btnDraft").text('Save as Draft');
+	$("#btnDraft").css("background-color","#0073cf");
 
 	$('#TxtFilterDate').css('display', 'none');
 	$('#LeadIdRow').css('display', 'none');
@@ -1448,7 +1459,8 @@ function SaveFormData() {
 				window.location.href = "/LogIn/LogInForm";
 			} else if (return_Data.n == 1) {
 				$('#btnDraft').removeAttr("disabled");
-				$('#btnDraft').html('Draft');
+				$('#btnDraft').html('Save as Draft');
+				$('#btnDraft').css("background-color", "#0073cf");
 				bootbox.alert(return_Data.msg);
 				$('div').removeClass('has-error');
 				$('.help-block').html('');
@@ -1471,7 +1483,8 @@ function SaveFormData() {
 		},
 		complete: function () {
 			$('#btnDraft').removeAttr("disabled");
-			$('#btnDraft').html('Draft');
+			$('#btnDraft').html('Save as Draft');
+			$('#btnDraft').css("background-color", "#0073cf");
 		}
 
 	});

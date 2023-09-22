@@ -26,6 +26,14 @@ namespace LeadManagementSystem.Controllers
                 ViewBag.OnHold = result.HoldLeadsCount;
                 ViewBag.ConvertedLeads = result.ConvertedLeadsCount;
                 ViewBag.GhostLeads = result.GhostLeadsCount;
+
+                ViewBag.TotalPriceOfTotalLeads = result.PriceOfTotalLeads;
+                ViewBag.TotalPriceOfOpenLeads = result.PriceOfOpenLeads;
+                ViewBag.TotalPriceOfClosedLeads = result.PriceOfClosedLeads;
+                ViewBag.TotalPriceOfHoldLeads = result.PriceOfHoldLeads;
+                ViewBag.TotalPriceOfConvertedLeads = result.PriceOfConvertedLeads;
+                ViewBag.TotalPriceOfGhostLeads = result.PriceOfGhostLeads;
+
                 LeadModel lm = new LeadModel();
                 var leadDetails = JsonConvert.DeserializeObject<LeadModel>(LMSTransaction.get("GetRecentLeadDetailsList", Session["AuthToken"].ToString()).Content);
                 lm.LeadList = leadDetails.LeadList;
