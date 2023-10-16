@@ -102,7 +102,7 @@ function RemoveEmployee(element) {
 				});
 			}
 			else {
-				window.location.href = "/Employee/Index";
+				bootbox.hideAll();
 			}
 		}
 	});

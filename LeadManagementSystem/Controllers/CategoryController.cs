@@ -33,7 +33,7 @@ namespace LeadManagementSystem.Controllers
             {
                 LeadCategoryModel lcm = new LeadCategoryModel();
                 LeadCategoryDetails cd = new LeadCategoryDetails();
-                var result = JsonConvert.DeserializeObject<LeadCategoryModel>(LMSTransaction.get("GetLeadCategoryList", Session["AuthToken"].ToString()).Content);
+                var result = JsonConvert.DeserializeObject<LeadCategoryModel>(LMSTransaction.get("GetLeadCategoryList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                 lcm.LeadCategoryList = result.LeadCategoryList;
                 return PartialView("CategoryTablePartial", lcm);
             }
@@ -52,7 +52,7 @@ namespace LeadManagementSystem.Controllers
                 if (Session["AuthToken"] != null)
                 {
                     LeadCategoryDetails ld = new LeadCategoryDetails();
-                    var result = JsonConvert.DeserializeObject<LeadCategoryDetails>(LMSTransaction.get("ViewCategoryDetails?Category_Id=" + id, Session["AuthToken"].ToString()).Content);
+                    var result = JsonConvert.DeserializeObject<LeadCategoryDetails>(LMSTransaction.get("ViewCategoryDetails?Category_Id=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     ld = result;
                     return Json(ld, JsonRequestBehavior.AllowGet);
 
@@ -81,7 +81,7 @@ namespace LeadManagementSystem.Controllers
                 if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
                 {
                     ld.CreatedBy = Convert.ToString(Session["Admin_ID"]);
-                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddCategory", ld, Session["AuthToken"].ToString()).Content);
+                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddCategory", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
                 }
                 else
@@ -104,7 +104,7 @@ namespace LeadManagementSystem.Controllers
             {
                 if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
                 {
-                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("RemoveCategory?id=" + id, Session["AuthToken"].ToString()).Content);
+                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("RemoveCategory?id=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
                 }
                 else
@@ -128,7 +128,7 @@ namespace LeadManagementSystem.Controllers
                 if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
                 {
                     cd.CreatedBy = Convert.ToString(Session["Admin_ID"]);
-                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdateCategory", cd, Session["AuthToken"].ToString()).Content);
+                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdateCategory", cd, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
                 }
                 else

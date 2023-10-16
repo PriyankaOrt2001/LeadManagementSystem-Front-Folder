@@ -19,7 +19,7 @@ namespace LeadManagementSystem.Controllers
         {
             if (Session["AuthToken"] != null)
             {
-                var result = JsonConvert.DeserializeObject<DashboardModel>(LMSTransaction.get("GetCountsForDashboard", Session["AuthToken"].ToString()).Content);
+                var result = JsonConvert.DeserializeObject<DashboardModel>(LMSTransaction.get("GetCountsForDashboard", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                 ViewBag.TotalLeads = result.TotalLeads;
                 ViewBag.OpenLeads = result.OpenLeadsCount;
                 ViewBag.ClosedLeads = result.ClosedLeadsCount;
@@ -35,7 +35,7 @@ namespace LeadManagementSystem.Controllers
                 ViewBag.TotalPriceOfGhostLeads = result.PriceOfGhostLeads;
 
                 LeadModel lm = new LeadModel();
-                var leadDetails = JsonConvert.DeserializeObject<LeadModel>(LMSTransaction.get("GetRecentLeadDetailsList", Session["AuthToken"].ToString()).Content);
+                var leadDetails = JsonConvert.DeserializeObject<LeadModel>(LMSTransaction.get("GetRecentLeadDetailsList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                 lm.LeadList = leadDetails.LeadList;
                 ViewBag.LineChartData = result.LeadList;
                 return View("Index", lm);

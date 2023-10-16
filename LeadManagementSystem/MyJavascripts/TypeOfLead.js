@@ -120,8 +120,7 @@ function RemoveTypeOfLead(element) {
 				});
 			}
 			else {
-				refreshDataTable();
-				ResetFormData();
+				bootbox.hideAll();
 			}
 		}
 	});

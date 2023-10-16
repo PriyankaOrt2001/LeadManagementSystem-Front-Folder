@@ -29,7 +29,7 @@ function LogIn() {
 		formdata.append("Password", Password);
 		$.ajax({
 			type: "POST",
-			url: ServerURL + 'LogIn/Login',
+			url: ServerURL + 'LogIn/APILogIn',
 			data: formdata,
 			processData: false,
 			contentType: false,

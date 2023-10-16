@@ -6,10 +6,11 @@
     <table class="table" id="TableLead" style="font-size: 15px;width: 95%;">
         <thead>
             <tr>
+                <th class="text-center"></th>
                 <th class="text-center">Sr.No</th>
-                <th class="text-center">Lead Date</th>
-                <th class="text-center">Company Name</th>
-                <th class="text-center">Client Name</th>
+                <th class="text-center" style="width: 9%;">Lead Date</th>
+                <th class="text-center" style="width: 12%;">Company Name</th>
+                <th class="text-center" style="width: 11%;">Client Name</th>
                 <th class="text-center">Priority</th>
                 <th class="text-center">Source</th>
                 <th class="text-center">Assigned To</th>
@@ -22,9 +23,21 @@
             @for (int i = 0; i < Model.LeadList.Count; i++)
             {
                 <tr>
+                    <td style="padding: 3px;">
+                        <div class="btn-group">
+                            @if (Model.LeadList[i].IsFav == 1)
+                            {
+                                <a data-toggle="tooltip" title="View Details" data-placement="left" class="btn btn-sm waves-effect" onclick="IsFavLead('@Model.LeadList[i].LeadId',0)" style="padding-left: 3px; padding-right: 3px; width: 25px; height: 29px;"><i class="fa fa-star"></i></a>
+                            }
+                            else
+                            {
+                                <a data-toggle="tooltip" title="View Details" data-placement="left" class="btn btn-sm waves-effect" onclick="IsFavLead('@Model.LeadList[i].LeadId',1)" style="padding-left: 3px; padding-right: 3px; width: 25px; height: 29px;"><i class="fa fa-star-o"></i></a>
+                            }
+                        </div>
+                    </td>
                     <td>@Model.LeadList[i].RowNum</td>
                     <td>@Model.LeadList[i].CreatedDate</td>
-                    <td>@Model.LeadList[i].CompanyName</td>
+                    <td>@Model.LeadList[i].Short_Company_Name</td>
                     <td>@Model.LeadList[i].ClientName</td>
                     <td>@Model.LeadList[i].Category</td>
                     <td>@Model.LeadList[i].Source</td>
@@ -130,6 +143,7 @@ else
     <table class="table" id="TableLead" style="font-size: 15px;width: 95%;">
         <thead>
             <tr>
+                <th class="text-center"></th>
                 <th class="text-center">Sr.No</th>
                 <th class="text-center">Lead Date</th>
                 <th class="text-center">Company Name</th>

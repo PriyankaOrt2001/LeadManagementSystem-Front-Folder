@@ -14,7 +14,9 @@
         font-weight: 600;
     }
 
-  
+    textarea#TxtRemark {
+        height: 35px;
+    }
 
     a#linkdownload {
         cursor: pointer;
@@ -185,12 +187,13 @@
     .modal-dialog-scrollable {
         max-height: calc(100% - 3.5rem);
     }
-    #FrontFileStatus{
-        width:20px;
+
+    #FrontFileStatus {
+        width: 20px;
     }
 </style>
 <section class="content-header">
-    <h1 id="content_header">Lead Details</h1>
+    <h1>Add Lead</h1>
     @*<ol class="breadcrumb" id="toLeadDetails">
             <li class="active"><a href="@Url.Action("Index","LeadManagement")" onclick="Leadtable();">Lead Details</a></li>
             <li id="currentPage">Edit Lead</li>
@@ -201,20 +204,21 @@
 <div class="row">
     <div class="col-md-12">
         <div class="box box-primary with-border" id="LeadDIV">
-            <div class="box-header with-border">
-                <h3 class="box-title" id="boxTitle"></h3>
-                <a class="btn btn-primary" style="font-weight:600;margin-right:4px;" id="btnDownloadReport">Download Report</a>
+            <div class="box-header with-border" style="height: 7%;">
+                <h3 class="box-title" id="boxTitle">1. Client Details</h3>
+                <a class="btn btn-primary" style="font-weight:600;margin-right:4px;display:none" id="btnDownloadReport">Download Report</a>
+
                 <div class="box-tools">
                     @*<input type="text" id="TxtFilterDate" placeholder="yyyy/mm/dd">*@
-                    <a class="btn btn-primary" style="font-weight:600;margin-right:4px;" onclick="@("window.location.href='" + @Url.Action("AddNewLead", "LeadManagement") + "'");" id="btnAddLead">+ Add Lead</a>
+                    <a class="btn btn-primary" style="font-weight:600;margin-right:4px;" onclick="@("window.location.href='" + @Url.Action("Index", "LeadManagement") + "'");" id="btnAddLead">Lead Details</a>
                 </div>
             </div>
             <div class="box-body">
-                <div class="col-md-12" id="LeadForm" style="display:none;">
+                <div class="col-md-12" id="AddNewLeadForm" style="display:block;">
                     <div class="form-group">
 
                         <div class="box-body">
-                            <div class="row" id="LeadIdRow" style="height: 30px;">
+                            <div class="row" id="LeadIdRow" style="height: 30px;display:none">
                                 <div class="col-md-12" style="height: 30px;">
                                     <div class="col-md-1">
                                         <div class="form-group" id="DivLeadId">
@@ -228,7 +232,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" id="StatusRow" style="height: 30px;">
+                            <div class="row" id="StatusRow" style="height: 30px;display:none">
                                 <div class="col-md-12" style="height: 30px;">
                                     <div class="col-md-1">
                                         <div class="form-group" id="DivStatus">
@@ -357,7 +361,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group" id="FrontImgOfCardDIV">
                                             <label>Front Image Of Card</label>
-                                            <input type="file" class="form-control" id="FrontImgOfCard" title="Please select front image path" accept="image/png, image/jpeg">
+                                            <input type="file" class="form-control" id="FrontImgOfCard" title="Please select front image path" accept="image/png,image/jpeg">
                                             <span class="help-block" id="ErrorForFrontImgOfCard"></span>
 
                                         </div>
@@ -472,7 +476,9 @@
                 </div>
                 <div class="col-md-12" id="ProjectDetails" style="display:none;">
                     <div class="form-group">
+
                         <div class="box-body">
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="col-md-3">
@@ -485,6 +491,8 @@
                                             <span class="help-block" id="ErrorForPlan"></span>
                                         </div>
                                     </div>
+
+
                                     <div class="col-md-3">
                                         <div class="form-group" id="PlanPriceDIV">
                                             <label>Plan Price</label>
@@ -516,6 +524,8 @@
                                             <span class="help-block" id="ErrorForSelectPerson"></span>
                                         </div>
                                     </div>
+
+
                                 </div>
                             </div>
                             <div class="row">
@@ -523,7 +533,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group" id="ScheduleDateDiv">
                                             <label>Schedule Date</label>
-                                            <input type="text" class="form-control" id="TxtScheduleDate" placeholder="yyyy/dd/mm" onchange="IsValidDate(this.value)">
+                                            <input type="text" class="form-control" id="TxtScheduleDate" placeholder="yyyy/dd/mm">
                                             <span class="help-block" id="ErrorForScheduledate"></span>
                                         </div>
                                     </div>
@@ -534,334 +544,21 @@
                                             <span class="help-block" id="ErrorForScheduleTime"></span>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                             <div class="box-footer text-center">
                                 <button type="button" class="btn btn-success" id="btnSave" onclick="UpdateFinalDraftLead();" style="margin-right: 10px;width:110px;">Save</button>
+                                <button type="button" class="btn btn-success" id="btnDraft3" onclick="UpdateFinalDraftLead();" style="width: 110px; background-color: #0096CF">Save as Draft</button>
                                 <button type="button" class="btn btn-danger" id="btnExit3" onclick="ExitForm3();" style="width:110px;">Exit</button>
                             </div>
                         </div>
+
                     </div>
-                </div>
-                <div class="col-md-12" id="LeadTable">
-                    <div id="LeadDetails"></div>
+
                 </div>
             </div>
-            <div class="modal fade" id="modal-Detail">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title">Lead Details</h4>
-                        </div>
-                        <div class="modal-body" style="padding-bottom: 0px;padding-top: 0px;">
-                                <div class="box" id="view_client_details">
-                                    <div class="box-header">
-                                    <h3 class="box-title" id="boxTitle">Client Details</h3>
-                                    </div>
-                                    <div class="box-body" style="padding-bottom: 0px;padding-top: 0px;">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="col-md-4">
-                                                    <div class="col-md-7" style="padding:0px">
-                                                        <label>Lead Date</label>
-                                                    </div>
-                                                    <div class="col-md-5" style="padding:0px">
-                                                        <span id="leadDate"> </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="col-md-4">
-                                                    <div class="col-md-7" style="padding:0px">
-                                                        <label>Company Name</label>
-                                                    </div>
-                                                    <div class="col-md-5" style="padding:0px">
-                                                        <span id="compName"> </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="col-md-7" style="padding:0px">
-                                                        <label>Client Name</label>
-                                                    </div>
-                                                    <div class="col-md-5" style="padding:0px">
-                                                        <span id="clientName"> </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="col-md-7" style="padding:0px">
-                                                        <label>Owner Name</label>
-                                                    </div>
-                                                    <div class="col-md-5" style="padding:0px">
-                                                        <span id="source"> </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="col-md-4">
-                                                    <div class="col-md-7" style="padding:0px">
-                                                        <label>Product Name</label>
-                                                    </div>
-                                                    <div class="col-md-5" style="padding:0px">
-                                                        <span id="ProductName"> </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="col-md-7" style="padding:0px">
-                                                        <label>Priority</label>
-                                                    </div>
-                                                    <div class="col-md-5" style="padding:0px">
-                                                        <span id="category"> </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="col-md-7" style="padding:0px">
-                                                        <label>Sub Category</label>
-                                                    </div>
-                                                    <div class="col-md-5" style="padding:0px">
-                                                        <span id="typeOfLead"> </span>
-                                                    </div>
-                                                </div>
 
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="col-md-4">
-                                                    <div class="col-md-7" style="padding:0px">
-                                                        <label>Front Image Of Card :</label>
-                                                    </div>
-                                                    <div class="col-md-5" style="padding:0px">
-
-                                                    </div>
-                                                    <div class="img_preview_wrap">
-                                                        <span class="pip">
-                                                            <img id="frontimg" style="width:180px;height:15%;display:none" data-toggle="modal" data-target="#ViewFrontCardImage"><span class="removeimg"><i class="bi bi-trash"></i></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="col-md-8" style="padding:0px">
-                                                        <label>Back Image Of Card :</label>
-                                                    </div>
-                                                    <div class="col-md-5" style="padding:0px">
-                                                        <div class="img_preview_wrap">
-                                                            <span class="pip">
-                                                                <img id="backimg" style="width: 180px; height: 15%; display: none " data-toggle="modal" data-target="#ViewFrontCardImage"><span class="removeimg"><i class="bi bi-trash"></i></span>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                </div>
-                            </div>
-                                <div class="box" id="view_contact_details">
-                                    <div class="box-header">
-                                        <h3 class="box-title" id="boxTitle">Contact Details</h3>
-                                    </div>
-                                    <div class="box-body" style="padding-bottom: 0px;padding-top: 0px;">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="col-md-4">
-                                                    <div class="col-md-7" style="padding:0px">
-                                                        <label>Spokes Person1 Name</label>
-                                                    </div>
-                                                    <div class="col-md-5" style="padding:0px">
-                                                        <span id="spokesName"> </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="col-md-7" style="padding:0px">
-                                                        <label>Spokes Mobile number</label>
-                                                    </div>
-                                                    <div class="col-md-5" style="padding:0px">
-                                                        <span id="spokesMobileNumber"> </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="col-md-7" style="padding:0px">
-                                                        <label>Spokes Email Address</label>
-                                                    </div>
-                                                    <div class="col-md-5" style="padding:0px">
-                                                        <span id="spokesEmailAddress"> </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="col-md-4">
-                                                    <div class="col-md-7" style="padding:0px">
-                                                        <label>Spokes Person2 Name</label>
-                                                    </div>
-                                                    <div class="col-md-5" style="padding:0px">
-                                                        <span id="spokesName2"> </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="col-md-7" style="padding:0px">
-                                                        <label>Spokes Mobile number</label>
-                                                    </div>
-                                                    <div class="col-md-5" style="padding:0px">
-                                                        <span id="spokesMobileNumber2"> </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="col-md-7" style="padding:0px">
-                                                        <label>Spokes Email Address</label>
-                                                    </div>
-                                                    <div class="col-md-5" style="padding:0px">
-                                                        <span id="spokesEmailAddress2"> </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="box" id="view_project_details">
-                                    <div class="box-header">
-                                        <h3 class="box-title" id="boxTitle">Project Details</h3>
-                                    </div>
-                                    <div class="box-body" style="padding-bottom: 0px;padding-top: 0px;">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="col-md-4">
-                                                    <div class="col-md-7" style="padding:0px">
-                                                        <label>Plan Name</label>
-                                                    </div>
-                                                    <div class="col-md-5" style="padding:0px">
-                                                        <span id="planName"> </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="col-md-7" style="padding:0px">
-                                                        <label>Plan Price</label>
-                                                    </div>
-                                                    <div class="col-md-5" style="padding:0px">
-                                                        <span id="planPrice"> </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="col-md-7" style="padding:0px">
-                                                        <label>Assign To</label>
-                                                    </div>
-                                                    <div class="col-md-5" style="padding:0px">
-                                                        <span id="assignTo"> </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="col-md-4">
-                                                    <div class="col-md-7" style="padding:0px">
-                                                        <label>Schedule Date</label>
-                                                    </div>
-                                                    <div class="col-md-5" style="padding:0px">
-                                                        <span id="scheduleDate"> </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="col-md-7" style="padding:0px">
-                                                        <label>Schedule Time</label>
-                                                    </div>
-                                                    <div class="col-md-5" style="padding:0px">
-                                                        <span id="scheduleTime"> </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success" onclick="ShowEditForm();" id="btnShowEditForm">Edit</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="remarkModal">
-                <div class="modal-dialog" style="height:460px">
-                    <div class="modal-content">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h4 class="modal-title">Remark</h4>
-                            </div>
-                            <div class="modal-body" style="overflow-y: scroll; max-height:85%;" id="modal-body">
-                            </div>
-                            <div class="modal-footer">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="col-md-2">
-                                            <label>Remark<span class="text-danger">*</span></label>
-                                        </div>
-                                        <div class="col-md-5" id="RemarkDIV" style="padding-left: 0px;padding-right: 5px;">
-                                            <textarea type="text" class="form-control" id="TxtRemark" placeholder="Enter Remark" autocomplete="off" style="width:100%"></textarea> 
-                                            <span class="help-block" id="ErrorForRemark"></span>
-                                        </div>
-                                        <div class="col-md-2" style="padding-left: 0px;padding-right: 5px;">
-                                            <button type="button" style="width:100%" class="btn btn-success" onclick="SaveRemark();" id="btnSaveRemark">Save</button>
-                                        </div>
-                                        <div class="col-md-3" style="padding-left: 0px;">
-                                            <button type="button" style="width:100%" class="btn btn-success" onclick="SaveRemarkAndNotify();" id="btnSaveRemarkAndNotify">Save And Nofify</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade"
-                 id="ViewFrontCardImage"
-                 tabindex="-1"
-                 role="dialog"
-                 aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <!-- Add image inside the body of modal -->
-                        <div class="modal-body">
-                            <img id="ViewFrontCardImagePath"
-                                 alt="Click on button" style="height: 45%;width: 100%;" />
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button"
-                                    class="btn btn-secondary"
-                                    data-dismiss="modal">
-                                Close
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade"
-                 id="ViewBackCardImage"
-                 tabindex="-1"
-                 role="dialog"
-                 aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-
-                        <!-- Add image inside the body of modal -->
-                        <div class="modal-body">
-                            <img id="ViewBackCardImagePath"
-                                 alt="Click on button"  style="height: 45%;width: 100%;" />
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button"
-                                    class="btn btn-secondary"
-                                    data-dismiss="modal">
-                                Close
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -870,11 +567,23 @@
 @section LocalJs{
 
     <script>
+
+
         debugger;
+
         $(document).ready(function () {
             debugger;
             var Location = "@Html.Raw(ViewBag.toAddLeadForm)";
-            refreshDataTable();
+            if (Location == "toAddLeadForm") {
+                Location = "";
+                ShowForm();
+
+
+            }
+            else {
+                refreshDataTable();
+            }
+
             $('#toLeadDetails').css('display', 'none');
             $("#TxtFilterDate,#TxtScheduleDate").datepicker({
                 format: 'yyyy-mm-dd' //can also use format: 'dd-mm-yyyy'
@@ -894,12 +603,14 @@
 
         }
     </script>
-    <script src="~/MyJavascripts/LeadManagement.js"></script>
+    <script src="~/MyJavascripts/AddNewLead.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
     <script src="https://unpkg.com/bootstrap-multiselect@0.9.13/dist/js/bootstrap-multiselect.js"></script>
+
     <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+
 }
 
 

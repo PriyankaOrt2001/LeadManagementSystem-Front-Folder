@@ -100,7 +100,7 @@ function RemoveCompany(element) {
 				});
 			}
 			else {
-				window.location.href = "/Company/Index";
+				bootbox.hideAll();
 			}
 		}
 	});

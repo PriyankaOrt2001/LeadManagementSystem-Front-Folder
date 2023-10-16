@@ -76,6 +76,9 @@ namespace LeadManagementSystem.MODEL
         public string remarkCount { get; set; }
         public string BackFileStatus { get; set; }
         public string FrontFileStatus { get; set; }
+        public int IsFav { get; set; } = 0;
+        public string Short_Company_Name { get; set; } = "";
+
     }
     public class CardImages
     {

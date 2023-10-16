@@ -91,10 +91,10 @@
                             <a href="@Url.Action("Index","Dashboard")" style="color: white">Home</a>
                         </li>
                         <li>
-                            <a class="btn btn-primary" onclick="ShowFormforlist();" style="color: white; border:0px">Lead Details</a>
+                            <a class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("Index", "LeadManagement") + "'");" style="color: white; border:0px">Lead Details</a>
                         </li>
                         <li id="addLead_li">
-                            <a class="btn btn-primary" onclick="ShowForm();" style="color: white; border:0px">Add Lead</a>
+                            <a class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("AddNewLead", "LeadManagement") + "'");" style="color: white; border:0px">Add Lead</a>
                         </li>
                         <li>
                             <a href="#" style="color: white">Email</a>
@@ -142,7 +142,7 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li class="myInnerLi"><a href="@Url.Action("Index","LeadManagement")" id="3"><i class="fa fa-circle-o"></i>Lead Master</a></li>
-                                <li class="myInnerLi"><a href="@Url.Action("Index","Category")" id="4"><i class="fa fa-circle-o"></i>Category Master</a></li>
+                                <li class="myInnerLi"><a href="@Url.Action("Index","Category")" id="4"><i class="fa fa-circle-o"></i>Project Type Master</a></li>
                                 <li class="myInnerLi"><a href="@Url.Action("Index","TypeOfLead")" id="5"><i class="fa fa-circle-o"></i>Type Of Lead Master</a></li>
                                 <li class="myInnerLi"><a href="@Url.Action("Index","Company")" id="5"><i class="fa fa-circle-o"></i>Company Master</a></li>
                                 <li class="myInnerLi"><a href="@Url.Action("Index","Employee")" id="5"><i class="fa fa-circle-o"></i>Assign To Master</a></li>
@@ -218,7 +218,7 @@
                         });
                     }
                     else {
-                        location.reload();
+                        bootbox.hideAll();
                     }
                 }
             });
@@ -228,7 +228,7 @@
        
         function ShowForm() {
             debugger;
-            window.location.href = '' + ServerURL + 'LeadManagement/AddLeadForm';
+            window.location.href = '' + ServerURL + 'LeadManagement/AddNewLead';
             
         }
 
