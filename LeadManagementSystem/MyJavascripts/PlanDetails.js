@@ -115,7 +115,7 @@ function RemovePlan(element) {
 				});
 			}
 			else {
-				window.location.href = "/PlanDetail/Index";
+				bootbox.hideAll();
 			}
 		}
 	});

@@ -99,7 +99,7 @@ function RemoveCategory(element) {
 				});
 			}
 			else {
-				window.location.href = "/Category/Index";
+				bootbox.hideAll();
 			}
 		}
 	});

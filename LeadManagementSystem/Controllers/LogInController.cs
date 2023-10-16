@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace LeadManagementSystem.Controllers
 {
     public class LogInController : Controller
@@ -19,13 +20,14 @@ namespace LeadManagementSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(string username,string password)
+        public ActionResult APILogIn(string username,string password, string DeviceId)
         {
             LoginModel crm = new LoginModel();
             crm.IpAddress = Request.UserHostAddress;
             crm.UserName = username;
             crm.Password = password;
-            var result = JsonConvert.DeserializeObject<UserResponseModelViewModel>(LMSTransaction.post("login", crm, null).Content);
+            crm.DeviceId = DeviceId;
+            var result = JsonConvert.DeserializeObject<UserResponseModelViewModel>(LMSTransaction.post("APILogIn", crm, "","").Content);
             rm = result.response;
             rm.UserID = result.usermodel.UserID.ToString();
             rm.UserName = result.usermodel.UserName;
@@ -55,7 +57,7 @@ namespace LeadManagementSystem.Controllers
             if (Session["Admin_ID"] != null)
             {
                 var UserId = Session["Admin_ID"];
-                var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("logout?UserId=" + UserId, Session["AuthToken"].ToString()).Content);
+                var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("logout?UserId=" + UserId, Session["AuthToken"].ToString(),Session["Admin_ID"].ToString()).Content);
                 rm = result;
 
                 Session.Abandon();

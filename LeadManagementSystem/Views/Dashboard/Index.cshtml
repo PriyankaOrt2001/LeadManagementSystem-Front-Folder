@@ -117,7 +117,7 @@
                                                 <th class="text-center">Sr.No</th>
                                                 <th class="text-center">Lead Date</th>
                                                 <th class="text-center">Client Name</th>
-                                                <th class="text-center">Location</th>
+                                                <th class="text-center">Product Name</th>
                                                 <th class="text-center">Mobile No</th>
                                                 <th class="text-center">Status</th>
                                             </tr>
@@ -129,7 +129,7 @@
                                                 <td>@Model.LeadList[i].RowNum</td>
                                                 <td>@Model.LeadList[i].CreatedDate</td>
                                                 <td>@Model.LeadList[i].ClientName</td>
-                                                <td>@Model.LeadList[i].SpokesAddress</td>
+                                                <td>@Model.LeadList[i].ProductName</td>
                                                 <td>@Model.LeadList[i].SpokesMobileNumber</td>
                                                 <td>@Model.LeadList[i].StatusType</td>
                                             </tr>
@@ -203,7 +203,7 @@
             const ctx = document.getElementById('myPieChart');
 
             new Chart(ctx, {
-                type: 'pie',
+                type: 'doughnut',
                 data: {
                     labels: [
 

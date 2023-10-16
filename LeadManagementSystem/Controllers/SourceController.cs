@@ -31,7 +31,7 @@ namespace LeadManagementSystem.Controllers
             {
                 LeadSourceModel lcm = new LeadSourceModel();
                 LeadSourceDetails cd = new LeadSourceDetails();
-                var result = JsonConvert.DeserializeObject<LeadSourceModel>(LMSTransaction.get("GetLeadSourceList", Session["AuthToken"].ToString()).Content);
+                var result = JsonConvert.DeserializeObject<LeadSourceModel>(LMSTransaction.get("GetLeadSourceList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                 lcm.LeadSourceDetails = result.LeadSourceDetails;
                 return PartialView("LeadSourceTablePartial", lcm);
             }
@@ -49,7 +49,7 @@ namespace LeadManagementSystem.Controllers
             {
                 if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
                 {
-                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("RemoveLeadSource?id=" + id, Session["AuthToken"].ToString()).Content);
+                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("RemoveLeadSource?id=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
                 }
                 else
@@ -73,7 +73,7 @@ namespace LeadManagementSystem.Controllers
                 if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
                 {
                     ld.CreatedBy = Convert.ToString(Session["Admin_ID"]);
-                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddLeadSource", ld, Session["AuthToken"].ToString()).Content);
+                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddLeadSource", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
                 }
                 else
@@ -97,7 +97,7 @@ namespace LeadManagementSystem.Controllers
                 if (Session["AuthToken"] != null)
                 {
                     LeadSourceDetails ld = new LeadSourceDetails();
-                    var result = JsonConvert.DeserializeObject<LeadSourceDetails>(LMSTransaction.get("ViewLeadSource?SourceId=" + id, Session["AuthToken"].ToString()).Content);
+                    var result = JsonConvert.DeserializeObject<LeadSourceDetails>(LMSTransaction.get("ViewLeadSource?SourceId=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     ld = result;
                     return Json(ld, JsonRequestBehavior.AllowGet);
 
@@ -126,7 +126,7 @@ namespace LeadManagementSystem.Controllers
                 if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
                 {
                     sd.CreatedBy = Convert.ToString(Session["Admin_ID"]);
-                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdateLeadSource", sd, Session["AuthToken"].ToString()).Content);
+                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdateLeadSource", sd, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
                 }
                 else

@@ -35,7 +35,7 @@ namespace LeadManagementSystem.Controllers
             {
                 CompanyModel lm = new CompanyModel();
                 CompanyDetails cd = new CompanyDetails();
-                var result = JsonConvert.DeserializeObject<CompanyModel>(LMSTransaction.get("GetCompanyList", Session["AuthToken"].ToString()).Content);
+                var result = JsonConvert.DeserializeObject<CompanyModel>(LMSTransaction.get("GetCompanyList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                 lm.CompanyList = result.CompanyList;
                 return PartialView("CompanyTablePartial", lm);
             }
@@ -54,7 +54,7 @@ namespace LeadManagementSystem.Controllers
                 if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
                 {
                     ld.CreatedBy = Convert.ToString(Session["Admin_ID"]);
-                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddNewComapny", ld, Session["AuthToken"].ToString()).Content);
+                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddNewComapny", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
                 }
                 else
@@ -77,7 +77,7 @@ namespace LeadManagementSystem.Controllers
             {
                 if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
                 {
-                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("RemoveCompany?id=" + id, Session["AuthToken"].ToString()).Content);
+                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("RemoveCompany?id=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
                 }
                 else
@@ -101,7 +101,7 @@ namespace LeadManagementSystem.Controllers
                 if (Session["AuthToken"] != null)
                 {
                     CompanyDetails ld = new CompanyDetails();
-                    var result = JsonConvert.DeserializeObject<CompanyDetails>(LMSTransaction.get("ViewCompanyDetails?Company_Id=" + id, Session["AuthToken"].ToString()).Content);
+                    var result = JsonConvert.DeserializeObject<CompanyDetails>(LMSTransaction.get("ViewCompanyDetails?Company_Id=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     ld = result;
                     return Json(ld, JsonRequestBehavior.AllowGet);
                 }
@@ -128,7 +128,7 @@ namespace LeadManagementSystem.Controllers
                 if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
                 {
                     ld.CreatedBy = Convert.ToString(Session["Admin_ID"]);
-                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdateCompany", ld, Session["AuthToken"].ToString()).Content);
+                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdateCompany", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
                 }
                 else

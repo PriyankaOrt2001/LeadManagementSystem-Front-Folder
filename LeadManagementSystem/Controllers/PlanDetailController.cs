@@ -33,7 +33,7 @@ namespace LeadManagementSystem.Controllers
             {
                 PlanDetailsModel pdm = new PlanDetailsModel();
                 PlanDetails pd = new PlanDetails();
-                var result = JsonConvert.DeserializeObject<PlanDetailsModel>(LMSTransaction.get("GetPlanDetailsList", Session["AuthToken"].ToString()).Content);
+                var result = JsonConvert.DeserializeObject<PlanDetailsModel>(LMSTransaction.get("GetPlanDetailsList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                 pdm.PlanList = result.PlanList;
                 return PartialView("PlanTablePartial", pdm);
             }
@@ -52,7 +52,7 @@ namespace LeadManagementSystem.Controllers
                 if (Session["AuthToken"] != null)
                 {
                     PlanDetails ld = new PlanDetails();
-                    var result = JsonConvert.DeserializeObject<PlanDetails>(LMSTransaction.get("ViewPlanDetails?PlanId=" + id, Session["AuthToken"].ToString()).Content);
+                    var result = JsonConvert.DeserializeObject<PlanDetails>(LMSTransaction.get("ViewPlanDetails?PlanId=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     ld = result;
                     return Json(ld, JsonRequestBehavior.AllowGet);
 
@@ -81,7 +81,7 @@ namespace LeadManagementSystem.Controllers
                 if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
                 {
                     pd.CreatedBy = Convert.ToString(Session["Admin_ID"]);
-                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddNewPlan", pd, Session["AuthToken"].ToString()).Content);
+                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddNewPlan", pd, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
                 }
                 else
@@ -104,7 +104,7 @@ namespace LeadManagementSystem.Controllers
             {
                 if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
                 {
-                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("RemovePlan?id=" + id, Session["AuthToken"].ToString()).Content);
+                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("RemovePlan?id=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
                 }
                 else
@@ -128,7 +128,7 @@ namespace LeadManagementSystem.Controllers
                 if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
                 {
                     pd.CreatedBy = Convert.ToString(Session["Admin_ID"]);
-                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdatePlan", pd, Session["AuthToken"].ToString()).Content);
+                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdatePlan", pd, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
                 }
                 else
