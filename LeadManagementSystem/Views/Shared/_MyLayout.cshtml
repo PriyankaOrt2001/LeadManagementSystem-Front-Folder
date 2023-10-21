@@ -70,6 +70,72 @@
             padding: unset;
             height: auto;
         }
+        .NotificationDatahead {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 400;
+            padding-left: 13px;
+            padding-top: 5px;
+        }
+
+        .NotificationDatadate {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 400;
+            color: #808080;
+            padding-left: 52%;
+            font-size:71%;
+            margin-bottom:0%;
+        }
+
+        .NotificationDataDes {
+            font-family: 'Rubik', sans-serif;
+            text-align: left;
+            color: #333333;
+            font-size: 101%;
+            width: 92%;
+            margin-left: 3%;
+            margin-top: 1%;
+            margin-bottom: 0%;
+        }
+
+        .NotificationData {
+            border: 1px solid #e4e4e4;
+            border-radius: 16px;
+            box-shadow: 0px 4px 8px #e4e4e4;
+        }
+
+        #d-flex{
+            margin-left:40%;
+        }
+
+        .NotificationData_Block {
+            width: 100%;
+            height: fit-content;
+            border: 1px solid #C5C5C5;
+        }
+
+        .modal-dialog-scrollable {
+            max-height: calc(100% - 3.5rem);
+        }
+        #modal-header {
+            padding-top: 4%;
+            padding-bottom: 1%;
+        }
+        #modalbody{
+            padding:0%;
+        }
+        .showNotificationList {
+            color: #3c8dbc;
+            float: left;
+            font-size: 101%;
+            font-weight: 600;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        #modal-title {
+            font-size: 163%;
+            font-weight: 600;
+            color: #3c8dbc;
+        }
     </style>
 
 </head>
@@ -97,7 +163,10 @@
                             <a class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("AddNewLead", "LeadManagement") + "'");" style="color: white; border:0px">Add Lead</a>
                         </li>
                         <li>
-                            <a href="#" style="color: white">Email</a>
+                            <a class="btn btn-primary" id="showNotification" onclick="showNotification('@Session["Admin_ID"]')" style="color: white; border: 0px; padding-top: 6%; padding-bottom: 0px;">
+
+                                Notification&nbsp;&nbsp;<span class="badge badge-danger" id="countOfUnseenNotification" style="border-radius: inherit; bottom: 8px; margin-bottom: 20px;">0</span>
+                            </a>
                         </li>
                         <li class="dropdown user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -151,7 +220,7 @@
 
                             </ul>
                         </li>
-                        
+
                     </ul>
 
                 </section><div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 292.531px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
@@ -168,6 +237,34 @@
             </div>
             <strong>Copyright © @DateTime.Now.Year  @System.Configuration.ConfigurationManager.AppSettings["ProjectName"].</strong> All rights reserved.
         </footer>
+    </div>
+    <div class="modal in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="NotificationModal" style="display: none; padding-right: 17px;">
+        <div class="modal-dialog" style="height: 460px; float: right; margin-right: 10%;width:28%;">
+            <div class="modal-content">
+                <div class="modal-content">
+                    <div class="modal-header" id="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title" id="modal-title">Notifications</h4>
+                    </div>
+                    <div class="modalbody" style="overflow-y: scroll; max-height:85%;" id="modalbody">
+                    @Html.Raw(ViewBag.NotificationList)
+                    </div>
+                    <div class="modal-footer" style="padding-top: 0px;padding-bottom: 0px;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-6" style="padding:0%">
+                                    <a class="btn showNotificationList" onclick="@("window.location.href='" + @Url.Action("Index", "Notification") + "'");">View More</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
     <script type="text/javascript">
         function preventBack() { window.history.forward(); }
@@ -188,6 +285,38 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
     <script type="text/javascript">
         var ServerURL = "@System.Configuration.ConfigurationManager.AppSettings["ScreenURL"].ToString()";
+        var UserId = '@Session["Admin_ID"].ToString()';
+        $(document).ready(function () {
+
+            getCountOfUnseenNotification(UserId);
+
+        });
+        function getCountOfUnseenNotification(UserId) {
+            debugger;
+	        $.ajax({
+		        type: "POST",
+                url: ServerURL + 'Notification/GetCountOfUnSeenNotification',
+                data: JSON.stringify({ UserId: UserId }),
+		        contentType: 'application/json; charset=utf-8',
+		        success: function (return_Data) {
+			        debugger;
+			        if (return_Data.n == 5) {
+				    bootbox.alert(return_Data.msg);
+				    window.location.href = "/LogIn/LogInForm";
+			        } else if (return_Data.n == 1)
+                    {
+                        debugger;
+                        var count = return_Data.TotalUnseenNotification;
+                        if (count != 0) {
+                            $("#countOfUnseenNotification").text(count);
+                        }
+                        
+			        }
+
+		        }
+	        });
+
+        }
         function Logout() {
             debugger;
             bootbox.confirm({
@@ -208,7 +337,7 @@
                         $.ajax({
                             type: 'POST',
                             url: '' + ServerURL + 'LogIn/Logout',
-                            
+
                             contentType: 'application/json; charset=utf-8',
                             success: function (return_Data) {
                                 if (return_Data.n == 1) {
@@ -225,16 +354,70 @@
         }
 
 
-       
+
         function ShowForm() {
             debugger;
             window.location.href = '' + ServerURL + 'LeadManagement/AddNewLead';
-            
+
         }
 
         function ShowFormforlist() {
             debugger;
-            window.location.href = '' + ServerURL + 'LeadManagement/Index';            
+            window.location.href = '' + ServerURL + 'LeadManagement/Index';
+        }
+
+        function showNotification(userid) {
+            debugger;
+            $('#NotificationModal').modal('show');
+            ChangeNotificationStatus(userid);
+            RecentNotificationDetails(userid);
+        }
+
+        function ChangeNotificationStatus(UserId) {
+            debugger;
+            document.body.style.paddingRight = '0px';
+            $.ajax({
+                type: "POST",
+                url: ServerURL + 'Notification/UpdateNotificationSeenStatus',
+                data: JSON.stringify({ UserId: UserId }),
+                contentType: 'application/json; charset=utf-8',
+                success: function (return_Data) {
+                    debugger;
+                    if (return_Data.n == 5) {
+                        bootbox.alert(return_Data.msg);
+                        window.location.href = "/LogIn/LogInForm";
+                    }
+                    else if (return_Data.n == 1) {
+                        $("#countOfUnseenNotification").text("0");
+                    }else{
+
+                    }
+
+                }
+            });
+        }
+        function RecentNotificationDetails(UserId) {
+            debugger;
+            document.body.style.paddingRight = '0px';
+            $.ajax({
+                type: "POST",
+                url: ServerURL + 'Notification/RecentNotificationDetails',
+                data: JSON.stringify({ UserId: UserId }),
+                contentType: 'application/json; charset=utf-8',
+                success: function (return_Data) {
+                    debugger;
+                    if (return_Data.n == 5) {
+                        bootbox.alert(return_Data.msg);
+                        window.location.href = "/LogIn/LogInForm";
+                    }
+                    else if (return_Data.n == 1) {
+                        $("#modalbody").html(return_Data.NotificationList);
+                    } else {
+
+                    }
+
+                }
+            });
         }
     </script>
     @RenderSection("LocalJS", false)

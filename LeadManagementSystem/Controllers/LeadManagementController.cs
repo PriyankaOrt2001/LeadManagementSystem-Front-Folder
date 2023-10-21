@@ -524,9 +524,9 @@ namespace LeadManagementSystem.Controllers
                         }
                     }
                     
-                    ViewBag.CompanyModelList = stringtemp;
+                    ViewBag.GetRemarksList = stringtemp;
 
-                    return Content(ViewBag.CompanyModelList);
+                    return Content(ViewBag.GetRemarksList);
 
                 }
 
@@ -583,6 +583,30 @@ namespace LeadManagementSystem.Controllers
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddToFav", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
 
+                }
+                else
+                {
+                    rm.n = 5;
+                    rm.msg = "Session Expired";
+                }
+            }
+            catch (Exception ex)
+            {
+                rm.RStatus = "Error";
+                rm.msg = "Some error occured while processing your request, Please try again later";
+                rm.n = 0;
+            }
+            return Json(rm, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult DeleteLead(string id)
+        {
+            try
+            {
+                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                {
+                    var userid = Session["Admin_ID"].ToString();
+                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("RemoveLead?LeadId=" + id+"&UserId="+userid, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                    rm = result;
                 }
                 else
                 {

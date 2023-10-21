@@ -1,0 +1,44 @@
+﻿@model LeadManagementSystem.MODEL.NotificationDetailsList
+@if (Model.NotificationDetails.Count > 0 || Model.NotificationDetails != null)
+{
+
+    <table class="table" id="TableNotification" style="font-size: 15px;width: 95%;">
+        <thead>
+            <tr>
+                <th class="text-center" style="width:10%">Sr.No</th>
+                <th class="text-center" style="width:20%">Date</th>
+                <th class="text-center" style="width:30%">Notification Title</th>
+                <th class="text-center" style="width:40%">Notification Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.NotificationDetails.Count; i++)
+            {
+                <tr>
+                    <td class="text-center">@Model.NotificationDetails[i].RowNum</td>
+                    <td class="text-center">@Model.NotificationDetails[i].Date</td>
+                    <td class="text-center">@Model.NotificationDetails[i].NotificationTitle</td>
+                    <td class="text-center">@Model.NotificationDetails[i].NotificationMsg</td>
+                </tr>
+            }
+        </tbody>
+    </table> 
+}
+else
+{
+    <table class="table" id="TableNotification" style="font-size: 15px;width: 95%;">
+        <thead>
+            <tr>
+                <th class="text-center" style="width:10%">Sr.No</th>
+                <th class="text-center" style="width:20%">Date</th>
+                <th class="text-center" style="width:30%">Notification Title</th>
+                <th class="text-center" style="width:40%">Notification Message</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            <tr>
+                <td class="text-center">No data Found</td>
+            </tr>
+        </tbody>
+    </table>
+}

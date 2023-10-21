@@ -37,7 +37,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="small-box" style="height: 90px; margin-bottom: 10px; background-color: #19BDFF">
+                                <div class="small-box" style="height: 90px; pointer-events: none; margin-bottom: 10px; background-color: #19BDFF; color: white ">
                                     <div class="inner" style="padding-bottom: 0px;">
                                         <h3>@ViewBag.GhostLeads</h3>
 
@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="small-box" style="height: 90px; margin-bottom: 10px; background-color: #efcc00">
+                                <div class="small-box bg-yellow-active" style="height: 90px; margin-bottom: 10px; background-color: #efcc00">
                                     <div class="inner" style="padding-bottom: 0px;">
                                         <h3>@ViewBag.OnHold</h3>
 
@@ -64,7 +64,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="small-box" style="height: 90px; margin-bottom: 10px; background-color:#73D7FF">
+                                <div class="small-box bg-light-blue-active" style="height: 90px; margin-bottom: 10px; background-color:#73D7FF">
                                     <div class="inner" style="padding-bottom: 0px;">
                                         <h3>@ViewBag.OpenLeads</h3>
 
@@ -79,7 +79,7 @@
                         </div>
 
                     </div>
-                    <div class="box box-info" style="height:350px;">
+                    <div class="box box-info" style="height:400px;">
                         <div class="box-header with-border">
                             <h3 class="box-title">Lead Details In Line Chart</h3>
 
@@ -206,8 +206,7 @@
                 type: 'doughnut',
                 data: {
                     labels: [
-
-                        'Total Price Of Leads',
+                          
                         'Total Price Of Open Leads',
                         'Total Price Of Closed Leads',
                         'Total Price Of Hold Leads',
@@ -216,13 +215,12 @@
                     ],
                     datasets: [{
                         label: 'My First Dataset',
-                        data: [TotalPriceOfTotalLeads, TotalPriceOfOpenLeads, TotalPriceOfClosedLeads, TotalPriceOfHoldLeads, TotalPriceOfConvertedLeads, TotalPriceOfGhostLeads],
+                        data: [ TotalPriceOfOpenLeads, TotalPriceOfClosedLeads, TotalPriceOfHoldLeads, TotalPriceOfConvertedLeads, TotalPriceOfGhostLeads],
                         backgroundColor: [
-                            'rgb(0, 166, 90)',
-                            'rgb(115, 215, 255)',
+                            'rgb(53, 124, 165)',
                             'rgb(96, 92, 168)',
-                            'rgb(239,204,0)',
-                            'rgb(255, 168, 54)',
+                            'rgb(219, 139, 11)',
+                            'rgb(255, 133, 27)',
                             'rgb(25, 189, 255)'
                         ],
                         hoverOffset: 4
