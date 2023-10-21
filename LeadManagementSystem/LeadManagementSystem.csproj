@@ -184,6 +184,7 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LeadManagementController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\PlanDetailController.cs" />
     <Compile Include="Controllers\SourceController.cs" />
     <Compile Include="Controllers\LogInController.cs" />
@@ -308,6 +309,8 @@
     <Content Include="Views\PlanDetail\Index.cshtml" />
     <Content Include="Views\PlanDetail\PlanTablePartial.cshtml" />
     <Content Include="Views\LeadManagement\AddNewLead.cshtml" />
+    <Content Include="Views\Notification\Index.cshtml" />
+    <Content Include="Views\Notification\NotificationTablePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

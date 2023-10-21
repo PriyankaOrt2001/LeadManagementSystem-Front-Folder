@@ -1,4 +1,5 @@
 ﻿var FrontImgOfCardFile = '';
+var Lead_Id_For_Edit = '';
 const fileInputforFrontImg = document.getElementById('FrontImgOfCard');
 fileInputforFrontImg.onchange = () => {
 	FrontImgOfCardFile = fileInputforFrontImg.files[0];
@@ -30,6 +31,7 @@ function IsFavLead(id, IsFav) {
 			formdata.append("LeadId", id);
 			formdata.append("IsFav", IsFav);
 			if (result == true) {
+				document.body.style.paddingRight = '0px';
 				$.ajax({
 					type: 'POST',
 					url: ServerURL + 'LeadManagement/AddToFav',
@@ -42,14 +44,14 @@ function IsFavLead(id, IsFav) {
 							window.location.href = ServerURL + "LogIn/LogInForm";
 						}
 						else if (return_Data.n == 1) {
+							refreshDataTable();
 							bootbox.alert(return_Data.msg);
 							debugger;
-							window.location.href = ServerURL + "LeadManagement/Index";
 						}
 						else {
+							refreshDataTable();
 							bootbox.alert(return_Data.msg);
 							debugger;
-							window.location.href = ServerURL + "/LeadManagement/Index";
 						}
 					}
 				});
@@ -110,6 +112,7 @@ function changeLeadStatus(id, Status) {
 			formdata.append("LeadId", id);
 			formdata.append("StatusType", Status);
 			if (result == true) {
+				document.body.style.paddingRight = '0px';
 				$.ajax({
 					type: 'POST',
 					url: ServerURL + 'LeadManagement/ChangeLeadStatus',
@@ -122,12 +125,12 @@ function changeLeadStatus(id, Status) {
 							window.location.href = ServerURL + "LogIn/LogInForm";
 						}
 						else if (return_Data.n == 1) {
+							refreshDataTable();
 							bootbox.alert(return_Data.msg);
-							window.location.href = ServerURL + "LeadManagement/Index";
 						}
 						else {
+							refreshDataTable();
 							bootbox.alert(return_Data.msg);
-							window.location.href = ServerURL + "/LeadManagement/Index";
 						}
 					}
 				});
@@ -162,7 +165,7 @@ function ViewDetails(id) {
 				window.location.href = "/LogIn/LogInForm";
 			} else (return_Data != null)
 			{
-
+				debugger;
 				$('#leadDate').text(return_Data.CreatedDate);
 				$('#leadId').text(return_Data.LeadId);
 				$('#status').text(return_Data.StatusType);
@@ -182,7 +185,7 @@ function ViewDetails(id) {
 				$("#spokesEmailAddress2").text(return_Data.AlternateEmailAddress);
 				$('#spokesAddress').text(return_Data.SpokesAddress);
 				$("#FileStatus").text(return_Data.Filename);
-
+				$('#lead_status').text(return_Data.StatusType);
 				$("#planName").text(return_Data.PlanName);
 				$("#planPrice").text(return_Data.PlanPrice);
 				$("#assignTo").text(return_Data.AssignTo);
@@ -199,6 +202,8 @@ function ViewDetails(id) {
 				$('#ViewFrontCardImagePath').attr('src', return_Data.FrontImgOfCardPath);
 				$('#backimg').attr('src', return_Data.BackImgOfCardPath);
 				$('#ViewBackCardImagePath').attr('src', return_Data.BackImgOfCardPath);
+
+				
 			}
 
 		}
@@ -215,6 +220,50 @@ function enableReference(value) {
 		$('#TxtReference').prop('disabled', true);
 		$('#TxtReference').prop('placeholder', '');
 	}
+}
+function deleteLead(element) {
+	debugger;
+	bootbox.confirm({
+		message: "Do You want to remove this record ?",
+		buttons: {
+			confirm: {
+				label: 'Yes',
+				className: 'btn-success'
+			},
+			cancel: {
+				label: 'No',
+				className: 'btn-danger'
+			}
+		},
+		callback: function (result) {
+			debugger;
+			if (result == true) {
+				var id = element;
+				document.body.style.paddingRight = '0px';
+				$.ajax({
+					type: 'POST',
+					url: ServerURL + '/LeadManagement/DeleteLead',
+					data: JSON.stringify({ id: id }),
+					contentType: 'application/json; charset=utf-8',
+					success: function (return_Data) {
+						if (return_Data.n == 5) {
+							window.location.href = "/LogIn/LogInForm";
+						}
+						else if (return_Data.n == 1) {
+							refreshDataTable();
+							bootbox.alert(return_Data.msg);
+						}
+						else if (return_Data.n == 0) {
+							bootbox.alert(return_Data.msg);
+						}
+					}
+				});
+			}
+			else {
+				bootbox.hideAll();
+			}
+		}
+	});
 }
 function changeTypeOfLead(id) {
 	debugger;
@@ -473,6 +522,7 @@ function UpdateFirstDraftLead(id) {
 				$('#btnDraft3').css("background-color", "#0096CF");
 
 				$("#boxTitle").text('2. Contact Details');
+				nevigateToEditContactDetails();
 			} else {
 				bootbox.alert(return_Data.msg);
 
@@ -899,9 +949,10 @@ function UpdateDraft1(id) {
 				$('#btnSave').css("display", "inline-block");
 
 				$("#boxTitle").text('3. Project Details');
-				$('#PageTitle').text('Edit Lead Details')
-				$('#content_header').text('Edit Lead')
+				$('#PageTitle').text('Edit Lead Details');
+				$('#content_header').text('Edit Lead');
 
+				nevigateToEditProjectDetails();
 			} else {
 				bootbox.alert(return_Data.msg);
 
@@ -1096,6 +1147,9 @@ function View(id) {
 			if (return_Data != null) {
 
 				console.log(return_Data);
+				$("#nevigationDiv").css("display", "block");
+				$("#LeadTableDIV").css("display", "none");
+				$("#MainEditLeadDIV").css("display", "block");
 
 				$("#LeadForm").css("display", "block");
 				$("#LeadTable").css("display", "none");
@@ -1114,7 +1168,7 @@ function View(id) {
 				$('#TxtFilterDate').css('display', 'none');
 				$('#toLeadDetails').css('display', 'initial');
 				$("#modal-Detail").modal("hide");
-
+				Lead_Id_For_Edit = id;
 				//$('#btnSave').text('Update');
 				//$('#btnSave').attr('onclick', 'Update('+"'" + id +"'"+');');
 				//$('#btnSave').css("display", "inline-block");
@@ -1177,6 +1231,7 @@ function View(id) {
 				$("#TxtPlan").val(return_Data.PlanName);
 				$("#TxtPlanPrice").val(return_Data.PlanPrice);
 				$("#TxtStatusType").val(return_Data.StatusType);
+				$("#lead_status").text(return_Data.StatusType);
 				$("#TxtPerson").val(return_Data.AssignTo);
 				$('#TxtScheduleDate').val(return_Data.ScheduleDate);
 				$("#TxtScheduleTime").val(return_Data.ScheduleTime);
@@ -1192,7 +1247,8 @@ function View(id) {
 				if (return_Data.BackImgFileName != "") {
 					$("#removeBackFileIcon").css('display', 'initial');
 				}
-				
+
+				nevigateToEditClientDetails();
 
 			}
 		}
@@ -1478,9 +1534,9 @@ function remark(id) {
 				window.location.href = "/LogIn/LogInForm";
 			} else (return_Data != null)
 			{
-				var d2 = document.getElementById("modal-body")
-					.innerHTML = return_Data;
+				$("#remark-body").html(return_Data);
 				$('#btnSaveRemark').attr('onclick', 'SaveRemark(' + "'" + id + "'" + ');');
+				$('#btnSaveRemarkAndNotify').attr('onclick', 'SaveRemarkAndNotify(' + "'" + id + "'" + ');');
 			}
 
 		}
@@ -1512,6 +1568,7 @@ function SaveRemark(id) {
 	var formdata = new FormData();
 	formdata.append("Remark", txtRemark);
 	formdata.append("Lead_Id", id);
+	document.body.style.paddingRight = '0px';
 	$.ajax({
 		type: "POST",
 		url: ServerURL + '/LeadManagement/AddRemark',
@@ -1560,6 +1617,7 @@ function SaveRemarkAndNotify(id) {
 	var formdata = new FormData();
 	formdata.append("Remark", txtRemark);
 	formdata.append("Lead_Id", id);
+	document.body.style.paddingRight = '0px';
 	$.ajax({
 		type: "POST",
 		url: ServerURL + '/LeadManagement/AddRemarkAndNotify',
@@ -1585,8 +1643,7 @@ function SaveRemarkAndNotify(id) {
 			}
 		},
 		complete: function () {
-			$('#btnSaveRemark').removeAttr("disabled");
-			$('#btnSaveRemark').html('Save');
+			$('#btnSaveRemarkAndNotify').removeAttr("disabled");
 		}
 
 	});
@@ -1594,3 +1651,291 @@ function SaveRemarkAndNotify(id) {
 }
 
 
+function nevigateToEditClientDetails() {
+	var SpokesName = $("#TxtSpokesName").val();
+	var SpokesMobileNumber = $("#TxtSpokesMobile").val();
+	var SpokesEmailAddress = $("#TxtSpokesEmailAddress").val();
+	var SpokesAddress = $('#TxtAddress').val();
+	var AlternateSpokesName = $("#TxtAlternateSpokesName").val();
+	var AlternateSpokesMobile = $("#TxtAlternateMobile").val();
+	var AlternateEmailAddress = $('#TxtAlternateEmailAddress').val();
+
+	if (SpokesName != "" && SpokesMobileNumber != "" && SpokesEmailAddress != "" && SpokesAddress != "" && AlternateSpokesName != "" && AlternateSpokesMobile != "" && AlternateEmailAddress != "") {
+		$("#nevigateToEditContactDetails").css("border", "2px solid #00a65a");
+	}
+	else {
+		$("#nevigateToEditContactDetails").css("border", "2px solid #3c8dbc");
+	}
+
+	var PlanName = $("#TxtPlan").val();
+	var PlanPrice = $("#TxtPlanPrice").val();
+	var StatusType = $("#TxtStatusType").val();
+	var AssignTo = $("#TxtPerson").val();
+	var ScheduleDate = $('#TxtScheduleDate').val();
+	var ScheduleTime = $("#TxtScheduleTime").val();
+
+	if (PlanName != "" && PlanPrice != "" && StatusType != "" && AssignTo != "" && ScheduleDate != "" && ScheduleTime != "") {
+		$("#nevigateToEditProjectDetails").css("border", "2px solid #00a65a");
+	}
+	else {
+		$("#nevigateToEditProjectDetails").css("border", "2px solid #3c8dbc");
+	}
+
+	$("#LeadForm").css("display", "block");
+	$("#ProjectDetails").css("display", "none");
+	$("#ContactDetails").css("display", "none");
+
+	$("#boxTitle").text('1.Client Details');
+	$("#nevigateToEditClientDetails").text('1.Client Details');
+	$("#nevigateToEditContactDetails").text('2');
+	$("#nevigateToEditProjectDetails").text('3');
+	$("#nevigateToEditClientDetails").css("border", "2px solid #3c8dbc");
+	$("#nevigateToEditClientDetailsDiv").css("width", "12%");
+	$("#nevigateToEditContactDetailsDiv").css("width", "5%");
+	$("#nevigateToEditProjectDetailsDiv").css("width", "5%");
+
+	var nevigateToEditClientDetails = document.getElementById("nevigateToEditClientDetails");
+	var nevigateToEditContactDetails = document.getElementById("nevigateToEditContactDetails");
+	var nevigateToEditProjectDetails = document.getElementById("nevigateToEditProjectDetails");
+	nevigateToEditClientDetails.classList.remove("NevigateBtn");
+	nevigateToEditClientDetails.classList.add("NevigateActiveBtn");
+	nevigateToEditContactDetails.classList.remove("NevigateActiveBtn");
+	nevigateToEditContactDetails.classList.add("NevigateBtn");
+	nevigateToEditProjectDetails.classList.remove("NevigateActiveBtn");
+	nevigateToEditProjectDetails.classList.add("NevigateBtn");
+
+}
+function nevigateToEditContactDetails() {
+	debugger;
+	var CompanyName = $("#TxtCompanyName").val().trim();
+	var ClientName = $("#TxtClientName").val().trim();
+	var Category = $("#TxtCategory").val();
+	var TypeOfLead = $("#TxtTypeOfLead").val();
+	var ProductName = $("#TxtProductName").val();
+	if ($("#TxtSource").val() == "null") {
+		var Source = "";
+	}
+	else {
+		var Source = $("#TxtSource").val();
+	}
+	var Reference = $("#TxtReference").val();
+	var LeadSource = $("#TxtLeadSource").val();
+	var ProjectType = $('#TxtProjectType').val();
+	var PathOfImg = $('#FrontImgOfCard').val();
+	var PathOfBackImg = $('#BackImgOfCard').val();
+	var PlanName = $("#TxtPlan").val();
+	var PlanPrice = $("#TxtPlanPrice").val();
+	var StatusType = $("#TxtStatusType").val();
+	var AssignTo = $("#TxtPerson").val();
+	var ScheduleDate = $('#TxtScheduleDate').val();
+	var ScheduleTime = $("#TxtScheduleTime").val();
+	var FrontFileStatus = $('#FrontFileStatus').text();
+	var BackFileStatus = $('#BackFileStatus').text();
+
+	var file_name = PathOfImg.substring(PathOfImg.lastIndexOf('\\') + 1);
+	if (PathOfImg != "") {
+
+		var frontfile_Size = document.getElementById('FrontImgOfCard').files[0].size;
+		const fileSize = Math.round((frontfile_Size / 1024));
+		// The size of the file.
+		if (fileSize >= 4096) {
+			alert(
+				"File too Big, please select a file less than 4mb");
+			return;
+		}
+	}
+	else {
+		PathOfImg = FrontFileStatus;
+    }
+	if (PathOfBackImg != "") {
+
+		var backfile_Size = document.getElementById('BackImgOfCard').files[0].size;
+		const fileSize = Math.round((backfile_Size / 1024));
+		// The size of the file.
+		if (fileSize >= 4096) {
+			alert(
+				"File too Big, please select a file less than 4mb");
+			return;
+		}
+	}
+	else {
+		PathOfBackImg = BackFileStatus;
+    }
+	if (CompanyName == "") {
+		$('.help-block').html('');
+		$('#CompNameDIV').addClass('has-error');
+		$('#ErrorForCompanyName').html('Please select Company Name.');
+		$('#TxtCompanyName').focus();
+		return;
+	}
+	else if (ClientName == "") {
+		$('.help-block').html('');
+		$('#ClientNameDIV').addClass('has-error');
+		$('#ErrorForClientName').html('Please enter Client Name.');
+		$('#TxtClientName').focus();
+		return;
+	}
+	else if (Source == "") {
+		$('.help-block').html('');
+		$('#SourceDIV').addClass('has-error');
+		$('#ErrorForSource').html('Please Select Owner Name.');
+		$('#TxtSource').focus();
+		return;
+	}
+	if (CompanyName != "" && ClientName != "" && Category != "" && Source != "" && TypeOfLead != "" && ProductName != "" && LeadSource != "" && Reference != "" && PathOfBackImg != "" && PathOfImg != "" && ProjectType != "") {
+		$("#nevigateToEditClientDetails").css("border", "2px solid #00a65a");
+	}
+	else {
+		$("#nevigateToEditClientDetails").css("border", "2px solid #3c8dbc");
+	}
+	
+
+	if (PlanName != "" && PlanPrice != "" && StatusType != "" && AssignTo != "" && ScheduleDate != "" && ScheduleTime != "") {
+		$("#nevigateToEditProjectDetails").css("border", "2px solid #00a65a");
+	}
+	else {
+		$("#nevigateToEditProjectDetails").css("border", "2px solid #3c8dbc");
+	}
+	$("#LeadForm").css("display", "none");
+	$("#ProjectDetails").css("display", "none");
+	$("#ContactDetails").css("display", "block");
+	$("#LeadTable").css("display", "none");
+
+	$("#boxTitle").text('2. Contact Details');
+	$("#nevigateToEditClientDetails").text('1');
+	$("#nevigateToEditContactDetails").text('2.Contact Details');
+	$("#nevigateToEditProjectDetails").text('3');
+	$("#nevigateToEditContactDetails").css("border", "2px solid #3c8dbc");
+	$("#nevigateToEditClientDetailsDiv").css("width", "5%");
+	$("#nevigateToEditContactDetailsDiv").css("width", "12%");
+	$("#nevigateToEditProjectDetailsDiv").css("width", "5%");
+
+	var nevigateToEditClientDetails = document.getElementById("nevigateToEditClientDetails");
+	var nevigateToEditContactDetails = document.getElementById("nevigateToEditContactDetails");
+	var nevigateToEditProjectDetails = document.getElementById("nevigateToEditProjectDetails");
+	nevigateToEditClientDetails.classList.remove("NevigateActiveBtn");
+	nevigateToEditClientDetails.classList.add("NevigateBtn");
+	nevigateToEditContactDetails.classList.remove("NevigateBtn");
+	nevigateToEditContactDetails.classList.add("NevigateActiveBtn");
+	nevigateToEditProjectDetails.classList.remove("NevigateActiveBtn");
+	nevigateToEditProjectDetails.classList.add("NevigateBtn");
+
+	
+
+	
+}
+function nevigateToEditProjectDetails() {
+	var CompanyName = $("#TxtCompanyName").val().trim();
+	var ClientName = $("#TxtClientName").val().trim();
+	var Category = $("#TxtCategory").val();
+	var TypeOfLead = $("#TxtTypeOfLead").val();
+	var ProductName = $("#TxtProductName").val();
+	if ($("#TxtSource").val() == "null") {
+		var Source = "";
+	}
+	else {
+		var Source = $("#TxtSource").val();
+	}
+	var Reference = $("#TxtReference").val();
+	var LeadSource = $("#TxtLeadSource").val();
+	var ProjectType = $('#TxtProjectType').val();
+	var PathOfImg = $('#FrontImgOfCard').val();
+	var PathOfBackImg = $('#BackImgOfCard').val();
+	var FrontFileStatus = $('#FrontFileStatus').text();
+	var BackFileStatus = $('#BackFileStatus').text();
+	var SpokesName = $("#TxtSpokesName").val();
+	var SpokesMobileNumber = $("#TxtSpokesMobile").val();
+	var SpokesEmailAddress = $("#TxtSpokesEmailAddress").val();
+	var SpokesAddress = $('#TxtAddress').val();
+	var AlternateSpokesName = $("#TxtAlternateSpokesName").val();
+	var AlternateSpokesMobile = $("#TxtAlternateMobile").val();
+	var AlternateEmailAddress = $('#TxtAlternateEmailAddress').val();
+	var file_name = PathOfImg.substring(PathOfImg.lastIndexOf('\\') + 1);
+	if (PathOfImg != "") {
+
+		var frontfile_Size = document.getElementById('FrontImgOfCard').files[0].size;
+		const fileSize = Math.round((frontfile_Size / 1024));
+		// The size of the file.
+		if (fileSize >= 4096) {
+			alert(
+				"File too Big, please select a file less than 4mb");
+			return;
+		}
+	}
+	else {
+		PathOfImg = FrontFileStatus;
+	}
+	if (PathOfBackImg != "") {
+
+		var backfile_Size = document.getElementById('BackImgOfCard').files[0].size;
+		const fileSize = Math.round((backfile_Size / 1024));
+		// The size of the file.
+		if (fileSize >= 4096) {
+			alert(
+				"File too Big, please select a file less than 4mb");
+			return;
+		}
+	}
+	else {
+		PathOfBackImg = BackFileStatus;
+	}
+	if (CompanyName == "") {
+		$('.help-block').html('');
+		$('#CompNameDIV').addClass('has-error');
+		$('#ErrorForCompanyName').html('Please select Company Name.');
+		$('#TxtCompanyName').focus();
+		return;
+	}
+	else if (ClientName == "") {
+		$('.help-block').html('');
+		$('#ClientNameDIV').addClass('has-error');
+		$('#ErrorForClientName').html('Please enter Client Name.');
+		$('#TxtClientName').focus();
+		return;
+	}
+	else if (Source == "") {
+		$('.help-block').html('');
+		$('#SourceDIV').addClass('has-error');
+		$('#ErrorForSource').html('Please Select Owner Name.');
+		$('#TxtSource').focus();
+		return;
+	}
+	if (CompanyName != "" && ClientName != "" && Category != "" && Source != "" && TypeOfLead != "" && ProductName != "" && LeadSource != "" && Reference != "" && PathOfBackImg != "" && PathOfImg != "" && ProjectType != "") {
+		$("#nevigateToEditClientDetails").css("border", "2px solid #00a65a");
+	}
+	else {
+		$("#nevigateToEditClientDetails").css("border", "2px solid #3c8dbc");
+	}
+	if (SpokesName != "" && SpokesMobileNumber != "" && SpokesEmailAddress != "" && SpokesAddress != "" && AlternateSpokesName != "" && AlternateSpokesMobile != "" && AlternateEmailAddress != "") {
+		$("#nevigateToEditContactDetails").css("border", "2px solid #00a65a");
+	}
+	else {
+		$("#nevigateToEditContactDetails").css("border", "2px solid #3c8dbc");
+	}
+	$("#LeadForm").css("display", "none");
+	$("#ProjectDetails").css("display", "block");
+	$("#ContactDetails").css("display", "none");
+	$("#LeadTable").css("display", "none");
+	$("#boxTitle").text('3. Project Details');
+
+	$("#nevigateToEditClientDetails").text('1');
+	$("#nevigateToEditContactDetails").text('2');
+	$("#nevigateToEditProjectDetails").text('3.Project Details');
+	$("#nevigateToEditProjectDetails").css("border", "2px solid #3c8dbc");
+	$("#nevigateToEditClientDetailsDiv").css("width", "5%");
+	$("#nevigateToEditContactDetailsDiv").css("width", "5%");
+	$("#nevigateToEditProjectDetailsDiv").css("width", "12%");
+
+	var nevigateToEditClientDetails = document.getElementById("nevigateToEditClientDetails");
+	var nevigateToEditContactDetails = document.getElementById("nevigateToEditContactDetails");
+	var nevigateToEditProjectDetails = document.getElementById("nevigateToEditProjectDetails");
+	nevigateToEditClientDetails.classList.remove("NevigateActiveBtn");
+	nevigateToEditClientDetails.classList.add("NevigateBtn");
+	nevigateToEditContactDetails.classList.remove("NevigateActiveBtn");
+	nevigateToEditContactDetails.classList.add("NevigateBtn");
+	nevigateToEditProjectDetails.classList.remove("NevigateBtn");
+	nevigateToEditProjectDetails.classList.add("NevigateActiveBtn");
+
+	
+	
+}

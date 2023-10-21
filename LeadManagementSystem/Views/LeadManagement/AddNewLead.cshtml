@@ -191,6 +191,45 @@
     #FrontFileStatus {
         width: 20px;
     }
+
+    .dashed {
+        border: 0 none;
+        border-top: 2px dashed #322f32;
+        background: none;
+        height: 0;
+    }
+
+    .NevigateActiveBtn {
+        background-color: #3c8dbc;
+        height: 100%;
+        border-radius: 33px;
+        width: 100%;
+        border-color: #3c8dbc;
+        border: none;
+        color: black;
+        padding: 1%;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .NevigateBtn {
+        height: 100%;
+        border-radius: 33px;
+        width: 100%;
+        border-color: #3c8dbc;
+        background-color: white; /* Green */
+        border: none;
+        color: black;
+        padding: 1%;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
 </style>
 <section class="content-header">
     <h1>Add Lead</h1>
@@ -203,357 +242,373 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="box box-primary with-border" id="LeadDIV">
+        <div class="box box-primary with-border" id="MainLeadDIV">
             <div class="box-header with-border" style="height: 7%;">
-                <h3 class="box-title" id="boxTitle">1. Client Details</h3>
-                <a class="btn btn-primary" style="font-weight:600;margin-right:4px;display:none" id="btnDownloadReport">Download Report</a>
 
-                <div class="box-tools">
-                    @*<input type="text" id="TxtFilterDate" placeholder="yyyy/mm/dd">*@
-                    <a class="btn btn-primary" style="font-weight:600;margin-right:4px;" onclick="@("window.location.href='" + @Url.Action("Index", "LeadManagement") + "'");" id="btnAddLead">Lead Details</a>
+                <div class="col-md-12" style="padding-left: 26%;">
+                    <div class="col-md-1" style="padding: 0%; width: 12%" id="nevigateToClientDetailsDiv"><button style="border: 2px solid #3c8dbc;" class="NevigateActiveBtn" onclick="nevigateToClientDetails()" id="nevigateToClientDetails">1.Client Details</button></div>
+                    <div class="col-md-1" style="padding: 0%"><hr class="dashed" /></div>
+                    <div class="col-md-1" style="padding: 0%; width: 5%" id="nevigateToContactDetailsDiv"><button style="border: 2px solid #3c8dbc;" class="NevigateBtn" onclick="nevigateToContactDetails()" id="nevigateToContactDetails">2</button></div>
+                    <div class="col-md-1" style="padding: 0%"><hr class="dashed" /></div>
+                    <div class="col-md-1" style="padding: 0%; width: 5%" id="nevigateToProjectDetailsDiv"><button style="border: 2px solid #3c8dbc;" class="NevigateBtn" onclick="nevigateToProjectDetails()" id="nevigateToProjectDetails">3</button></div>
                 </div>
+
             </div>
             <div class="box-body">
-                <div class="col-md-12" id="AddNewLeadForm" style="display:block;">
-                    <div class="form-group">
+                <div class="box box-primary with-border" id="LeadDIV">
+                    <div class="box-header with-border" style="height: 7%;">
+                        <h3 class="box-title" id="boxTitle">1. Client Details</h3>
+                        <a class="btn btn-primary" style="font-weight:600;margin-right:4px;display:none" id="btnDownloadReport">Download Report</a>
 
-                        <div class="box-body">
-                            <div class="row" id="LeadIdRow" style="height: 30px;display:none">
-                                <div class="col-md-12" style="height: 30px;">
-                                    <div class="col-md-1">
-                                        <div class="form-group" id="DivLeadId">
-                                            <label>Lead Id :</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <div class="form-group" id="DivLeadIdValue">
-                                            <label id="lead_ld">LI_001 </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row" id="StatusRow" style="height: 30px;display:none">
-                                <div class="col-md-12" style="height: 30px;">
-                                    <div class="col-md-1">
-                                        <div class="form-group" id="DivStatus">
-                                            <label>Status :</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <div class="form-group" id="DivStatusValue">
-                                            <label id="lead_status"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="CompNameDIV">
-                                            <label>Company Name<span class="text-danger">*</span></label>
-                                            <select id="TxtCompanyName" class="form-control">
-                                                <option selected="" value="">--Select Company Name--</option>
-                                                @Html.Raw(ViewBag.CompanyModelList)
-                                            </select>
-                                            <span class="help-block" id="ErrorForCompanyName"></span>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="ClientNameDIV">
-                                            <label>Client Name<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="TxtClientName" placeholder="Enter Client Name" autocomplete="off" />
-                                            <span class="help-block" id="ErrorForClientName"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="CategoryDIV">
-                                            <label>Priority</label>
-                                            <select id="TxtCategory" class="form-control">
-                                                <option selected="" value="">--Select Priority--</option>
-                                                <option value="Hot">Hot</option>
-                                                <option value="Cold">Cold</option>
-                                                <option value="Warm">Warm</option>
-                                            </select>
-                                            <span class="help-block" id="ErrorForCategory"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="ProjectTypeDIV">
-                                            <label>Category</label>
-                                            <select id="TxtProjectType" class="form-control" onchange="changeTypeOfLead(this.value)">
-                                                <option selected="" value="">--Select Category Type--</option>
-                                                @Html.Raw(ViewBag.ProjectTypeModelList)
-                                            </select>
-                                            <span class="help-block" id="ErrorForProjectType"></span>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="TypeOfLeadDIV">
-                                            <label>Sub Category</label>
-                                            <select id="TxtTypeOfLead" class="form-control">
-                                                <option selected="" value="">--Select Sub Category--</option>
-                                                @Html.Raw(ViewBag.TypeOfLeadList)
-                                            </select>
-                                            <span class="help-block" id="ErrorForTypeOfLead"></span>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="ProductNameDIV">
-                                            <label>Product Name</label>
-                                            <input type="text" class="form-control" id="TxtProductName" placeholder="Enter Product Name" autocomplete="off" />
-                                            <span class="help-block" id="ErrorForProductName"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="SourceDIV">
-                                            <label>Owner Name<span class="text-danger">*</span></label>
-                                            <select id="TxtSource" class="form-control">
-                                                <option selected="" value="">--Select Owner Name--</option>
-                                                @Html.Raw(ViewBag.LeadSourceList)
-                                            </select>
-                                            <span class="help-block" id="ErrorForSource"></span>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="LeadSourceDIV">
-                                            <label>Lead Source</label>
-                                            <select id="TxtLeadSource" class="form-control">
-                                                <option selected="" value="">--Select Source--</option>
-                                                <option value="Call">Call</option>
-                                                <option value="Instagram">Instagram</option>
-                                                <option value="LinkedIn">LinkedIn</option>
-                                                <option value="Event">Event</option>
-                                                <option value="Social Media">Social Media</option>
-                                                <option value="Comapny Website">Comapny Website</option>
-                                                <option value="Reference">Reference</option>
-                                            </select>
-
-                                            <span class="help-block" id="ErrorForLeadSource"></span>
-                                        </div>
-                                    </div>
-
-
-
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="ReferenceDIV">
-                                            <label>Reference</label>
-                                            <input type="text" class="form-control" id="TxtReference" placeholder="Please Enter Reference" autocomplete="off" />
-                                            <span class="help-block" id="ErrorForReference"></span>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="FrontImgOfCardDIV">
-                                            <label>Front Image Of Card</label>
-                                            <input type="file" class="form-control" id="FrontImgOfCard" title="Please select front image path" accept="image/png,image/jpeg">
-                                            <span class="help-block" id="ErrorForFrontImgOfCard"></span>
-
-                                        </div>
-
-                                        <div>
-                                            <a data-toggle="tooltip" title="View Details" data-placement="left" class="btn btn-sm waves-effect" id="removeFrontFileIcon" onclick="removeFrontFile()" style="display:none"><i class="fa fa-trash"></i></a> <span> </span><a id="FrontFileStatus"></a>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="BackImgOfCardDIV">
-                                            <label>Back Image Of Card</label>
-                                            <input type="file" class="form-control" id="BackImgOfCard" title="Please select Back image path" accept="image/png, image/jpeg">
-                                            <span class="help-block" id="ErrorForBackImgOfCard"></span>
-
-                                        </div>
-
-                                        <a data-toggle="tooltip" title="View Details" data-placement="left" class="btn btn-sm waves-effect" id="removeBackFileIcon" onclick="removeBackFile()" style="display:none"><i class="fa fa-trash"></i></a> <span> </span><a id="BackFileStatus"></a>
-                                    </div>
-
-
-                                </div>
-                            </div>
-
-                            <div class="box-footer text-center">
-                                <button type="button" class="btn btn-success" id="btnDraft" onclick="SaveFormData();" style="margin-right: 10px; width: 110px; background-color: #0096CF">Save as Draft</button>
-                                <button type="button" class="btn btn-danger" id="btnreset" onclick="ResetFormData();" style="width:110px;">Reset</button>
-                            </div>
+                        <div class="box-tools">
+                            @*<input type="text" id="TxtFilterDate" placeholder="yyyy/mm/dd">*@
+                            <a class="btn btn-primary" style="font-weight:600;margin-right:4px;" onclick="@("window.location.href='" + @Url.Action("Index", "LeadManagement") + "'");" id="btnAddLead">Lead Details</a>
                         </div>
-
                     </div>
+                    <div class="box-body">
+                        <div class="col-md-12" id="AddNewLeadForm" style="display:block;">
+                            <div class="form-group">
 
-                </div>
-                <div class="col-md-12" id="ContactDetails" style="display:none;">
-                    <div class="form-group">
+                                <div class="box-body">
+                                    <div class="row" id="LeadIdRow" style="height: 30px;display:none">
+                                        <div class="col-md-12" style="height: 30px;">
+                                            <div class="col-md-1">
+                                                <div class="form-group" id="DivLeadId">
+                                                    <label>Lead Id :</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <div class="form-group" id="DivLeadIdValue">
+                                                    <label id="lead_ld">LI_001 </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="StatusRow" style="height: 30px;display:none">
+                                        <div class="col-md-12" style="height: 30px;">
+                                            <div class="col-md-1">
+                                                <div class="form-group" id="DivStatus">
+                                                    <label>Status :</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <div class="form-group" id="DivStatusValue">
+                                                    <label id="lead_status"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="CompNameDIV">
+                                                    <label>Company Name<span class="text-danger">*</span></label>
+                                                    <select id="TxtCompanyName" class="form-control">
+                                                        <option selected="" value="">--Select Company Name--</option>
+                                                        @Html.Raw(ViewBag.CompanyModelList)
+                                                    </select>
+                                                    <span class="help-block" id="ErrorForCompanyName"></span>
+                                                </div>
+                                            </div>
 
-                        <div class="box-body">
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="ClientNameDIV">
+                                                    <label>Client Name<span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" id="TxtClientName" placeholder="Enter Client Name" autocomplete="off" />
+                                                    <span class="help-block" id="ErrorForClientName"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="CategoryDIV">
+                                                    <label>Priority</label>
+                                                    <select id="TxtCategory" class="form-control">
+                                                        <option selected="" value="">--Select Priority--</option>
+                                                        <option value="Hot">Hot</option>
+                                                        <option value="Cold">Cold</option>
+                                                        <option value="Warm">Warm</option>
+                                                    </select>
+                                                    <span class="help-block" id="ErrorForCategory"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="ProjectTypeDIV">
+                                                    <label>Category</label>
+                                                    <select id="TxtProjectType" class="form-control" onchange="changeTypeOfLead(this.value)">
+                                                        <option selected="" value="">--Select Category Type--</option>
+                                                        @Html.Raw(ViewBag.ProjectTypeModelList)
+                                                    </select>
+                                                    <span class="help-block" id="ErrorForProjectType"></span>
+                                                </div>
+                                            </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
-
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="SpokesNameDIV">
-                                            <label>Spokes Person 1</label>
-                                            <input type="text" class="form-control" id="TxtSpokesName" placeholder="Enter Spokes Person Name" autocomplete="off" />
-                                            <span class="help-block" id="ErrorForSpokesName"></span>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="SpokesMobileDIV">
-                                            <label>Mobile Number</label>
-                                            <input type="text" class="form-control" id="TxtSpokesMobile" maxlength="10" placeholder="Enter Mobile Number" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" />
-                                            <span class="help-block" id="ErrorForSpokesMobile"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="SpokesEmailDIV">
-                                            <label>Email Address</label>
-                                            <input type="email" class="form-control" id="TxtSpokesEmailAddress" placeholder="Enter Email Address" autocomplete="off" />
-                                            <span class="help-block" id="ErrorForSpokesEmail"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="AddressDIV">
-                                            <label>Spokes Person Address</label>
-                                            <textarea class="form-control" id="TxtAddress" placeholder="Enter Address" maxlength="250" rows="2" cols="60"></textarea>
-                                            <span class="help-block" id="ErrorForAddress"></span>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="TypeOfLeadDIV">
+                                                    <label>Sub Category</label>
+                                                    <select id="TxtTypeOfLead" class="form-control">
+                                                        <option selected="" value="">--Select Sub Category--</option>
+                                                        @Html.Raw(ViewBag.TypeOfLeadList)
+                                                    </select>
+                                                    <span class="help-block" id="ErrorForTypeOfLead"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="ProductNameDIV">
+                                                    <label>Product Name</label>
+                                                    <input type="text" class="form-control" id="TxtProductName" placeholder="Enter Product Name" autocomplete="off" />
+                                                    <span class="help-block" id="ErrorForProductName"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="SourceDIV">
+                                                    <label>Owner Name<span class="text-danger">*</span></label>
+                                                    <select id="TxtSource" class="form-control">
+                                                        <option selected="" value="">--Select Owner Name--</option>
+                                                        @Html.Raw(ViewBag.LeadSourceList)
+                                                    </select>
+                                                    <span class="help-block" id="ErrorForSource"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="LeadSourceDIV">
+                                                    <label>Lead Source</label>
+                                                    <select id="TxtLeadSource" class="form-control">
+                                                        <option selected="" value="">--Select Source--</option>
+                                                        <option value="Call">Call</option>
+                                                        <option value="Instagram">Instagram</option>
+                                                        <option value="LinkedIn">LinkedIn</option>
+                                                        <option value="Event">Event</option>
+                                                        <option value="Social Media">Social Media</option>
+                                                        <option value="Comapny Website">Comapny Website</option>
+                                                        <option value="Reference">Reference</option>
+                                                    </select>
+
+                                                    <span class="help-block" id="ErrorForLeadSource"></span>
+                                                </div>
+                                            </div>
+
+
+
                                         </div>
                                     </div>
 
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="ReferenceDIV">
+                                                    <label>Reference</label>
+                                                    <input type="text" class="form-control" id="TxtReference" placeholder="Please Enter Reference" autocomplete="off" />
+                                                    <span class="help-block" id="ErrorForReference"></span>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="FrontImgOfCardDIV">
+                                                    <label>Front Image Of Card</label>
+                                                    <input type="file" class="form-control" id="FrontImgOfCard" title="Please select front image path" accept="image/png,image/jpeg">
+                                                    <span class="help-block" id="ErrorForFrontImgOfCard"></span>
+
+                                                </div>
+
+                                                <div>
+                                                    <a data-toggle="tooltip" title="View Details" data-placement="left" class="btn btn-sm waves-effect" id="removeFrontFileIcon" onclick="removeFrontFile()" style="display:none"><i class="fa fa-trash"></i></a> <span> </span><a id="FrontFileStatus"></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="BackImgOfCardDIV">
+                                                    <label>Back Image Of Card</label>
+                                                    <input type="file" class="form-control" id="BackImgOfCard" title="Please select Back image path" accept="image/png, image/jpeg">
+                                                    <span class="help-block" id="ErrorForBackImgOfCard"></span>
+
+                                                </div>
+
+                                                <a data-toggle="tooltip" title="View Details" data-placement="left" class="btn btn-sm waves-effect" id="removeBackFileIcon" onclick="removeBackFile()" style="display:none"><i class="fa fa-trash"></i></a> <span> </span><a id="BackFileStatus"></a>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="box-footer text-center">
+                                        <button type="button" class="btn btn-success" id="btnDraft" onclick="SaveFormData();" style="margin-right: 10px; width: 110px; background-color: #0096CF">Save as Draft</button>
+                                        <button type="button" class="btn btn-danger" id="btnreset" onclick="ResetFormData();" style="width:110px;">Reset</button>
+                                    </div>
                                 </div>
+
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
 
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="AlternateSpokesNameDIV">
-                                            <label>Spokes Person 2</label>
-                                            <input type="text" class="form-control" id="TxtAlternateSpokesName" placeholder="Enter Spokes Name" autocomplete="off" />
-                                            <span class="help-block" id="ErrorForAlternateSpokesName"></span>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="AlternateMobileDIV">
-                                            <label>Mobile Number</label>
-                                            <input type="text" class="form-control" id="TxtAlternateMobile" maxlength="10" placeholder="Enter Mobile Number" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" />
-                                            <span class="help-block" id="ErrorForAlternateMobile"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="AlternateEmailDIV">
-                                            <label>Email Address</label>
-                                            <input type="email" class="form-control" id="TxtAlternateEmailAddress" placeholder="Enter Email Address" autocomplete="off" />
-                                            <span class="help-block" id="ErrorForAlternateEmail"></span>
-                                        </div>
-                                    </div>
-
-
-
-                                </div>
-                            </div>
-                            <div class="box-footer text-center">
-                                <button type="button" class="btn btn-success" id="btnDraft2" onclick="SaveFormData();" style="margin-right: 10px; width: 110px; background-color: #0096CF">Save as Draft</button>
-
-                                <button type="button" class="btn btn-danger" id="btnExit2" onclick="ExitForm2();" style="width:110px;">Exit</button>
-                            </div>
                         </div>
+                        <div class="col-md-12" id="ContactDetails" style="display:none;">
+                            <div class="form-group">
 
-                    </div>
+                                <div class="box-body">
 
-                </div>
-                <div class="col-md-12" id="ProjectDetails" style="display:none;">
-                    <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
 
-                        <div class="box-body">
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="SpokesNameDIV">
+                                                    <label>Spokes Person 1</label>
+                                                    <input type="text" class="form-control" id="TxtSpokesName" placeholder="Enter Spokes Person Name" autocomplete="off" />
+                                                    <span class="help-block" id="ErrorForSpokesName"></span>
+                                                </div>
+                                            </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="PlanDIV">
-                                            <label>Proposal Plan</label>
-                                            <select id="TxtPlan" class="form-control">
-                                                <option selected="" value="">--Select Plan--</option>
-                                                @Html.Raw(ViewBag.PlanDetails)
-                                            </select>
-                                            <span class="help-block" id="ErrorForPlan"></span>
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="SpokesMobileDIV">
+                                                    <label>Mobile Number</label>
+                                                    <input type="text" class="form-control" id="TxtSpokesMobile" maxlength="10" placeholder="Enter Mobile Number" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" />
+                                                    <span class="help-block" id="ErrorForSpokesMobile"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="SpokesEmailDIV">
+                                                    <label>Email Address</label>
+                                                    <input type="email" class="form-control" id="TxtSpokesEmailAddress" placeholder="Enter Email Address" autocomplete="off" />
+                                                    <span class="help-block" id="ErrorForSpokesEmail"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="AddressDIV">
+                                                    <label>Spokes Person Address</label>
+                                                    <textarea class="form-control" id="TxtAddress" placeholder="Enter Address" maxlength="250" rows="2" cols="60"></textarea>
+                                                    <span class="help-block" id="ErrorForAddress"></span>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="AlternateSpokesNameDIV">
+                                                    <label>Spokes Person 2</label>
+                                                    <input type="text" class="form-control" id="TxtAlternateSpokesName" placeholder="Enter Spokes Name" autocomplete="off" />
+                                                    <span class="help-block" id="ErrorForAlternateSpokesName"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="AlternateMobileDIV">
+                                                    <label>Mobile Number</label>
+                                                    <input type="text" class="form-control" id="TxtAlternateMobile" maxlength="10" placeholder="Enter Mobile Number" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" />
+                                                    <span class="help-block" id="ErrorForAlternateMobile"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="AlternateEmailDIV">
+                                                    <label>Email Address</label>
+                                                    <input type="email" class="form-control" id="TxtAlternateEmailAddress" placeholder="Enter Email Address" autocomplete="off" />
+                                                    <span class="help-block" id="ErrorForAlternateEmail"></span>
+                                                </div>
+                                            </div>
 
 
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="PlanPriceDIV">
-                                            <label>Plan Price</label>
-                                            <input type="text" class="form-control" id="TxtPlanPrice" placeholder="Enter Plan Price" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" />
-                                            <span class="help-block" id="ErrorForPlanPrice"></span>
+
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="ChangeStatusDIV">
-                                            <label>Change Status</label>
-                                            <select id="TxtStatusType" class="form-control">
-                                                <option selected="" value="">--Select Status--</option>
-                                                <option value="Open">Open</option>
-                                                <option value="Hold">Hold</option>
-                                                <option value="Converted">Converted</option>
-                                                <option value="Closed">Closed</option>
-                                                <option value="Ghost">Ghost</option>
-                                            </select>
-                                            <span class="help-block" id="ErrorForChangeStatus"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="AssignLeadDIV">
-                                            <label>Assign Lead</label>
-                                            <select id="TxtPerson" class="form-control">
-                                                <option selected="" value="">--Select Person--</option>
-                                                @Html.Raw(ViewBag.AssignTo)
-                                            </select>
-                                            <span class="help-block" id="ErrorForSelectPerson"></span>
-                                        </div>
-                                    </div>
+                                    <div class="box-footer text-center">
+                                        <button type="button" class="btn btn-success" id="btnDraft2" onclick="SaveFormData();" style="margin-right: 10px; width: 110px; background-color: #0096CF">Save as Draft</button>
 
-
+                                        <button type="button" class="btn btn-danger" id="btnExit2" onclick="ExitForm2();" style="width:110px;">Exit</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="ScheduleDateDiv">
-                                            <label>Schedule Date</label>
-                                            <input type="text" class="form-control" id="TxtScheduleDate" placeholder="yyyy/dd/mm">
-                                            <span class="help-block" id="ErrorForScheduledate"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="ScheduleTimeDIV">
-                                            <label>Schedule Time</label>
-                                            <input type="time" class="form-control" id="TxtScheduleTime" placeholder="HH:MM:SS">
-                                            <span class="help-block" id="ErrorForScheduleTime"></span>
-                                        </div>
-                                    </div>
 
-                                </div>
                             </div>
-                            <div class="box-footer text-center">
-                                <button type="button" class="btn btn-success" id="btnSave" onclick="UpdateFinalDraftLead();" style="margin-right: 10px;width:110px;">Save</button>
-                                <button type="button" class="btn btn-success" id="btnDraft3" onclick="UpdateFinalDraftLead();" style="width: 110px; background-color: #0096CF">Save as Draft</button>
-                                <button type="button" class="btn btn-danger" id="btnExit3" onclick="ExitForm3();" style="width:110px;">Exit</button>
-                            </div>
+
                         </div>
+                        <div class="col-md-12" id="ProjectDetails" style="display:none;">
+                            <div class="form-group">
 
+                                <div class="box-body">
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="PlanDIV">
+                                                    <label>Proposal Plan</label>
+                                                    <select id="TxtPlan" class="form-control">
+                                                        <option selected="" value="">--Select Plan--</option>
+                                                        @Html.Raw(ViewBag.PlanDetails)
+                                                    </select>
+                                                    <span class="help-block" id="ErrorForPlan"></span>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="PlanPriceDIV">
+                                                    <label>Plan Price</label>
+                                                    <input type="text" class="form-control" id="TxtPlanPrice" placeholder="Enter Plan Price" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" />
+                                                    <span class="help-block" id="ErrorForPlanPrice"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="ChangeStatusDIV">
+                                                    <label>Change Status</label>
+                                                    <select id="TxtStatusType" class="form-control">
+                                                        <option selected="" value="">--Select Status--</option>
+                                                        <option value="Open">Open</option>
+                                                        <option value="Hold">Hold</option>
+                                                        <option value="Converted">Converted</option>
+                                                        <option value="Closed">Closed</option>
+                                                        <option value="Ghost">Ghost</option>
+                                                    </select>
+                                                    <span class="help-block" id="ErrorForChangeStatus"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="AssignLeadDIV">
+                                                    <label>Assign Lead</label>
+                                                    <select id="TxtPerson" class="form-control">
+                                                        <option selected="" value="">--Select Person--</option>
+                                                        @Html.Raw(ViewBag.AssignTo)
+                                                    </select>
+                                                    <span class="help-block" id="ErrorForSelectPerson"></span>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="ScheduleDateDiv">
+                                                    <label>Schedule Date</label>
+                                                    <input type="text" class="form-control" id="TxtScheduleDate" placeholder="yyyy/dd/mm">
+                                                    <span class="help-block" id="ErrorForScheduledate"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="ScheduleTimeDIV">
+                                                    <label>Schedule Time</label>
+                                                    <input type="time" class="form-control" id="TxtScheduleTime" placeholder="HH:MM:SS">
+                                                    <span class="help-block" id="ErrorForScheduleTime"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="box-footer text-center">
+                                        <button type="button" class="btn btn-success" id="btnSave" onclick="UpdateFinalDraftLead();" style="margin-right: 10px;width:110px;">Save</button>
+                                        <button type="button" class="btn btn-success" id="btnDraft3" onclick="UpdateFinalDraftLead();" style="width: 110px; background-color: #0096CF">Save as Draft</button>
+                                        <button type="button" class="btn btn-danger" id="btnExit3" onclick="ExitForm3();" style="width:110px;">Exit</button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
                     </div>
 
                 </div>

@@ -95,6 +95,7 @@
     <Compile Include="LeadModel.cs" />
     <Compile Include="LeadSourceModel.cs" />
     <Compile Include="LoginModel.cs" />
+    <Compile Include="NotificationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseStatusModel.cs" />
     <Compile Include="UserModel.cs" />
