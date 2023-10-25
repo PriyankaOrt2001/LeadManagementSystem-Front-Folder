@@ -229,6 +229,29 @@
         margin: 4px 2px;
         cursor: pointer;
     }
+    #filter-modal-dialog {
+        margin-right: 6%;
+        margin-top: 8%;
+        width: 31%;
+    }
+    #FilterByCompany, #FilterByCategory, #FilterByPriority, #FilterByAssignedTo {
+        margin-bottom: 1%;
+        margin-top: 1px;
+        border-top-width: 0px;
+        margin-left: 1%;
+    }
+    #FilterByModalTitle {
+        font-size: 154%;
+        font-weight: 600;
+    }
+    #FilterLeadDetails {
+        width: 25%;
+        margin-right: 4%;
+        background-color: #3c8dbc;
+    }
+    #FilterBoxTitle {
+        font-size: 110%;
+    }
 </style>
 <section class="content-header">
     <h1 id="content_header">Lead Details</h1>
@@ -606,6 +629,7 @@
                 <div class="box-tools">
                     @*<input type="text" id="TxtFilterDate" placeholder="yyyy/mm/dd">*@
                     <a class="btn btn-primary" style="font-weight:600;margin-right:4px;" onclick="@("window.location.href='" + @Url.Action("AddNewLead", "LeadManagement") + "'");" id="btnAddLead">+ Add Lead</a>
+                    <a class="btn btn-primary" style="font-weight:600;margin-right:4px;" id="btnFilter" onclick="showFilter()"><i class="fa fa-filter"></i> Filter</a>
                 </div>
             </div>
             <div class="box-body">
@@ -615,6 +639,106 @@
                 </div>
             </div>
 
+        </div>
+        <div class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="Filter-Detail">
+            <div class="modal-dialog" style="height: 460px; margin-right: 6%; margin-top: 8%;width:31%">
+                <div class="modal-content">
+                    <div class="modal-content">
+                        <div class="modal-header" style="padding-bottom: 0px;">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="FilterByModalTitle">Filter By</h4>
+                        </div>
+                        <div class="modal-body" style="overflow-y: scroll;max-height:85%;padding: 0px;" id="filter-body">
+                            <div class="box" id="FilterByCompany">
+                                <div class="box-header">
+                                    <h3 class="box-title" id="FilterBoxTitle">Company</h3>
+                                    <i class="fa fa-angle-down" id="showCompanyIcon" aria-hidden="true" style="float:right" onclick="showCompanyList()"></i>
+                                </div>
+                                <div class="box-body" style="padding-bottom: 0px; padding-top: 0px; display: none;" id="FilterByCompanyBody">
+                                    <div class="row" id="FilterByCompanyRow">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box" id="FilterByCategory">
+                                <div class="box-header">
+                                    <h3 class="box-title" id="FilterBoxTitle">Category</h3>
+                                    <i class="fa fa-angle-down" id="showCategoryIcon" aria-hidden="true" style="float:right" onclick="showCategoryList()"></i>
+                                </div>
+                                <div class="box-body" style="padding-bottom: 0px; padding-top: 0px; display: none;" id="FilterByCategoryBody">
+                                    <div class="row" id="FilterByCategoryRow">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box" id="FilterByPriority">
+                                <div class="box-header">
+                                    <h3 class="box-title" id="FilterBoxTitle">Priority</h3>
+                                    <i class="fa fa-angle-down" id="showPriorityIcon" aria-hidden="true" style="float:right" onclick="showPriorityList()"></i>
+                                </div>
+                                <div class="box-body" style="padding-bottom: 0px; padding-top: 0px;display: none;"id="FilterByPriorityBody">
+                                    <div class="row" id="FilterByPriorityRow">
+                                        <div class="col-md-12">
+                                            <div class="col-md-4">
+                                                <div class="col-md-4" style="padding:0px">
+                                                    <input class="PriorityList" data-val="true"
+                                                           id="isActive"
+                                                           name="isActive"
+                                                           type="checkbox"
+                                                           value="Hot" />
+                                                </div>
+                                                <div class="col-md-8" style="padding:0px">
+                                                    <span id="Category_Consulting">Hot</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="col-md-4" style="padding:0px">
+                                                    <input class="PriorityList" data-val="true"
+                                                           id="isActive"
+                                                           name="isActive"
+                                                           type="checkbox"
+                                                           value="Cold" />
+                                                </div>
+                                                <div class="col-md-8" style="padding:0px">
+                                                    <span id="Category_Consulting">Cold</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="col-md-4" style="padding:0px">
+                                                    <input class="PriorityList" data-val="true"
+                                                           id="isActive"
+                                                           name="isActive"
+                                                           type="checkbox"
+                                                           value="Warm" />
+                                                </div>
+                                                <div class="col-md-8" style="padding:0px">
+                                                    <span id="Category_Consulting">Warm</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box" id="FilterByAssignedTo">
+                                <div class="box-header">
+                                    <h3 class="box-title" id="FilterBoxTitle">Assigned To</h3>
+                                    <i class="fa fa-angle-down" id="showAssignToIcon" aria-hidden="true" style="float:right" onclick="showAssignedToList()"></i>
+                                </div>
+                                <div class="box-body" style="padding-bottom: 0px;padding-top: 0px;display:none" id="FilterByAssignedToBody">
+                                    <div class="row" id="FilterByAssignedToRow">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="padding: 1%;">
+                            <button type="button" id="FilterLeadDetails" class="btn btn-success" onclick="FilterLeadDetails();">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="modal fade" id="modal-Detail">
             <div class="modal-dialog modal-lg">
@@ -967,6 +1091,48 @@
                 RecentNotificationDetails(id);
          });
 
+        }
+        function FilterDataTable(whereCompanyId, whereCategoryId, whereAssignedToId, wherePriorityListId) {
+            debugger;
+            $('#FilterLeadDetails').attr('disabled', true);
+            var originalContent = $('#FilterLeadDetails').html();
+            var loader = "<i class='fa fa-spinner fa-spin'></i>Please wait..";
+            $('#FilterLeadDetails').html(loader);
+            debugger;
+            var User_ID = "@Session["Admin_ID"].ToString()";
+            if (whereCompanyId == "" && whereCategoryId == "" && whereAssignedToId == "" && wherePriorityListId == "") {
+                refreshDataTable();
+                $('#FilterLeadDetails').removeAttr('disabled');
+                $("#Filter-Detail .close").click();
+                $('#FilterLeadDetails').html(originalContent);
+            }
+            else {
+                var formdata = new FormData();
+                formdata.append("UserId", User_ID);
+                formdata.append("CompanyId", whereCompanyId);
+                formdata.append("CategoryId", whereCategoryId);
+                formdata.append("AssignedId", whereAssignedToId);
+                formdata.append("Priority", wherePriorityListId);
+            
+                $.ajax({
+                url: '@Url.Action("FilterLeadTablePartial", "LeadManagement")',
+                type: 'POST',
+                data: formdata,  // Send the FormData object directly
+                contentType: false, // Let jQuery set the content type
+                processData: false, // Don't process the data
+                success: function (data) {
+                    $("#LeadDetails").html(data); // Replace with the element where you want to display the result
+                    $("#TableLead").DataTable();
+                    $('#FilterLeadDetails').removeAttr('disabled');
+                    $("#Filter-Detail .close").click();
+                    $('#FilterLeadDetails').html(originalContent);
+                },
+                error: function (error) {
+                console.log(error);
+                }
+                });
+            }
+            
         }
         function getCountOfUnseenNotification(UserId) {
             debugger;

@@ -18,5 +18,6 @@ namespace LeadManagementSystem.MODEL
         public string TotalUnseenNotification { get; set; }
         public string LeadId { get; set; }
         public string NotificationList { get; set; }
+        
     }
 }
