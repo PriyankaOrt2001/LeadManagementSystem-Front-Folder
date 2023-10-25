@@ -13,8 +13,18 @@ fileInput.onchange = () => {
 }
 var IsFinal = 0;
 function IsFavLead(id, IsFav) {
+	debugger;
+	var element = document.getElementById('isFav_' + id);
+	var value = element.className;
+	var alterMsg = "";
+	if (value =="fa fa-star-o") {
+		alterMsg = "Are You sure you want to add this lead as Favourite Lead ?";
+	}
+	else {
+		alterMsg = "Are You sure you want to remove this lead from Favourite Lead ?";
+    }
 	bootbox.confirm({
-		message: "Are You sure you want to add this lead as Favourite Lead ?",
+		message: alterMsg,
 		buttons: {
 			confirm: {
 				label: 'Yes',
@@ -1542,6 +1552,28 @@ function remark(id) {
 		}
 	});
 }
+function showFilter() {
+	$('#Filter-Detail').modal('show');
+	debugger;
+	$.ajax({
+		type: "POST",
+		url: ServerURL + 'LeadManagement/GetCompanyListForFilter',
+		contentType: 'application/json; charset=utf-8',
+		success: function (return_Data) {
+			debugger;
+			if (return_Data.n == 5) {
+				bootbox.alert(return_Data.msg);
+				window.location.href = "/LogIn/LogInForm";
+			} else (return_Data != null)
+			{
+				$("#FilterByCompanyRow").html(return_Data.GetCompanyListForFilter);
+				$("#FilterByCategoryRow").html(return_Data.GetCategoryListForFilter);
+				$("#FilterByAssignedToRow").html(return_Data.GetAssignToListForFilter);
+			}
+
+		}
+	});
+}
 function ResetRemark() {
 	$("#TxtRemark").val('');
 }
@@ -1819,10 +1851,6 @@ function nevigateToEditContactDetails() {
 	nevigateToEditContactDetails.classList.add("NevigateActiveBtn");
 	nevigateToEditProjectDetails.classList.remove("NevigateActiveBtn");
 	nevigateToEditProjectDetails.classList.add("NevigateBtn");
-
-	
-
-	
 }
 function nevigateToEditProjectDetails() {
 	var CompanyName = $("#TxtCompanyName").val().trim();
@@ -1935,7 +1963,129 @@ function nevigateToEditProjectDetails() {
 	nevigateToEditContactDetails.classList.add("NevigateBtn");
 	nevigateToEditProjectDetails.classList.remove("NevigateBtn");
 	nevigateToEditProjectDetails.classList.add("NevigateActiveBtn");
-
+}
+function showCompanyList() {
+	debugger;
+	var showCompanyIcon = document.getElementById('showCompanyIcon');
+	var showCategoryIcon = document.getElementById('showCategoryIcon');
+	var showPriorityIcon = document.getElementById('showPriorityIcon');
+	var showAssignToIcon = document.getElementById('showAssignToIcon');
+	showCategoryIcon.classList.remove('fa-angle-up');
+	showCategoryIcon.classList.add('fa-angle-down');
+	showPriorityIcon.classList.remove('fa-angle-up');
+	showPriorityIcon.classList.add('fa-angle-down');
+	showAssignToIcon.classList.remove('fa-angle-up');
+	showAssignToIcon.classList.add('fa-angle-down');
+	$('#FilterByCategoryBody').css('display', 'none');
+	$('#FilterByPriorityBody').css('display', 'none');
+	$('#FilterByAssignedToBody').css('display', 'none');
+	if (showCompanyIcon.classList.contains('fa-angle-down')) {
+		showCompanyIcon.classList.remove('fa-angle-down');
+		showCompanyIcon.classList.add('fa-angle-up');
+	}
+	else{
+		showCompanyIcon.classList.remove('fa-angle-up');
+		showCompanyIcon.classList.add('fa-angle-down');
+	}
+	$('#FilterByCompanyBody').toggle();
+}
+function showCategoryList() {
+	$('#FilterByCategoryBody').toggle();
+	var showCompanyIcon = document.getElementById('showCompanyIcon');
+	var showCategoryIcon = document.getElementById('showCategoryIcon');
+	var showPriorityIcon = document.getElementById('showPriorityIcon');
+	var showAssignToIcon = document.getElementById('showAssignToIcon');
+	showCompanyIcon.classList.remove('fa-angle-up');
+	showCompanyIcon.classList.add('fa-angle-down');
+	showPriorityIcon.classList.remove('fa-angle-up');
+	showPriorityIcon.classList.add('fa-angle-down');
+	showAssignToIcon.classList.remove('fa-angle-up');
+	showAssignToIcon.classList.add('fa-angle-down');
+	$('#FilterByCompanyBody').css('display', 'none');
+	$('#FilterByPriorityBody').css('display', 'none');
+	$('#FilterByAssignedToBody').css('display', 'none');
+	if (showCategoryIcon.classList.contains('fa-angle-down')) {
+		showCategoryIcon.classList.remove('fa-angle-down');
+		showCategoryIcon.classList.add('fa-angle-up');
+	}
+	else{
+		showCategoryIcon.classList.remove('fa-angle-up');
+		showCategoryIcon.classList.add('fa-angle-down');
+	}
+}
+function showPriorityList() {
+	$('#FilterByPriorityBody').toggle();
+	var showCompanyIcon = document.getElementById('showCompanyIcon');
+	var showCategoryIcon = document.getElementById('showCategoryIcon');
+	var showPriorityIcon = document.getElementById('showPriorityIcon');
+	var showAssignToIcon = document.getElementById('showAssignToIcon');
+	showCompanyIcon.classList.remove('fa-angle-up');
+	showCompanyIcon.classList.add('fa-angle-down');
+	showCategoryIcon.classList.remove('fa-angle-up');
+	showCategoryIcon.classList.add('fa-angle-down');
+	showAssignToIcon.classList.remove('fa-angle-up');
+	showAssignToIcon.classList.add('fa-angle-down');
+	$('#FilterByCompanyBody').css('display', 'none');
+	$('#FilterByCategoryBody').css('display', 'none');
+	$('#FilterByAssignedToBody').css('display', 'none');
+	if (showPriorityIcon.classList.contains('fa-angle-down')) {
+		showPriorityIcon.classList.remove('fa-angle-down');
+		showPriorityIcon.classList.add('fa-angle-up');
+	}
+	else{
+		showPriorityIcon.classList.remove('fa-angle-up');
+		showPriorityIcon.classList.add('fa-angle-down');
+	}
+}
+function showAssignedToList() {
+	$('#FilterByAssignedToBody').toggle();
+	var showCompanyIcon = document.getElementById('showCompanyIcon');
+	var showCategoryIcon = document.getElementById('showCategoryIcon');
+	var showPriorityIcon = document.getElementById('showPriorityIcon');
+	var showAssignToIcon = document.getElementById('showAssignToIcon');
+	showCompanyIcon.classList.remove('fa-angle-up');
+	showCompanyIcon.classList.add('fa-angle-down');
+	showCategoryIcon.classList.remove('fa-angle-up');
+	showCategoryIcon.classList.add('fa-angle-down');
+	showPriorityIcon.classList.remove('fa-angle-up');
+	showPriorityIcon.classList.add('fa-angle-down');
+	$('#FilterByCompanyBody').css('display', 'none');
+	$('#FilterByCategoryBody').css('display', 'none');
+	$('#FilterByPriorityBody').css('display', 'none');
+	if (showAssignToIcon.classList.contains('fa-angle-down')) {
+		showAssignToIcon.classList.remove('fa-angle-down');
+		showAssignToIcon.classList.add('fa-angle-up');
+	}
+	else{
+		showAssignToIcon.classList.remove('fa-angle-up');
+		element.classList.add('fa-angle-down');
+	}
+}
+function FilterLeadDetails() {
+	debugger;
+	var comapnyIdsValues = [];
+	var categoryIdValue = [];
+	var assignedIdValue = [];
+	var PriorityList = [];
+	// Iterate over the checkboxes with the 'checkbox' class
+	$(".CompanyModelList:checked").each(function () {
+		comapnyIdsValues.push($(this).val());
+	});
+	$(".LeadCategoryDetails:checked").each(function () {
+		categoryIdValue.push($(this).val());
+	});
+	$(".AssignToDetails:checked").each(function () {
+		assignedIdValue.push($(this).val());
+	});
+	$(".PriorityList:checked").each(function () {
+		PriorityList.push('\''+$(this).val()+'\'');
+	});
+	// Join the selected values into a comma-separated string
+	var condition = "";
+	var whereCompanyId = comapnyIdsValues.join(",");
+	var whereCategoryId = categoryIdValue.join(",");
+	var whereAssignedToId = assignedIdValue.join(",");
+	var wherePriorityListId = PriorityList.join(",");
 	
-	
+	FilterDataTable(whereCompanyId, whereCategoryId, whereAssignedToId, wherePriorityListId);
 }

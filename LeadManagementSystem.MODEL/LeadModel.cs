@@ -123,4 +123,18 @@ namespace LeadManagementSystem.MODEL
             get; set;
         }
     }
+    public class FilterDetailsModel
+    {
+        public string GetCompanyListForFilter { get; set; }
+        public string GetCategoryListForFilter { get; set; }
+        public string GetAssignToListForFilter { get; set; }
+    }
+    public class FilterBy
+    {
+        public string UserId { get; set; }
+        public string CompanyId { get; set; }
+        public string Priority { get; set; }
+        public string CategoryId { get; set; }
+        public string AssignedId { get; set; }
+    }
 }

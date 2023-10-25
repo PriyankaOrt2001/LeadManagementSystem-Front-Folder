@@ -144,7 +144,12 @@
     <script>
         var ServerURL = "@System.Configuration.ConfigurationManager.AppSettings["ScreenURL"].ToString()";
         var deviceID = "";
-        
+       
+        $("#TxtUserPassword").keypress(function (event) {
+            if (event.keyCode == 13) {
+                LogIn();
+            }
+        });
         function LogIn() {
             debugger;
             var UserName = $("#TxtUserName").val().trim();

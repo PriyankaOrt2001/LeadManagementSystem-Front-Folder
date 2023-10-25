@@ -172,6 +172,24 @@ namespace LeadManagementSystem.Controllers
                 return RedirectToAction("LogInForm", "LogIn");
             }
         }
+        public ActionResult FilterLeadTablePartial(FilterBy filterBy)
+        {
+            if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+            {
+                LeadModel lm = new LeadModel();
+                LeadDetails cd = new LeadDetails();
+                var UserID = Convert.ToString(Session["Admin_ID"]);
+                var result = JsonConvert.DeserializeObject<LeadModel>(LMSTransaction.post("FilterLeadTableDetails", filterBy, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                lm.LeadList = result.LeadList;
+                return PartialView("LeadTablePartial", lm);
+            }
+            else
+            {
+                rm.msg = "Expired";
+                rm.n = 5;
+                return RedirectToAction("LogInForm", "LogIn");
+            }
+        }
 
         public ActionResult AddLead(LeadDetails ld)
         {
@@ -490,17 +508,16 @@ namespace LeadManagementSystem.Controllers
             }
             return Json(rm, JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult GetRemarksList(string id)
         {
             try
             {
                 if (Session["AuthToken"] != null)
                 {
-                    var result = JsonConvert.DeserializeObject<RemarkModelList>(LMSTransaction.get("GetRemarksList?Lead_Id="+id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                    var result = JsonConvert.DeserializeObject<RemarkModelList>(LMSTransaction.get("GetRemarksList?Lead_Id=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     List<RemarkModel> RemarkModel = result.RemarkModels;
                     var stringtemp = "";
-                    if(RemarkModel==null || RemarkModel.Count==0)
+                    if (RemarkModel == null || RemarkModel.Count == 0)
                     {
                         stringtemp = "No Remarks.....";
                     }
@@ -523,10 +540,173 @@ namespace LeadManagementSystem.Controllers
                                 $"</div>";
                         }
                     }
-                    
+
                     ViewBag.GetRemarksList = stringtemp;
 
                     return Content(ViewBag.GetRemarksList);
+
+                }
+
+                else
+                {
+                    rm.n = 5;
+                    rm.msg = "Session Expired";
+                    return Json(rm, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                rm.RStatus = "Error";
+                rm.msg = "Some error occured while processing your request, Please try again later";
+                rm.n = 0;
+            }
+            return Json(rm, JsonRequestBehavior.AllowGet);
+
+        }
+        public ActionResult GetCompanyListForFilter()
+        {
+            try
+            {
+                if (Session["AuthToken"] != null)
+                {
+                    FilterDetailsModel fdm = new FilterDetailsModel();
+
+                    CompanyDetails cd = new CompanyDetails();
+                    var result = JsonConvert.DeserializeObject<CompanyModel>(LMSTransaction.get("GetCompanyList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                    List<CompanyDetails> CompanyModelList = result.CompanyList;
+                    var stringtemp = "";
+                    string newRow = string.Empty;
+
+                    var leadCategoryList = JsonConvert.DeserializeObject<LeadCategoryModel>(LMSTransaction.get("GetLeadCategoryList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                    List<LeadCategoryDetails> LeadCategoryDetails = leadCategoryList.LeadCategoryList;
+                    var leadCategoryNames = "";
+                    var NewRowForCategory = "";
+
+                    var AssignToList = JsonConvert.DeserializeObject<AssignToModel>(LMSTransaction.get("GetAssignToList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                    List<AssignToDetails> AssignToDetails = AssignToList.AssignToList;
+                    var AssignToNames = "";
+                    var NewRowForAssignTo = "";
+
+                    if (CompanyModelList == null || CompanyModelList.Count==0)
+                    {
+                        stringtemp = $"<div class=\"col-md-12\">"+
+                                     $" No Comapny Name available...." +
+                                     $"</div>";
+                    }
+                    else
+                    {
+                        int i = 0;
+                        foreach (var tempname in CompanyModelList)
+                        {
+                            newRow +=
+                                     $"<div class=\"col-md-4\">" +
+                                     $"<div class=\"col-md-3\" style=\"padding:0px\">" +
+                                     $"<input class =\"CompanyModelList\" data-val=\"true\"" +
+                                     $"id=\"isActive\"" +
+                                     $"name=\"isActive\"" +
+                                     $"type=\"checkbox\"" +
+                                     $"value=\"{tempname.Company_Id}\"/>" +
+                                     $"</div>" +
+                                     $"<div class=\"col-md-9\" style=\"padding:0px\">" +
+                                     $"<span id =\"Category_Consulting\"> {tempname.Company_Name} </span>" +
+                                     $"</div>" +
+                                     $"</div>";
+                            i++;
+                            if (i == 3)
+                            {
+                                stringtemp +=
+                                     $"<div class=\"col-md-12\">" +
+                                     newRow+
+                                     $"</div> <br>";
+                                i = 0;
+                                newRow = "";
+                            }
+                            
+                        }
+                    }
+
+                    if (LeadCategoryDetails == null || LeadCategoryDetails.Count == 0)
+                    {
+                        leadCategoryNames = 
+                                     $"<div class=\"col-md-12\">" +
+                                     $" No Category Name available...." +
+                                     $"</div>";
+                    }
+                    else
+                    {
+                        int i = 0;
+                        foreach (var tempname in LeadCategoryDetails)
+                        {
+                            leadCategoryNames +=
+                                     $"<div class=\"col-md-4\">" +
+                                     $"<div class=\"col-md-3\" style=\"padding:0px\">" +
+                                     $"<input class =\"LeadCategoryDetails\" data-val=\"true\"" +
+                                     $"id=\"isActive\"" +
+                                     $"name=\"isActive\"" +
+                                     $"type=\"checkbox\"" +
+                                     $"value=\"{tempname.Category_Id}\"/>" +
+                                     $"</div>" +
+                                     $"<div class=\"col-md-9\" style=\"padding:0px\">" +
+                                     $"<span id =\"Category_Consulting\"> {tempname.Category_Name} </span>" +
+                                     $"</div>" +
+                                     $"</div>";
+                            i++;
+                            if (i == 3)
+                            {
+                                NewRowForCategory +=
+                                     $"<div class=\"col-md-12\">" +
+                                     leadCategoryNames +
+                                     $"</div> <br>";
+                                i = 0;
+                                leadCategoryNames = "";
+                            }
+
+                        }
+                    }
+
+                    if (AssignToDetails == null || AssignToDetails.Count == 0)
+                    {
+                        AssignToNames =
+                                     $"<div class=\"col-md-12\">" +
+                                     $" Data not available...." +
+                                     $"</div>";
+                    }
+                    else
+                    {
+                        int i = 0;
+                        foreach (var tempname in AssignToDetails)
+                        {
+                            AssignToNames +=
+                                     $"<div class=\"col-md-4\">" +
+                                     $"<div class=\"col-md-3\" style=\"padding:0px\">" +
+                                     $"<input class =\"AssignToDetails\" data - val=\"true\"" +
+                                     $"id=\"isActive\"" +
+                                     $"name=\"isActive\"" +
+                                     $"type=\"checkbox\"" +
+                                     $"value=\"{tempname.Employee_Id}\"/>" +
+                                     $"</div>" +
+                                     $"<div class=\"col-md-9\" style=\"padding:0px\">" +
+                                     $"<span id =\"Category_Consulting\"> {tempname.Employee_Name} </span>" +
+                                     $"</div>" +
+                                     $"</div>";
+                            i++;
+                            if (i == 3)
+                            {
+                                NewRowForAssignTo +=
+                                     $"<div class=\"col-md-12\">" +
+                                     AssignToNames +
+                                     $"</div> <br>";
+                                i = 0;
+                                AssignToNames = "";
+                            }
+
+                        }
+                    }
+
+                    fdm.GetCompanyListForFilter = stringtemp;
+                    fdm.GetCategoryListForFilter = NewRowForCategory;
+                    fdm.GetAssignToListForFilter = NewRowForAssignTo;
+                    return Json(fdm, JsonRequestBehavior.AllowGet);
 
                 }
 
