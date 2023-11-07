@@ -1369,13 +1369,6 @@ function SaveFormData(id) {
 		$('#TxtClientName').focus();
 		return;
 	}
-	else if (!onlyText.test(ClientName)) {
-		$('.help-block').html('');
-		$('#ClientNameDIV').addClass('has-error');
-		$('#ErrorForClientName').html('Enter valid Client Name');
-		$('#TxtClientName').focus();
-		return;
-	}
 	else if (Source == "") {
 		$('.help-block').html('');
 		$('#SourceDIV').addClass('has-error');
@@ -1511,7 +1504,7 @@ function SaveFormData(id) {
 					nevigateToProjectDetails();
 				}
 				else if (id == "btnDraft3") {
-					window.location.href = "/LeadManagement/Index";
+					window.location.href = "/Dashboard/Index";
 				}
 				$('#btnDraft').attr('onclick', 'UpdateLead(' + "'" + return_Data.LeadId + "'" + ',' + "'btnDraft'" + ');');
 				$('#btnDraft2').attr('onclick', 'UpdateLead(' + "'" + return_Data.LeadId + "'" + ',' + "'btnDraft2'" + ');');
