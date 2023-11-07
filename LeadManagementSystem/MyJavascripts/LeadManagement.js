@@ -1512,13 +1512,6 @@ function nevigateToEditContactDetails() {
 		$('#TxtClientName').focus();
 		return;
 	}
-	else if (!onlyText.test(ClientName)) {
-		$('.help-block').html('');
-		$('#ClientNameDIV').addClass('has-error');
-		$('#ErrorForClientName').html('Enter valid Client Name.');
-		$('#TxtClientName').focus();
-		return;
-	}
 	else if (Source == "") {
 		$('.help-block').html('');
 		$('#SourceDIV').addClass('has-error');
