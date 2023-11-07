@@ -31,7 +31,7 @@ namespace LeadManagementSystem.Controllers
             {
                 LeadSourceModel lcm = new LeadSourceModel();
                 LeadSourceDetails cd = new LeadSourceDetails();
-                var result = JsonConvert.DeserializeObject<LeadSourceModel>(LMSTransaction.get("GetLeadSourceList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                var result = JsonConvert.DeserializeObject<LeadSourceModel>(LMSTransaction.get("GetSourceList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                 lcm.LeadSourceDetails = result.LeadSourceDetails;
                 return PartialView("LeadSourceTablePartial", lcm);
             }

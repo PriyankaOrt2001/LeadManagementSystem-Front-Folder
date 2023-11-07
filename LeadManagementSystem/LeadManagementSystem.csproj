@@ -206,6 +206,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\personal-information.svg" />
     <Content Include="MyJavascripts\AddNewLead.js" />
     <Content Include="MyJavascripts\Category.js" />
     <Content Include="MyJavascripts\Company.js" />

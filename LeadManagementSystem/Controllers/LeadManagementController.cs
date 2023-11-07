@@ -605,7 +605,7 @@ namespace LeadManagementSystem.Controllers
                                      $"id=\"isActive\"" +
                                      $"name=\"isActive\"" +
                                      $"type=\"checkbox\"" +
-                                     $"value=\"{tempname.Company_Id}\"/>" +
+                                     $"value=\"{tempname.Company_Id}\" onclick=\"CompanyFilterCount()\"/>" +
                                      $"</div>" +
                                      $"<div class=\"col-md-9\" style=\"padding:0px\">" +
                                      $"<span id =\"Category_Consulting\"> {tempname.Company_Name} </span>" +
@@ -644,7 +644,7 @@ namespace LeadManagementSystem.Controllers
                                      $"id=\"isActive\"" +
                                      $"name=\"isActive\"" +
                                      $"type=\"checkbox\"" +
-                                     $"value=\"{tempname.Category_Id}\"/>" +
+                                     $"value=\"{tempname.Category_Id}\" onclick=\"CategoryFilterCount()\"/>"+
                                      $"</div>" +
                                      $"<div class=\"col-md-9\" style=\"padding:0px\">" +
                                      $"<span id =\"Category_Consulting\"> {tempname.Category_Name} </span>" +
@@ -683,7 +683,7 @@ namespace LeadManagementSystem.Controllers
                                      $"id=\"isActive\"" +
                                      $"name=\"isActive\"" +
                                      $"type=\"checkbox\"" +
-                                     $"value=\"{tempname.Employee_Id}\"/>" +
+                                     $"value=\"{tempname.Employee_Id}\" onclick=\"AssignToFilterCount()\"/>"+
                                      $"</div>" +
                                      $"<div class=\"col-md-9\" style=\"padding:0px\">" +
                                      $"<span id =\"Category_Consulting\"> {tempname.Employee_Name} </span>" +
