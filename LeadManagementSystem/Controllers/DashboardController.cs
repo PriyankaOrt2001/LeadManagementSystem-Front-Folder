@@ -35,10 +35,69 @@ namespace LeadManagementSystem.Controllers
                 ViewBag.TotalPriceOfGhostLeads = result.PriceOfGhostLeads;
 
                 LeadModel lm = new LeadModel();
-                var leadDetails = JsonConvert.DeserializeObject<LeadModel>(LMSTransaction.get("GetRecentLeadDetailsList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
-                lm.LeadList = leadDetails.LeadList;
+                var leadDetails = JsonConvert.DeserializeObject<RemarkModelList>(LMSTransaction.get("GetRecentRemarksList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                List<RemarkModel> RemarkModel = leadDetails.RemarkModels;
+                var stringtemp = "";
+                var classname = "";
+                var datahead = "RemarkDatahead";
+                int i = 0;
+                if (RemarkModel == null || RemarkModel.Count == 0)
+                {
+                    stringtemp = "No Remarks.....";
+                }
+                else
+                {
+                    foreach (var tempname in RemarkModel)
+                    {
+                        i++;
+                        if (i == 8)
+                        {
+                            break;
+                        }
+                        else
+                        {
+
+                            if (tempname.Status == "Converted")
+                            {
+                                classname = "ConvertRemarkData_Block";
+                            }
+                            else if (tempname.Status == "Closed")
+                            {
+                                classname = "ClosedRemarkData_Block";
+                            }
+                            else
+                            {
+                                classname = "RemarkData_Block";
+                            }
+                            if (tempname.CreatedBy == "1")
+                            {
+                                datahead = "AdminRemarkDatahead";
+                            }
+                            else
+                            {
+                                datahead = "RemarkDatahead";
+                            }
+                            stringtemp +=
+                                $"<div class=\"{classname}\">" +
+                                $"<div class=\"d-flex\">" +
+                                $"<div class=\"me-auto\">" +
+                                $"<p class=\"{datahead}\">{tempname.CreatedByName} <span><i class=\"fa fa-arrow-right\" aria-hidden=\"true\"></i></span> {tempname.ClientName}</p></div>" +
+                                $"<div class=\"RemarkDataDes\">" +
+                                $"{tempname.Remark}" +
+                                $"</div>" +
+                                $"<div class=\"\">" +
+                                $"<p class=\"RemarkDatadate\">{tempname.CreatedDate} ({tempname.CreatedTime})</p>" +
+                                $"</div>" +
+                                $"</div>" +
+                                $"</div>";
+                        }
+                    }
+                }
+
+                ViewBag.GetRemarksList = stringtemp;
+
                 ViewBag.LineChartData = result.LeadList;
-                return View("Index", lm);
+                return View();
             }
             else
             {

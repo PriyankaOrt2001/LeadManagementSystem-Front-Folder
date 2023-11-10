@@ -1,4 +1,4 @@
-﻿function RemoveLeadSource(element) {
+﻿function RemoveLeadOwner(element) {
 	bootbox.confirm({
 		message: "Are you sure you want to delete this?",
 		buttons: {
@@ -18,7 +18,7 @@
 				document.body.style.paddingRight = '0px';
 				$.ajax({
 					type: 'POST',
-					url: ServerURL + 'Source/DeleteLeadSource',
+					url: ServerURL + 'Source/DeleteLeadOwner',
 					data: JSON.stringify({ id: id }),
 					contentType: 'application/json; charset=utf-8',
 					success: function (return_Data) {
@@ -64,10 +64,10 @@ function SaveFormData() {
 		return;
 	}
 	var formdata = new FormData();
-	formdata.append("Source_Name", LeadSourceName);
+	formdata.append("Owner_Name", LeadSourceName);
 	$.ajax({
 		type: "POST",
-		url: ServerURL + '/Source/AddNewSourceName',
+		url: ServerURL + '/Source/AddNewLeadOwner',
 		data: formdata,
 		processData: false,
 		contentType: false,
@@ -117,11 +117,11 @@ $(document).keypress(function (e) {
 	$(".txtdiv").removeClass('has-error');
 	$(".form-group > span").html('');
 });
-function EditLeadSource(id) {
+function EditLeadOwner(id) {
 	debugger;
 	$.ajax({
 		type: "POST",
-		url: ServerURL + 'Source/ViewLeadSource',
+		url: ServerURL + 'Source/ViewLeadOwner',
 		data: JSON.stringify({ id: id }),
 		contentType: 'application/json; charset=utf-8',
 		success: function (return_Data) {
@@ -131,11 +131,11 @@ function EditLeadSource(id) {
 				window.location.href = "/LogIn/LogInForm";
 			} else (return_Data != null)
 			{
-				$('#TxtLeadSourceName').val(return_Data.Source_Name);
+				$('#TxtLeadSourceName').val(return_Data.Owner_Name);
 
 				$('#boxTitle').text('Update Owner Details');
 				$('#btnSave').text('Update');
-				$('#btnSave').attr('onclick', 'UpdateLeadSource(' + id + ');');
+				$('#btnSave').attr('onclick', 'UpdateLeadOwner(' + id + ');');
 
 			}
 
@@ -143,7 +143,7 @@ function EditLeadSource(id) {
 	});
 
 }
-function UpdateLeadSource(id) {
+function UpdateLeadOwner(id) {
 	debugger;
 	var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //To check Email ID
 	var onlyText = /^[a-zA-Z0-9\s-]*$/;
@@ -163,11 +163,11 @@ function UpdateLeadSource(id) {
 		return;
 	}
 	var formdata = new FormData();
-	formdata.append("Source_Name", LeadSourceName);
-	formdata.append("Source_Id", id);
+	formdata.append("Owner_Name", LeadSourceName);
+	formdata.append("Owner_Id", id);
 	$.ajax({
 		type: "POST",
-		url: ServerURL + '/Source/UpdateLeadSource',
+		url: ServerURL + '/Source/UpdateLeadOwner',
 		data: formdata,
 		processData: false,
 		contentType: false,

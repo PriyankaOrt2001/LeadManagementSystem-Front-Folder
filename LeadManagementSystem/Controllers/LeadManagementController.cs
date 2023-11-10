@@ -46,12 +46,19 @@ namespace LeadManagementSystem.Controllers
                 {
                     stringtemp += "<option value='" + tempname.Company_Id + "'>" + tempname.Company_Name + "</option>";
                 }
-                var leadSouceNamesList = JsonConvert.DeserializeObject<LeadSourceModel>(LMSTransaction.get("GetLeadSourceList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                var leadSouceNamesList = JsonConvert.DeserializeObject<LeadSourceModel>(LMSTransaction.get("GetSourceList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                 List<LeadSourceDetails> LeadSourceDetails = leadSouceNamesList.LeadSourceDetails;
                 var leadSouceNames = "";
                 foreach (var LeadSource in LeadSourceDetails)
                 {
                     leadSouceNames += "<option value='" + LeadSource.Source_Id + "'>" + LeadSource.Source_Name + "</option>";
+                }
+                var leadOwnerNamesList = JsonConvert.DeserializeObject<LeadOwnerModel>(LMSTransaction.get("GetOwnerList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                List<LeadOwnerDetails> LeadOwnerDetails = leadOwnerNamesList.LeadOwnerDetails;
+                var leadOwnerNames = "";
+                foreach (var LeadOwner in LeadOwnerDetails)
+                {
+                    leadOwnerNames += "<option value='" + LeadOwner.Owner_Id + "'>" + LeadOwner.Owner_Name + "</option>";
                 }
                 var leadCategoryList = JsonConvert.DeserializeObject<LeadCategoryModel>(LMSTransaction.get("GetLeadCategoryList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                 List<LeadCategoryDetails> LeadCategoryDetails = leadCategoryList.LeadCategoryList;
@@ -74,11 +81,32 @@ namespace LeadManagementSystem.Controllers
                 {
                     PlanNames += "<option value='" + plan.Plan_Id + "'>" + plan.Plan_Name + "</option>";
                 }
+                var GetClientDetailsList = JsonConvert.DeserializeObject<ClientModel>(LMSTransaction.get("GetClientDetailsList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                List<ClientDetails> ClientDetails = GetClientDetailsList.ClientList;
+                var ClientNames = "";
+                
+                int i = 0;
+                int j = ClientDetails.Count();
+                foreach (var clientname in ClientDetails)
+                {
+                    i++;
+                    if (i == j)
+                    {
+                        ClientNames += "<a href=\"#" + clientname.Client_Name + "\" style=\"border-bottom: 1px solid #d2d6de;\" data-value=\"" + clientname.Client_Name + "\">" + clientname.Client_Name + "</a>";
+                    }
+                    else
+                    {
+                        ClientNames += "<a href=\"#" + clientname.Client_Name + "\" data-value=\"" + clientname.Client_Name + "\">" + clientname.Client_Name + "</a>";
+                    }
+                }
                 ViewBag.PlanDetails = PlanNames;
                 ViewBag.AssignTo = AssignToNames;
                 ViewBag.CompanyModelList = stringtemp;
                 ViewBag.LeadSourceList = leadSouceNames;
+                ViewBag.LeadOwnerList = leadOwnerNames;
                 ViewBag.ProjectTypeModelList = leadCategoryNames;
+                ViewBag.ClientNamesList = "";
+                ViewBag.ClientNamesList = ClientNames;
                 return View();              
             }
             else
@@ -111,12 +139,19 @@ namespace LeadManagementSystem.Controllers
                 {
                     stringtemp += "<option value='" + tempname.Company_Id + "'>" + tempname.Company_Name + "</option>";
                 }
-                var leadSouceNamesList = JsonConvert.DeserializeObject<LeadSourceModel>(LMSTransaction.get("GetLeadSourceList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                var leadSouceNamesList = JsonConvert.DeserializeObject<LeadSourceModel>(LMSTransaction.get("GetSourceList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                 List<LeadSourceDetails> LeadSourceDetails = leadSouceNamesList.LeadSourceDetails;
                 var leadSouceNames = "";
                 foreach (var LeadSource in LeadSourceDetails)
                 {
                     leadSouceNames += "<option value='" + LeadSource.Source_Id + "'>" + LeadSource.Source_Name + "</option>";
+                }
+                var leadOwnerNamesList = JsonConvert.DeserializeObject<LeadOwnerModel>(LMSTransaction.get("GetOwnerList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                List<LeadOwnerDetails> LeadOwnerDetails = leadOwnerNamesList.LeadOwnerDetails;
+                var leadOwnerNames = "";
+                foreach (var LeadOwner in LeadOwnerDetails)
+                {
+                    leadOwnerNames += "<option value='" + LeadOwner.Owner_Id + "'>" + LeadOwner.Owner_Name + "</option>";
                 }
                 var leadCategoryList = JsonConvert.DeserializeObject<LeadCategoryModel>(LMSTransaction.get("GetLeadCategoryList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                 List<LeadCategoryDetails> LeadCategoryDetails = leadCategoryList.LeadCategoryList;
@@ -139,11 +174,31 @@ namespace LeadManagementSystem.Controllers
                 {
                     PlanNames += "<option value='" + plan.Plan_Id + "'>" + plan.Plan_Name + "</option>";
                 }
+                var GetClientDetailsList = JsonConvert.DeserializeObject<ClientModel>(LMSTransaction.get("GetClientDetailsList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                List<ClientDetails> ClientDetails = GetClientDetailsList.ClientList;
+                var ClientNames = "";
+                int i = 0;
+                int j = ClientDetails.Count();
+                foreach (var clientname in ClientDetails)
+                {
+                    i++;
+                    if (i == j)
+                    {
+                        ClientNames += "<a href=\"#" + clientname.Client_Name + "\" style=\"border-bottom: 1px solid #d2d6de;\" data-value=\"" + clientname.Client_Name + "\">" + clientname.Client_Name + "</a>";
+                    }
+                    else
+                    {
+                        ClientNames += "<a href=\"#" + clientname.Client_Name + "\" data-value=\"" + clientname.Client_Name + "\">" + clientname.Client_Name + "</a>";
+                    }
+                }
                 ViewBag.PlanDetails = PlanNames;
                 ViewBag.AssignTo = AssignToNames;
                 ViewBag.CompanyModelList = stringtemp;
                 ViewBag.LeadSourceList = leadSouceNames;
+                ViewBag.LeadOwnerList = leadOwnerNames;
                 ViewBag.ProjectTypeModelList = leadCategoryNames;
+                ViewBag.ClientNamesList = "";
+                ViewBag.ClientNamesList = ClientNames;
                 return View();
             }
             else
@@ -172,6 +227,7 @@ namespace LeadManagementSystem.Controllers
                 return RedirectToAction("LogInForm", "LogIn");
             }
         }
+
         public ActionResult FilterLeadTablePartial(FilterBy filterBy)
         {
             if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
@@ -517,6 +573,8 @@ namespace LeadManagementSystem.Controllers
                     var result = JsonConvert.DeserializeObject<RemarkModelList>(LMSTransaction.get("GetRemarksList?Lead_Id=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     List<RemarkModel> RemarkModel = result.RemarkModels;
                     var stringtemp = "";
+                    var classname = "";
+                    var datahead = "RemarkDatahead";
                     if (RemarkModel == null || RemarkModel.Count == 0)
                     {
                         stringtemp = "No Remarks.....";
@@ -525,11 +583,31 @@ namespace LeadManagementSystem.Controllers
                     {
                         foreach (var tempname in RemarkModel)
                         {
+                            if (tempname.Status == "Converted")
+                            {
+                                classname = "ConvertRemarkData_Block";
+                            }
+                            else if(tempname.Status == "Closed")
+                            {
+                                classname = "ClosedRemarkData_Block";
+                            }
+                            else
+                            {
+                                classname = "RemarkData_Block";
+                            }
+                            if (tempname.CreatedBy == "1")
+                            {
+                                datahead = "AdminRemarkDatahead";
+                            }
+                            else
+                            {
+                                datahead = "RemarkDatahead";
+                            }
                             stringtemp +=
-                                $"<div class=\"RemarkData_Block\">" +
+                                $"<div class=\"{classname}\">" +
                                 $"<div class=\"d-flex\">" +
                                 $"<div class=\"me-auto\">" +
-                                $"<p class=\"RemarkDatahead\">{tempname.CreatedByName}</p></div>" +
+                                $"<p class=\"{datahead}\">{tempname.CreatedByName}</p></div>" +
                                 $"<div class=\"\">" +
                                 $"<p class=\"RemarkDatadate\">{tempname.CreatedDate} ({tempname.CreatedTime})</p>" +
                                 $"</div>" +

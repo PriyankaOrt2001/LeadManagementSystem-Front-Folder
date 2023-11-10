@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_MyLayout.cshtml";
 }
 
+
 <style>
     .dataTable > thead > tr > th[class*="sort"]:before,
     .dataTable > thead > tr > th[class*="sort"]:after {
@@ -133,7 +134,7 @@
     }
 </style>
 <section class="content-header">
-    <h1>Owner Details</h1>
+    <h1>Lead Source Details</h1>
     @*<ol class="breadcrumb" id="toLeadDetails">
             <li class="active"><a href="@Url.Action("Index","LeadManagement")" onclick="Leadtable();">Lead Details</a></li>
             <li id="currentPage">Edit Lead</li>
@@ -145,7 +146,7 @@
     <div class="col-md-12">
         <div class="box box-primary with-border" id="LeadSourceDataDIV">
             <div class="box-header with-border">
-                <h3 class="box-title" id="boxTitle">Add Owner Details</h3>
+                <h3 class="box-title" id="boxTitle">Add Lead Source Details</h3>
 
             </div>
             <div class="box-body">
@@ -158,8 +159,8 @@
                                 <div class="col-md-12">
                                     <div class="col-md-4">
                                         <div class="form-group" id="LeadSourceNameDIV">
-                                            <label>Owner Name<span class="text-danger">*</span></label>
-                                            <input type="text" maxlength="25" class="form-control" id="TxtLeadSourceName" placeholder="Enter Owner Name" autocomplete="off" />
+                                            <label>Lead Source Name<span class="text-danger">*</span></label>
+                                            <input type="text" maxlength="25" class="form-control" id="TxtLeadSourceName" placeholder="Enter Lead Source Name" autocomplete="off" />
                                             <span class="help-block" id="ErrorForLeadSource"></span>
                                         </div>
                                     </div>
@@ -201,7 +202,7 @@
 
         function refreshDataTable() {
             debugger;
-            $("#LeadSourceDetails").load("@Url.Action("LeadSourceTablePartial", "Source")", function () {
+            $("#LeadSourceDetails").load("@Url.Action("LeadSourceDetailsTablePartial", "LeadSource")", function () {
                 $("#TableLeadSource").DataTable();
          });
 
@@ -210,9 +211,9 @@
             debugger;
             refreshDataTable()
         });
-        
+
     </script>
-    <script src="~/MyJavascripts/LeadOwnerDetails.js"></script>
+    <script src="~/MyJavascripts/LeadSource.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
     <script src="https://unpkg.com/bootstrap-multiselect@0.9.13/dist/js/bootstrap-multiselect.js"></script>
@@ -221,6 +222,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
 
 }
+
 
 
 
