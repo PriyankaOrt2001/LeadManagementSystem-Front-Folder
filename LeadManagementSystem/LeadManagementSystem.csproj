@@ -184,6 +184,7 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LeadManagementController.cs" />
+    <Compile Include="Controllers\LeadSourceController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\PlanDetailController.cs" />
     <Compile Include="Controllers\SourceController.cs" />
@@ -213,6 +214,7 @@
     <Content Include="MyJavascripts\Dashboard.js" />
     <Content Include="MyJavascripts\Employee.js" />
     <Content Include="MyJavascripts\LeadManagement.js" />
+    <Content Include="MyJavascripts\LeadOwnerDetails.js" />
     <Content Include="MyJavascripts\LeadSource.js" />
     <Content Include="MyJavascripts\LogIn.js" />
     <Content Include="MyJavascripts\PlanDetails.js" />
@@ -312,6 +314,8 @@
     <Content Include="Views\LeadManagement\AddNewLead.cshtml" />
     <Content Include="Views\Notification\Index.cshtml" />
     <Content Include="Views\Notification\NotificationTablePartial.cshtml" />
+    <Content Include="Views\LeadSource\Index.cshtml" />
+    <Content Include="Views\LeadSource\LeadSourceDetailsTablePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

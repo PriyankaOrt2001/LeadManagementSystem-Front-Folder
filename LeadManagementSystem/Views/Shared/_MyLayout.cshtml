@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Lead Management System</title>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="~/ThemeContent/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/ThemeContent/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/ThemeContent/css/ionicons.min.css" rel="stylesheet" />
@@ -22,7 +22,77 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css" rel="stylesheet" />
 
     <link href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css" />
+
     <style>
+
+        @@media (max-width: 767px) {
+            .navbar-custom-menu {
+                padding: 5px 10px;
+            }
+
+            .user-menu {
+                margin-right: 5px;
+            }
+
+            .dropdown-menu {
+                width: 100%;
+                box-shadow: none;
+            }
+
+            .user-header, .user-footer {
+                width: 100%;
+                box-shadow: none;
+            }
+            .navbar-nav > li > a {
+                padding: 10px 15px;
+            }
+
+            .navbar-custom-menu {
+                padding: 5px;
+            }
+
+            .user-menu {
+                margin-right: 5px;
+            }
+
+            .dropdown-menu {
+                width: 100%;
+                box-shadow: none;
+            }
+
+            .user-header, .user-footer {
+                width: 100%;
+                box-shadow: none;
+            }
+            .main-sidebar {
+                display: none;
+            }
+
+            .sidebar-toggle {
+                display: block;
+            }
+
+            .content-wrapper {
+                margin-left: 0;
+            }
+            .col-md-12 {
+                width: 100%;
+            }
+
+            .box {
+                height: auto;
+            }
+
+            .col-md-4 {
+                width: 100%;
+            }
+
+            #chartContainer {
+                width: 100%;
+                height: 300px; /* Adjust as needed */
+            }
+
+        }
         .login-title {
             display: grid;
             color: #fff;
@@ -136,13 +206,25 @@
             font-weight: 600;
             color: #3c8dbc;
         }
+        .nav-fixed {
+            position: fixed !important;
+            top: 0;
+            width: 100% !important;
+        }
+        .mt-50{
+            margin-top:50px
+        }
+        .main-footer {
+            text-align: center;
+            margin-left: 0px;
+        }
     </style>
 
 </head>
 
 <body class="skin-blue sidebar-mini sidebar-collapse" id="body" style="padding-right: unset">
     <div class="wrapper" style="height: auto;">
-        <header class="main-header">
+        <header class="main-header nav-fixed ">
             <a href="/Dashboard/Index " class="logo">
                 <span class="logo-mini" style="font-size: 16px;"><b>LMS</b></span>
                 <span style="font-size: 16px;">Lead Management System</span>
@@ -213,10 +295,11 @@
                                 <li class="myInnerLi"><a href="@Url.Action("Index","LeadManagement")" id="3"><i class="fa fa-circle-o"></i>Lead Master</a></li>
                                 <li class="myInnerLi"><a href="@Url.Action("Index","Category")" id="4"><i class="fa fa-circle-o"></i>Category Master</a></li>
                                 <li class="myInnerLi"><a href="@Url.Action("Index","TypeOfLead")" id="5"><i class="fa fa-circle-o"></i>Sub Category Master</a></li>
-                                <li class="myInnerLi"><a href="@Url.Action("Index","Company")" id="5"><i class="fa fa-circle-o"></i>Company Master</a></li>
-                                <li class="myInnerLi"><a href="@Url.Action("Index","Employee")" id="5"><i class="fa fa-circle-o"></i>Assign To Master</a></li>
-                                <li class="myInnerLi"><a href="@Url.Action("Index","Source")" id="5"><i class="fa fa-circle-o"></i>Lead Source</a></li>
-                                <li class="myInnerLi"><a href="@Url.Action("Index","PlanDetail")" id="5"><i class="fa fa-circle-o"></i>Plan Detail Master</a></li>
+                                <li class="myInnerLi"><a href="@Url.Action("Index","Company")" id="6"><i class="fa fa-circle-o"></i>Company Master</a></li>
+                                <li class="myInnerLi"><a href="@Url.Action("Index","Employee")" id="7"><i class="fa fa-circle-o"></i>Assign To Master</a></li>
+                                <li class="myInnerLi"><a href="@Url.Action("Index","Source")" id="8"><i class="fa fa-circle-o"></i>Owner Master</a></li>
+                                <li class="myInnerLi"><a href="@Url.Action("Index","LeadSource")" id="9"><i class="fa fa-circle-o"></i>Lead Source Master</a></li>
+                                <li class="myInnerLi"><a href="@Url.Action("Index","PlanDetail")" id="10"><i class="fa fa-circle-o"></i>Plan Detail Master</a></li>
 
                             </ul>
                         </li>
@@ -227,7 +310,7 @@
             </div>
         </aside>
         <div class="content-wrapper" style="min-height: 229px; background-color: white;">
-            <section class="content" style="padding-top: 0px;padding-right: 25px;">
+            <section class="content mt-50" style="padding-top: 0px;padding-right: 25px;">
                 @RenderBody()
             </section>
         </div>

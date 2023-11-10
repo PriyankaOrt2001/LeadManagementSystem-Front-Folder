@@ -53,6 +53,7 @@ namespace LeadManagementSystem.MODEL
         public string AlternateSpokesName { get; set; }
         public string AlternateSpokesMobile { get; set; }
         public string AlternateEmailAddress { get; set; }
+        public string AlternateSpokesAddress { get; set; }
         public string PlanId { get; set; }
         public string PlanName { get; set; }
         public string PlanPrice { get; set; }
@@ -122,6 +123,14 @@ namespace LeadManagementSystem.MODEL
         {
             get; set;
         }
+        public string Status
+        {
+            get;set;
+        }
+        public string ClientName
+        {
+            get; set;
+        } = "";
     }
     public class FilterDetailsModel
     {

@@ -88,6 +88,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientListModel.cs" />
     <Compile Include="CompanyModel.cs" />
     <Compile Include="DashboardModel.cs" />
     <Compile Include="ExceptionModel.cs" />
