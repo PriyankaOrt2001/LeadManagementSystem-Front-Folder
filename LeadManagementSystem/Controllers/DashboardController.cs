@@ -77,10 +77,13 @@ namespace LeadManagementSystem.Controllers
                                 datahead = "RemarkDatahead";
                             }
                             stringtemp +=
+
                                 $"<div class=\"{classname}\">" +
                                 $"<div class=\"d-flex\">" +
                                 $"<div class=\"me-auto\">" +
-                                $"<p class=\"{datahead}\">{tempname.CreatedByName} <span><i class=\"fa fa-arrow-right\" aria-hidden=\"true\"></i></span> {tempname.ClientName}</p></div>" +
+                                $"<p class=\"{datahead}\">{tempname.CreatedByName} </p> " +
+                                //$"<span><i class=\"fa fa-arrow-right\" aria-hidden=\"true\"></i></span> " +
+                                $"<p class=\"RemarkDatahead\">{tempname.ClientName}</p></div>" +
                                 $"<div class=\"RemarkDataDes\">" +
                                 $"{tempname.Remark}" +
                                 $"</div>" +
