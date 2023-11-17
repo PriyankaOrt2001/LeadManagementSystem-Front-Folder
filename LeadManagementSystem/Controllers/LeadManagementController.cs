@@ -521,6 +521,10 @@ namespace LeadManagementSystem.Controllers
             {
                 if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
                 {
+                    if(remarkModel.Status== "undefined")
+                    {
+                        remarkModel.Status = "";
+                    }
                     remarkModel.CreatedBy = Convert.ToString(Session["Admin_ID"]);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddRemark", remarkModel, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
@@ -574,6 +578,7 @@ namespace LeadManagementSystem.Controllers
                     List<RemarkModel> RemarkModel = result.RemarkModels;
                     var stringtemp = "";
                     var classname = "";
+                    var status = "";
                     var datahead = "RemarkDatahead";
                     if (RemarkModel == null || RemarkModel.Count == 0)
                     {
@@ -585,14 +590,17 @@ namespace LeadManagementSystem.Controllers
                         {
                             if (tempname.Status == "Converted")
                             {
+                                status = tempname.Status;
                                 classname = "ConvertRemarkData_Block";
                             }
                             else if(tempname.Status == "Closed")
                             {
+                                status = tempname.Status;
                                 classname = "ClosedRemarkData_Block";
                             }
                             else
                             {
+                                status = "";
                                 classname = "RemarkData_Block";
                             }
                             if (tempname.CreatedBy == "1")
@@ -605,16 +613,17 @@ namespace LeadManagementSystem.Controllers
                             }
                             stringtemp +=
                                 $"<div class=\"{classname}\">" +
-                                $"<div class=\"d-flex\">" +
-                                $"<div class=\"me-auto\">" +
-                                $"<p class=\"{datahead}\">{tempname.CreatedByName}</p></div>" +
-                                $"<div class=\"\">" +
-                                $"<p class=\"RemarkDatadate\">{tempname.CreatedDate} ({tempname.CreatedTime})</p>" +
-                                $"</div>" +
-                                $"</div>" +
                                 $"<div class=\"RemarkDataDes\">" +
                                 $"{tempname.Remark}" +
                                 $"</div>" +
+                                $"<div class=\"d-flex float-container\">" +
+                                $"<div class=\"me-auto float-child\">" +
+                                $"<p><span class=\"{datahead}\">{tempname.CreatedByName} </span>{tempname.CreatedDate} ({tempname.CreatedTime})</p></div>" +
+                                $"<div class=\"float-child\">" +
+                                $"<p class=\"RemarkDatadate\">{status}</p>" +
+                                $"</div>" +
+                                $"</div>" +
+                                
                                 $"</div>";
                         }
                     }
