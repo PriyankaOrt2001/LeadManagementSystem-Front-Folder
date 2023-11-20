@@ -1982,7 +1982,21 @@ $('#showClientName').click(function () {
 	}
 
 });
+$('#TxtClientName').change(function () {
+	debugger;
 
+	$('#myDropdown').css('display', 'block');
+	var a_tags = document.querySelectorAll(".dropdown-content a");
+
+	for (var i = 0; i < a_tags.length; i++) {
+		if (window.getComputedStyle(a_tags[i]).display === "none") {
+			a_tags[i].style.display = "block";
+		} else {
+			a_tags[i].style.display = "none";
+		}
+	}
+
+});
 document.getElementById("myDropdown").addEventListener("click", function (event) {
 	var target = event.target;
 	if (target.tagName === "A") {
@@ -1996,32 +2010,20 @@ function filterFunction() {
 	input = document.getElementById("TxtClientName");
 	filter = input.value.toUpperCase();
 	a = document.querySelectorAll(".dropdown-content a");
-
-	for (i = 0; i < a.length; i++) {
-		txtValue = a[i].getAttribute("data-value");
-		if (txtValue.toUpperCase().indexOf(filter) > -1) {
-			a[i].style.display = "block";
-		} else {
-			a[i].style.display = "none";
+	if (filter == "") {
+		$('.dropdown-content a').css('display', 'block');
+		$('#myDropdown').css('display', 'block');
+	}
+	else {
+		for (i = 0; i < a.length; i++) {
+			txtValue = a[i].getAttribute("data-value");
+			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				a[i].style.display = "block";
+			} else {
+				a[i].style.display = "none";
+			}
 		}
 	}
-	var dropdownContent = document.getElementById("myDropdown");
-	var allLinks = dropdownContent.getElementsByTagName("a");
-
-	// Check if all links have display: none
-	var allHidden = true;
-	for (var i = 0; i < allLinks.length; i++) {
-		if (allLinks[i].style.display !== "none") {
-			allHidden = false;
-			break;
-		}
-	}
-
-	// If all links have display: none, hide the dropdown
-	if (allHidden) {
-		dropdownContent.style.display = "none";
-	}
-
 }
 $(document).mouseup(function (e) {
 	$('.dropdown-content a').css('display', 'none');
