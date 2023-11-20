@@ -578,6 +578,9 @@ a slight movement of the header row */
         height: 35px;
         padding-top: 0px;
     }
+    .table-header {
+        padding: 14px;
+    }
 </style>
 <section class="content-header padding-title">
     <h1 id="content_header">Lead Details</h1>
@@ -972,16 +975,16 @@ a slight movement of the header row */
 
         </div>
         <div class="box box-primary with-border" id="LeadTableDIV">
-            <div class="box-header with-border">
-                <h3 class="box-title" id="boxTitle"></h3>
-                <a class="btn btn-primary" style="font-weight:600;margin-right:4px;" id="btnDownloadReport">Download Report</a>
+            <div class="box-header with-border d-flex align-items-center justify-content-between table-header">
+                <h3 class="box-title" id="boxTitle">Lead Details</h3>
                 <div class="box-tools">
-                    @*<input type="text" id="TxtFilterDate" placeholder="yyyy/mm/dd">*@
-                    <a class="btn btn-primary" style="font-weight:600;margin-right:4px;" onclick="@("window.location.href='" + @Url.Action("AddNewLead", "LeadManagement") + "'");" id="btnAddLead">+ Add Lead</a>
-                    <a class="btn btn-primary" style="font-weight:600;margin-right:4px;" onclick="showFavLead();" id="btnAddLead">Favorites</a>
-                    <a class="btn btn-primary" style="font-weight:600;margin-right:4px;" id="btnFilter" onclick="showFilter()"><i class="fa fa-filter"></i> Filter</a>
+                    <a class="btn btn-primary" style="font-weight: 600; margin-right: 4px;" id="btnDownloadReport">Download Report</a>
+                    <a class="btn btn-primary" style="font-weight: 600; margin-right: 4px;" onclick="window.location.href='/LeadManagement/AddNewLead';" id="btnAddLead">+ Add Lead</a>
+                    <a class="btn btn-primary" style="font-weight: 600; margin-right: 4px;" onclick="showFavLead();" id="btnFavorites">Favorites</a>
+                    <a class="btn btn-primary" style="font-weight: 600; margin-right: 4px;" id="btnFilter" onclick="showFilter()"><i class="fa fa-filter"></i> Filter</a>
                 </div>
             </div>
+
             <div class="box-body">
 
                 <div class="col-md-12" id="LeadTable">
