@@ -1863,53 +1863,93 @@ function resetFilter(){
 	$('#CountOfAssignToFilter').hide();
 	$('#CountOfPriorityFilter').hide();
 	refreshDataTable(0);
+	TotalFilterCount = 0;
+	countOfCheckedCompanyCheckbox = 0;
+	countOfCheckedCategoryCheckbox = 0;
+	countOfCheckedAssignToCheckbox = 0;
+	countOfCheckedPriorityCheckbox = 0;
+	$('#TotalFilterCount').css('display', 'none');
 }
-
+var TotalFilterCount = 0;
+var countOfCheckedCompanyCheckbox = 0;
+var countOfCheckedCategoryCheckbox = 0;
+var countOfCheckedAssignToCheckbox = 0;
+var countOfCheckedPriorityCheckbox = 0;
+TotalFilterCount = countOfCheckedCompanyCheckbox + countOfCheckedCategoryCheckbox + countOfCheckedAssignToCheckbox + countOfCheckedPriorityCheckbox;
 function CompanyFilterCount() {
 	debugger;
 	var checkedCheckboxes = $('.CompanyModelList:checked');
-	var countOfCheckedCompanyCheckbox = checkedCheckboxes.length;
+	countOfCheckedCompanyCheckbox = checkedCheckboxes.length;
+	TotalFilterCount = countOfCheckedCompanyCheckbox + countOfCheckedCategoryCheckbox + countOfCheckedAssignToCheckbox + countOfCheckedPriorityCheckbox;
+	$('#TotalFilterCount').text(TotalFilterCount);
+	$('#TotalFilterCount').css('display', 'initial');
 	if (checkedCheckboxes.length > 0) {
 		$('#CountOfCompanyFilter').text(countOfCheckedCompanyCheckbox);
 		$('#CountOfCompanyFilter').show();
-	}
+		
+	} 
 	else {
 		$('#CountOfCompanyFilter').hide();
     }
-	
+	if (TotalFilterCount == 0) {
+		$('#TotalFilterCount').css('display', 'none');
+	}
 }
 function CategoryFilterCount() {
 	debugger;
 	var checkedCheckboxes = $('.LeadCategoryDetails:checked');
-	var countOfCheckedCategoryCheckbox = checkedCheckboxes.length;
+	countOfCheckedCategoryCheckbox = checkedCheckboxes.length;
+	TotalFilterCount = countOfCheckedCompanyCheckbox + countOfCheckedCategoryCheckbox + countOfCheckedAssignToCheckbox + countOfCheckedPriorityCheckbox;
+	$('#TotalFilterCount').text(TotalFilterCount);
+	$('#TotalFilterCount').css('display', 'initial');
 	if (checkedCheckboxes.length > 0) {
 		$('#CountOfCategoryFilter').text(countOfCheckedCategoryCheckbox);
 		$('#CountOfCategoryFilter').show();
+		
 	} else {
 		$('#CountOfCategoryFilter').hide();
-    }
+	}
+	if (TotalFilterCount == 0) {
+		$('#TotalFilterCount').css('display', 'none');
+	}
 }
 function AssignToFilterCount() {
 	debugger;
 	var checkedCheckboxes = $('.AssignToDetails:checked');
-	var countOfCheckedAssignToCheckbox = checkedCheckboxes.length;
+	countOfCheckedAssignToCheckbox = checkedCheckboxes.length;
+	TotalFilterCount = countOfCheckedCompanyCheckbox + countOfCheckedCategoryCheckbox + countOfCheckedAssignToCheckbox + countOfCheckedPriorityCheckbox;
+	$('#TotalFilterCount').text(TotalFilterCount);
+	$('#TotalFilterCount').css('display', 'initial');
 	if (checkedCheckboxes.length > 0) {
 		$('#CountOfAssignToFilter').text(countOfCheckedAssignToCheckbox);
 		$('#CountOfAssignToFilter').show();
+		
 	} else {
 		$('#CountOfAssignToFilter').hide();
+	}
+	if (TotalFilterCount == 0) {
+		$('#TotalFilterCount').css('display', 'none');
 	}
 }
 function PriorityFilterCount() {
 	debugger;
 	var checkedCheckboxes = $('.PriorityList:checked');
-	var countOfCheckedPriorityCheckbox = checkedCheckboxes.length;
+	countOfCheckedPriorityCheckbox = checkedCheckboxes.length;
+	TotalFilterCount = countOfCheckedCompanyCheckbox + countOfCheckedCategoryCheckbox + countOfCheckedAssignToCheckbox + countOfCheckedPriorityCheckbox;
+	$('#TotalFilterCount').text(TotalFilterCount);
+	$('#TotalFilterCount').css('display', 'initial');
+	TotalFilterCount = countOfCheckedCompanyCheckbox + countOfCheckedCategoryCheckbox + countOfCheckedAssignToCheckbox + countOfCheckedPriorityCheckbox;
 	if (checkedCheckboxes.length > 0) {
 		$('#CountOfPriorityFilter').text(countOfCheckedPriorityCheckbox);
 		$('#CountOfPriorityFilter').show();
+		
 	} else {
+		
 		$('#CountOfPriorityFilter').hide();
 	}
+	if (TotalFilterCount == 0) {
+		$('#TotalFilterCount').css('display', 'none');
+    }
 }
 
 function getCountOfUnseenNotification(UserId) {
