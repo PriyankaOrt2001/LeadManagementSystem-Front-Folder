@@ -581,6 +581,10 @@ a slight movement of the header row */
     .table-header {
         padding: 14px;
     }
+    .table-btn-style {
+        font-weight: 600;
+        margin-right: 4px;
+    }
 </style>
 <section class="content-header padding-title">
     <h1 id="content_header">Lead Details</h1>
@@ -978,12 +982,18 @@ a slight movement of the header row */
             <div class="box-header with-border d-flex align-items-center justify-content-between table-header">
                 <h3 class="box-title" id="boxTitle">Lead Details</h3>
                 <div class="box-tools">
-                    <a class="btn btn-primary" style="font-weight: 600; margin-right: 4px;" id="btnDownloadReport">Download Report</a>
-                    <a class="btn btn-primary" style="font-weight: 600; margin-right: 4px;" onclick="window.location.href='/LeadManagement/AddNewLead';" id="btnAddLead">+ Add Lead</a>
-                    <a class="btn btn-primary" style="font-weight: 600; margin-right: 4px;" onclick="showFavLead();" id="btnFavorites">Favorites</a>
-                    <a class="btn btn-primary" style="font-weight: 600; margin-right: 4px;" id="btnFilter" onclick="showFilter()"><i class="fa fa-filter"></i> Filter</a>
+                    <a class="btn btn-primary table-btn-style" id="btnDownloadReport">Download Report</a>
+                    <a class="btn btn-primary table-btn-style" onclick="window.location.href='/LeadManagement/AddNewLead';" id="btnAddLead">+ Add Lead</a>
+                    <a class="btn btn-primary table-btn-style" onclick="showFavLead();" id="btnFavorites">Favorites</a>
+                    <a class="btn btn-primary table-btn-style" id="btnFilter" onclick="showFilter()">
+                        <i class="fa fa-filter"></i> Filter
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="top: -8px; display:none" id="TotalFilterCount">
+                            4
+                        </span>
+                    </a>
                 </div>
             </div>
+
 
             <div class="box-body">
 
