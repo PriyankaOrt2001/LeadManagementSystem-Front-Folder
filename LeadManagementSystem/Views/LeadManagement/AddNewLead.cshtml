@@ -302,15 +302,16 @@
     }
 
     .dropdown-content {
-        display:none;
+        display: none;
         position: absolute;
         background-color: white;
         min-width: 305px;
         overflow: auto;
         z-index: 1;
-        height: 122px;
         overflow-y: scroll;
         border: 1px solid #d2d6de;
+        max-height: 122px;
+        height: auto;
     }
     #clientlistInput {
         min-width: 30px;
@@ -448,7 +449,7 @@
                                                     <label>Client Name<span class="text-danger">*</span></label>
 
                                                     <div class="input-group" style="width: 306px;">
-                                                        <input type="text" placeholder="Enter Client Name" autocomplete="off" id="TxtClientName" onkeyup="filterFunction()" class="input-field form-control">
+                                                        <input type="text" placeholder="Enter Client Name" autocomplete="off" id="TxtClientName" oninput="filterFunction()" class="input-field form-control">
                                                         <span class="input-group-addon transparent">
                                                             <i class='fa fa-angle-down' aria-hidden='true' id="showClientName"></i>
                                                         </span>
