@@ -1214,8 +1214,11 @@ $("#TxtPlan").change(function () {
 
 function remark(id,status) {
 	$('#remark-modal-dialog').css('height', '460px');
+	
 	debugger;
 	$('#remarkModal').modal('show');
+	var modalBody = document.getElementById('remark-body');
+	modalBody.scrollTop = modalBody.scrollHeight;
 	$.ajax({
 		type: "POST",
 		url: ServerURL + 'LeadManagement/GetRemarksList',
