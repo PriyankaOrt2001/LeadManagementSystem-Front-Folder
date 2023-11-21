@@ -279,9 +279,13 @@
                             <a class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("AddNewLead", "LeadManagement") + "'");" style="color: white; border:0px">Add Lead</a>
                         </li>
                         <li>
-                            <a class="btn btn-primary" id="showNotification" onclick="showNotification('@Session["Admin_ID"]')" style="color: white; border: 0px; padding-top: 6%; padding-bottom: 0px;">
+                            <a class="btn btn-primary" id="showNotification" onclick="showNotification('@Session["Admin_ID"]')" style="color: white; border: 0px;">
 
-                                Notification&nbsp;&nbsp;<span class="badge badge-danger" id="countOfUnseenNotification" style="border-radius: inherit; bottom: 8px; margin-bottom: 20px;">0</span>
+                                Notification&nbsp;&nbsp;
+
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="top: -8px; display:none" id="countOfUnseenNotification">
+                                    4
+                                </span>
                             </a>
                         </li>
                         <li class="dropdown user-menu">
@@ -425,6 +429,7 @@
                         var count = return_Data.TotalUnseenNotification;
                         if (count != 0) {
                             $("#countOfUnseenNotification").text(count);
+                            $("#countOfUnseenNotification").css('display','initial');
                         }
                         
 			        }
@@ -505,6 +510,7 @@
                     }
                     else if (return_Data.n == 1) {
                         $("#countOfUnseenNotification").text("0");
+                        $("#countOfUnseenNotification").css('display', 'none');
                     }else{
 
                     }

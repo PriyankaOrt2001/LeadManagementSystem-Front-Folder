@@ -1551,8 +1551,8 @@ function nevigateToEditContactDetails() {
 	}
 	else if (ClientName == "") {
 		$('.help-block').html('');
-		$('#ClientNameDIV').addClass('has-error');
 		$('#ErrorForClientName').html('Enter Client Name.');
+		$('#ErrorForClientName').css('color', 'red');
 		$('#TxtClientName').focus();
 		return;
 	}
@@ -1671,8 +1671,8 @@ function nevigateToEditProjectDetails() {
 	}
 	else if (ClientName == "") {
 		$('.help-block').html('');
-		$('#ClientNameDIV').addClass('has-error');
 		$('#ErrorForClientName').html('Enter Client Name.');
+		$('#ErrorForClientName').css('color', 'red');
 		$('#TxtClientName').focus();
 		return;
 	}
@@ -1969,6 +1969,7 @@ function getCountOfUnseenNotification(UserId) {
 				var count = return_Data.TotalUnseenNotification;
 				if (count != 0) {
 					$("#countOfUnseenNotification").text(count);
+					$("#countOfUnseenNotification").css('display','initial');
 				}
 
 			}
@@ -2042,6 +2043,9 @@ $('#TxtClientName').change(function () {
 });
 document.getElementById("myDropdown").addEventListener("click", function (event) {
 	var target = event.target;
+	$(".form-group").removeClass('has-error');
+	$(".txtdiv").removeClass('has-error');
+	$(".form-group > span").html('');
 	if (target.tagName === "A") {
 		var value = target.getAttribute("data-value");
 		document.getElementById("TxtClientName").value = value;
@@ -2049,6 +2053,9 @@ document.getElementById("myDropdown").addEventListener("click", function (event)
 	}
 });
 function filterFunction() {
+	$(".form-group").removeClass('has-error');
+	$(".txtdiv").removeClass('has-error');
+	$(".form-group > span").html('');
 	var input, filter, a, i, txtValue;
 	input = document.getElementById("TxtClientName");
 	filter = input.value.toUpperCase();
