@@ -646,7 +646,7 @@ function UpdateLead(id,btnId,page_Id) {
 		}
 	}
 	if (AlternateEmailAddress != "") {
-		if (!email.test(AlternateSpokesMobile)) {
+		if (!email.test(AlternateEmailAddress)) {
 			$('.help-block').html('');
 			$('#AlternateEmailDIV').addClass('has-error');
 			$('#ErrorForAlternateEmail').html('Enter Spokes Person 2 Email Address');
@@ -1657,7 +1657,7 @@ function nevigateToEditProjectDetails() {
 		}
 	}
 	if (AlternateEmailAddress != "") {
-		if (!email.test(AlternateSpokesMobile)) {
+		if (!email.test(AlternateEmailAddress)) {
 			$('.help-block').html('');
 			$('#AlternateEmailDIV').addClass('has-error');
 			$('#ErrorForAlternateEmail').html('Enter Spokes Person 2 Email Address');

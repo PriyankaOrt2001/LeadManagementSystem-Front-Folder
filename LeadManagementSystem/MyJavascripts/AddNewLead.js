@@ -418,7 +418,7 @@ function UpdateFinal(id) {
 		return;
 	}
 	else if (AlternateEmailAddress != "") {
-		if (!email.test(AlternateSpokesMobile)) {
+		if (!email.test(AlternateEmailAddress)) {
 			$('.help-block').html('');
 			$('#AlternateEmailDIV').addClass('has-error');
 			$('#ErrorForAlternateEmail').html('Enter Spokes Person 2 Email Address');
