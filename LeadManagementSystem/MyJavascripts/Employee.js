@@ -1,19 +1,19 @@
 ﻿function SaveFormData() {
 	debugger;
 	var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //To check Email ID
-	var onlyText = /^[a-zA-Z0-9\s-]*$/;
+	var onlyText = /^[a-zA-Z\s]*$/;
 	var EmployeeName = $("#TxtEmployeeName").val().trim();
 
 	if (EmployeeName == "") {
 		$('.help-block').html('');
 		$('#EmployeeNameDIV').addClass('has-error');
-		$('#ErrorForEmployeeName').html('Enter Employee Name.');
+		$('#ErrorForEmployeeName').html('Enter Assignee Name.');
 		$('#TxtEmployeeName').focus();
 		return;
 	} else if (!onlyText.test(EmployeeName)) {
 		$('.help-block').html('');
 		$('#EmployeeNameDIV').addClass('has-error');
-		$('#ErrorForEmployeeName').html('Enter valid Employee Name.');
+		$('#ErrorForEmployeeName').html('Enter valid Assignee Name.');
 		$('#TxtEmployeeName').focus();
 		return;
 	}
@@ -57,7 +57,7 @@
 function ResetFormData() {
 	$("#TxtEmployeeName").val('');
 
-	$('#boxTitle').text('Add Employee Details');
+	$('#boxTitle').text('Add Assignee Details');
 	$('#btnSave').text('Save');
 	$('#btnSave').attr('onclick', 'SaveFormData();');
 
@@ -137,7 +137,7 @@ function EditEmployeeDetails(id) {
 			} else (return_Data != null)
 			{
 				$('#TxtEmployeeName').val(return_Data.Employee_Name);
-				$('#boxTitle').text('Update Employee Details');
+				$('#boxTitle').text('Update Assignee Details');
 				$('#btnSave').text('Update');
 				$('#btnSave').attr('onclick', 'UpdateEmployee(' + id + ');');
 
@@ -155,19 +155,19 @@ function UpdateEmployee(id) {
 	console.log(pageId);
 	debugger;
 	var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //To check Email ID
-	var onlyText = /^[a-zA-Z0-9\s-]*$/;
+	var onlyText = /^[a-zA-Z\s]*$/;
 	var EmployeeName = $("#TxtEmployeeName").val().trim();
 
 	if (EmployeeName == "") {
 		$('.help-block').html('');
 		$('#EmployeeNameDIV').addClass('has-error');
-		$('#ErrorForEmployeeName').html('Enter Employee Name.');
+		$('#ErrorForEmployeeName').html('Enter Assignee Name.');
 		$('#TxtEmployeeName').focus();
 		return;
 	} else if (!onlyText.test(EmployeeName)) {
 		$('.help-block').html('');
 		$('#EmployeeNameDIV').addClass('has-error');
-		$('#ErrorForEmployeeName').html('Enter valid Employee Name.');
+		$('#ErrorForEmployeeName').html('Enter valid Assignee Name.');
 		$('#TxtEmployeeName').focus();
 		return;
 	}

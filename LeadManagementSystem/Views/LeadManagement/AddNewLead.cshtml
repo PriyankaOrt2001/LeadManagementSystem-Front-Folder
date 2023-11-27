@@ -605,7 +605,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group" id="SpokesMobileDIV">
                                                     <label>Mobile Number 1</label>
-                                                    <input type="text" class="form-control" id="TxtSpokesMobile" maxlength="10" placeholder="Enter Mobile Number" autocomplete="off"/>
+                                                    <input type="text" class="form-control" id="TxtSpokesMobile" maxlength="10" placeholder="Enter Mobile Number" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');"/>
                                                     <span class="help-block" id="ErrorForSpokesMobile"></span>
                                                 </div>
                                             </div>
@@ -640,7 +640,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group" id="AlternateMobileDIV">
                                                     <label>Mobile Number 2</label>
-                                                    <input type="text" class="form-control" id="TxtAlternateMobile" maxlength="10" placeholder="Enter Mobile Number" autocomplete="off" />
+                                                    <input type="text" class="form-control" id="TxtAlternateMobile" maxlength="10" placeholder="Enter Mobile Number" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');"/>
                                                     <span class="help-block" id="ErrorForAlternateMobile"></span>
                                                 </div>
                                             </div>
@@ -771,15 +771,6 @@
 
         $(document).ready(function () {
             debugger;
-            var Location = "@Html.Raw(ViewBag.toAddLeadForm)";
-            if (Location == "toAddLeadForm") {
-                Location = "";
-                ShowForm();
-            }
-            else {
-                refreshDataTable();
-            }
-
             $('#toLeadDetails').css('display', 'none');
             $("#TxtFilterDate,#TxtScheduleDate").datepicker({
                 format: 'dd/mm/yyyy'

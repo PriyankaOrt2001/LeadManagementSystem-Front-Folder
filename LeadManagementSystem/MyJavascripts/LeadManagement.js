@@ -1,4 +1,12 @@
-﻿var button = document.getElementById("nevigateToEditClientDetails");
+﻿var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //To check Email ID
+var onlyCharacters = /^[A-Za-z\s]*$/;
+var onlyText = /^[a-zA-Z0-9\s-]*$/;
+var onlyCharacters = /^[A-Za-z\s]*$/;
+var mob_regex = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/; //For mobile number
+var numberRegex = /^\s*[+-]?(\d+|\d*\.\d+|\d+\.\d*)([Ee][+-]?\d+)?\s*$/ //For number
+var email = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+var button = document.getElementById("nevigateToEditClientDetails");
 if (button.textContent.trim() === "Client Details") {
 	// Add the 'hidden' class to the tooltip-text element
 	document.querySelector(".tooltip-text").classList.add("hidden");
@@ -15,15 +23,14 @@ var PriorityList = [];
 const fileInputforFrontImg = document.getElementById('FrontImgOfCard');
 fileInputforFrontImg.onchange = () => {
 	FrontImgOfCardFile = fileInputforFrontImg.files[0];
-	//console.log(selectedFile);
 }
 var BackImgOfCardFile = '';
 const fileInput = document.getElementById('BackImgOfCard');
 fileInput.onchange = () => {
 	BackImgOfCardFile = fileInput.files[0];
-	//console.log(selectedFile);
 }
 var IsFinal = 0;
+
 function IsFavLead(id, IsFav) {
 	debugger;
 	var activePageElement = $('.paginate_button.active');
@@ -88,10 +95,10 @@ function IsFavLead(id, IsFav) {
 				debugger;
 				bootbox.hideAll();
 			}
-
 		}
 	});
 }
+
 const today = new Date();
 const yyyy = today.getFullYear();
 let mm = today.getMonth() + 1;
@@ -120,8 +127,7 @@ function IsValidDate(scheduleDate) {
 		else {
 			$('#TxtScheduleTime').focus();
         }
-    }
-	
+	}
 }
 
 function changeLeadStatus(id, Status) {
@@ -138,7 +144,6 @@ function changeLeadStatus(id, Status) {
 		$('#closeRemarkModal').attr('onclick', 'closeRemarkModal(' + "'" + id + "'" + ');');
 	}
 	else {
-		
 		bootbox.confirm({
 			message: "Are You sure you want to change status ?",
 			buttons: {
@@ -191,20 +196,20 @@ function changeLeadStatus(id, Status) {
 
 					bootbox.hideAll();
 				}
-
 			}
 		});
     }
 	
 }
+
 $("#TxtFilterDate").change(function () {
 	debugger;
 	var filterDateValue = $("#TxtFilterDate").val();
 	if (filterDateValue != '') {
 		alert("The text has been changed");
 	}
-
 });
+
 function ViewDetails(id) {
 	var activePageElement = $('.paginate_button.active');
 	var aTag = activePageElement.find('a')
@@ -264,10 +269,8 @@ function ViewDetails(id) {
 				$('#ViewFrontCardImagePath').attr('src', return_Data.FrontImgOfCardPath);
 				$('#backimg').attr('src', return_Data.BackImgOfCardPath);
 				$('#ViewBackCardImagePath').attr('src', return_Data.BackImgOfCardPath);
-				$('#myDropdown').css('display', 'none');
-				
+				$('#myDropdown').css('display', 'none');			
 			}
-
 		}
 	});
 
@@ -283,6 +286,7 @@ function enableReference(value) {
 		$('#TxtReference').prop('placeholder', '');
 	}
 }
+
 function deleteLead(element) {
 	debugger;
 	var activePageElement = $('.paginate_button.active');
@@ -332,6 +336,7 @@ function deleteLead(element) {
 		}
 	});
 }
+
 function changeTypeOfLead(id) {
 	debugger;
 	$.ajax({
@@ -351,13 +356,11 @@ function changeTypeOfLead(id) {
 				$.each(return_Data.TypeOfLeadList, function (i, obj) {
 					$('#TxtTypeOfLead').append(`<option value="${obj.TypeOfLead_ID}">${obj.TypeOfLead}</option>`);
 				});
-
 			}
-
 		}
 	});
-
 }
+
 function changePlanPrice(id) {
 	debugger;
 	$.ajax({
@@ -375,32 +378,26 @@ function changePlanPrice(id) {
 				$('#TxtTypeOfLead').find('option').remove().end();
 				$('#TxtPlanPrice').val(return_Data.Plan_Price);
 			}
-
 		}
 	});
-
 }
+
 function removeFrontFile() {
 	debugger;
 	$('#FrontFileStatus').text('');
 	$("#removeFrontFileIcon").css('display', 'none');
 	$('#FrontImgOfCard').val('');
-
 }
+
 function removeBackFile() {
 	debugger;
 	$('#BackFileStatus').text('');
 	$("#removeBackFileIcon").css('display', 'none');
 	$('#BackImgOfCard').val('');
 }
+
 function UpdateFinal(id) {
 	debugger;
-	var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //To check Email ID
-	var onlyCharacters = /^[A-Za-z\s]*$/;
-	var onlyText = /^[a-zA-Z0-9\s-]*$/;
-	var onlyCharacters = /^[A-Za-z\s]*$/;
-	var mob_regex = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/; //For mobile number
-	var numberRegex = /^\s*[+-]?(\d+|\d*\.\d+|\d+\.\d*)([Ee][+-]?\d+)?\s*$/ //For number
 	var CompanyName = $("#TxtCompanyName").val().trim();
 	var ClientName = $("#TxtClientName").val().trim();
 	var Category = $("#TxtCategory").val();
@@ -425,13 +422,10 @@ function UpdateFinal(id) {
 	var PathOfImg = $('#FrontImgOfCard').val();
 	var PathOfBackImg = $('#BackImgOfCard').val();
 	var ProjectType = $('#TxtProjectType').val();
-
 	var FrontFileStatus = $('#FrontFileStatus').text();
 	var BackFileStatus = $('#BackFileStatus').text();
-
 	var cardimgdetails = CardImages;
 	var file_name = "";
-
 	var FrontImgOfCardPath = "";
 	var FrontImgFileName = "";
 	var FrontImgBase64 = "";
@@ -440,31 +434,21 @@ function UpdateFinal(id) {
 	var BackImgFileName = "";
 	var BackImgBase64 = "";
 	var BackImgFileType = "";
-
-
 	if (PathOfImg != "") {
-
 		var frontfile_Size = document.getElementById('FrontImgOfCard').files[0].size;
 		const fileSize = Math.round((frontfile_Size / 1024));
-		// The size of the file.
 		if (fileSize >= 4096) {
 			alert(
 				"File size limit: 4MB");
 		}
-
-
 	}
 	if (PathOfBackImg != "") {
-
 		var backfile_Size = document.getElementById('BackImgOfCard').files[0].size;
 		const fileSize = Math.round((backfile_Size / 1024));
-		// The size of the file.
 		if (fileSize >= 4096) {
 			alert(
 				"File size limit: 4MB");
 		}
-
-
 	}
 	if (PlanPrice != "") {
 		if (PlanPrice == "0") {
@@ -507,8 +491,6 @@ function UpdateFinal(id) {
 			$('#FrontFileStatus').attr('href', obj.ImagePath);
 			$('#FrontFileStatus').attr('target', '_blank');
 			$('#FrontFileStatus').text(obj.Filename);
-
-
 			FrontImgFileName = obj.Filename;
 			FrontImgBase64 = obj.Base64;
 			FrontImgFileType = obj.FileType;
@@ -517,8 +499,6 @@ function UpdateFinal(id) {
 			$('#BackFileStatus').attr('href', obj.ImagePath);
 			$('#BackFileStatus').attr('target', '_blank');
 			$('#BackFileStatus').text(obj.Filename);
-
-
 			BackImgFileName = obj.Filename;
 			BackImgBase64 = obj.Base64;
 			BackImgFileType = obj.FileType;
@@ -533,8 +513,6 @@ function UpdateFinal(id) {
 	formdata.append("BackImgFileName", BackImgFileName);
 	formdata.append("BackImgBase64", BackImgBase64);
 	formdata.append("BackImgFileType", BackImgFileType);
-
-
 	debugger;
 	$.ajax({
 		type: "POST",
@@ -558,18 +536,10 @@ function UpdateFinal(id) {
 			}
 		}
 	});
-
-
-
 }
+
 function UpdateLead(id,btnId,page_Id) {
 	debugger;
-	
-	var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //To check Email ID
-	var onlyText = /^[a-zA-Z0-9\s-]*$/;
-	var onlyCharacters = /^[A-Za-z\s]*$/;
-	var mob_regex = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/; //For mobile number
-	var numberRegex = /^\s*[+-]?(\d+|\d*\.\d+|\d+\.\d*)([Ee][+-]?\d+)?\s*$/ //For number
 	var CompanyName = $("#TxtCompanyName").val().trim();
 	var ClientName = $("#TxtClientName").val().trim();
 	var Category = $("#TxtCategory").val();
@@ -595,13 +565,10 @@ function UpdateLead(id,btnId,page_Id) {
 	var PathOfImg = $('#FrontImgOfCard').val();
 	var PathOfBackImg = $('#BackImgOfCard').val();
 	var ProjectType = $('#TxtProjectType').val();
-
 	var FrontFileStatus = $('#FrontFileStatus').text();
 	var BackFileStatus = $('#BackFileStatus').text();
-
 	var cardimgdetails = CardImages;
 	var file_name = "";
-
 	var FrontImgOfCardPath = "";
 	var FrontImgFileName = "";
 	var FrontImgBase64 = "";
@@ -610,50 +577,31 @@ function UpdateLead(id,btnId,page_Id) {
 	var BackImgFileName = "";
 	var BackImgBase64 = "";
 	var BackImgFileType = "";
-
-
 	if (PathOfImg != "") {
-
 		var frontfile_Size = document.getElementById('FrontImgOfCard').files[0].size;
 		const fileSize = Math.round((frontfile_Size / 1024));
-		// The size of the file.
 		if (fileSize >= 4096) {
 			alert(
 				"File size limit: 4MB");
 			return;
 		}
-
-
 	}
 	if (PathOfBackImg != "") {
-
 		var backfile_Size = document.getElementById('BackImgOfCard').files[0].size;
 		const fileSize = Math.round((backfile_Size / 1024));
-		// The size of the file.
 		if (fileSize >= 4096) {
 			alert(
 				"File size limit: 4MB");
 			return;
 		}
 	}
-	if (btnId == "btnDraft2") {
-		if (SpokesName != "") {
+	if (SpokesName != "") {
 		if (!onlyCharacters.test(SpokesName)) {
 			$('.help-block').html('');
 			$('#SpokesNameDIV').addClass('has-error');
 			$('#ErrorForSpokesName').html('Enter Spokes Person 1 Name');
 			$('#TxtSpokesName').focus();
 			alert("Enter valid Spokes Person 1 Name");
-			return;
-		}
-	}
-	if (AlternateSpokesName != "") {
-		if (!onlyCharacters.test(AlternateSpokesName)) {
-			$('.help-block').html('');
-			$('#AlternateSpokesNameDIV').addClass('has-error');
-			$('#ErrorForAlternateSpokesName').html('Enter Spokes Person 2 Name');
-			$('#TxtAlternateSpokesName').focus();
-			alert("Enter valid Spokes Person 2 Name");
 			return;
 		}
 	}
@@ -667,7 +615,27 @@ function UpdateLead(id,btnId,page_Id) {
 			return;
 		}
 	}
-	else if (AlternateSpokesMobile != "") {
+	if (SpokesEmailAddress != "") {
+		if (!email.test(SpokesEmailAddress)) {
+			$('.help-block').html('');
+			$('#SpokesEmailDIV').addClass('has-error');
+			$('#ErrorForSpokesEmail').html('Enter Spokes Person 1 Email Address');
+			$('#TxtSpokesEmailAddress').focus();
+			alert("Enter Spokes Person 1 Email Address");
+			return;
+		}
+	}
+	if (AlternateSpokesName != "") {
+		if (!onlyCharacters.test(AlternateSpokesName)) {
+			$('.help-block').html('');
+			$('#AlternateSpokesNameDIV').addClass('has-error');
+			$('#ErrorForAlternateSpokesName').html('Enter Spokes Person 2 Name');
+			$('#TxtAlternateSpokesName').focus();
+			alert("Enter valid Spokes Person 2 Name");
+			return;
+		}
+	}
+	if (AlternateSpokesMobile != "") {
 		if (!mob_regex.test(AlternateSpokesMobile)) {
 			$('.help-block').html('');
 			$('#AlternateMobileDIV').addClass('has-error');
@@ -677,8 +645,16 @@ function UpdateLead(id,btnId,page_Id) {
 			return;
 		}
 	}
-    }
-	
+	if (AlternateEmailAddress != "") {
+		if (!email.test(AlternateSpokesMobile)) {
+			$('.help-block').html('');
+			$('#AlternateEmailDIV').addClass('has-error');
+			$('#ErrorForAlternateEmail').html('Enter Spokes Person 2 Email Address');
+			$('#TxtAlternateEmailAddress').focus();
+			alert("Enter Spokes Person 2 Email Address");
+			return;
+		}
+	}
 	var formdata = new FormData();
 	formdata.append("LeadId", id);
 	formdata.append("CompanyName", CompanyName);
@@ -766,13 +742,9 @@ function UpdateLead(id,btnId,page_Id) {
 				}
 			} else {
 				bootbox.alert(return_Data.msg);
-
 			}
 		}
 	});
-
-
-
 }
 function CancelBtn(pageid) {
 	sessionStorage.setItem('pageId', pageid);
@@ -819,10 +791,8 @@ function View(id) {
 				$('#content_header').text('Edit Lead')
 				$('#btnAddLead').text('Show List');
 				$('#btnAddLead').attr('onclick', 'Leadtable();');
-				//$("#btnSave").show();
 				$("#btnDraft").show();
 				$("#btnreset").show();
-				//$("#btnSave").text('Update');
 				$("#btnDraft").text('Update');
 				$('#btnDownloadReport').css('display', 'none');
 				$('#btnAddLead').css('display', 'none');
@@ -909,7 +879,6 @@ function View(id) {
 				}
 				$('#myDropdown').css('display', 'none');
 				nevigateToEditClientDetails();
-
 			}
 		}
 	});
@@ -921,10 +890,8 @@ function ShowAddLeadForm() {
 	$("#boxTitle").text('Add Lead');
 	$('#btnAddLead').text('Show List');
 	$('#btnAddLead').attr('onclick', 'Leadtable();');
-	//$("#btnSave").show();
 	$("#btnDraft").show();
 	$("#btnreset").show();
-	//$("#btnSave").text('Add');
 	$("#btnDraft").text('Save as Draft');
 	$('#btnDraft').css("background-color", "#0096CF");
 	$('#btnAddLead').css('display', 'none');
@@ -992,73 +959,60 @@ function ViewDetailsForEdit() {
 	$("#btnDraft").show();
 	$("#btnreset").show();
 	$("#btnDraft").text('Update');
-
 	$('#btnDownloadReport').css('display', 'none');
 	$('#btnAddLead').css('display', 'none');
 	$('#TxtFilterDate').css('display', 'none');
 	$('#toLeadDetails').css('display', 'initial');
 }
+
 $(function () {
 	$("#btnDownloadReport").click(function () {
 		debugger;
 		var table = $('#TableLead').DataTable();
 		var data = table.data().toArray();
-
 		for (var i = 0; i < data.length; i++) {
-			data[i].splice(0, 1); // Remove the element at index 0 for each list
+			data[i].splice(0, 1);
 		}
-
 		var wsData = [];
-
 		var headers = [];
 		$("#TableLead thead th").each(function () {
 			headers.push($(this).text());
 		});
-
 		var actionColumnIndex = headers.indexOf("Action");
 		if (actionColumnIndex !== -1) {
 			headers.splice(actionColumnIndex, 1);
 			headers.splice(0, 1);
 		}
-		// Find the indexes of columns that have a header present
 		var headerIndexes = headers.map(function (header) {
 			return headers.indexOf(header);
 		});
-
 		wsData.push(headers);
-
 		for (var i = 0; i < data.length; i++) {
 			var row = [];
 			for (var j = 0; j < headerIndexes.length; j++) {
 				if (j == 10) {
 					var cellValue = data[i][headerIndexes[j]];
-
-					// Check if the cell value contains a select element
 					var $cellValue = $(cellValue);
 					if ($cellValue.is('select')) {
-						// Extract the value of the select element
 						var selectValue = $cellValue.val();
 						row.push(selectValue);
 					} else {
-						// Handle the case where the cell does not contain a select element
 						row.push(cellValue);
 					}
 				}
 				else {
 					row.push(data[i][headerIndexes[j]]);
 				}
-
 			}
 			wsData.push(row);
 		}
-
 		var ws = XLSX.utils.aoa_to_sheet(wsData);
 		var wb = XLSX.utils.book_new();
 		XLSX.utils.book_append_sheet(wb, ws, "DataTable Data");
-
 		XLSX.writeFile(wb, "Lead Management System.xlsx");
 	});
 });
+
 var getFilename = function (str) {
 	return str.substring(str.lastIndexOf('/') + 1);
 }
@@ -1066,10 +1020,8 @@ var getFilename = function (str) {
 $("#FrontImgOfCard").change(function () {
 	debugger;
 	$("#removeFrontFileIcon").css('display', 'initial');
-
 	var value = $('#FrontImgOfCard').val();
 	file_name = value.substring(value.lastIndexOf('\\') + 1);
-
 	const preview = $('#FrontImgOfCard').val();
 	const file = document.querySelector("input[type=file]").files[0];
 	var filecount = document.querySelector("input[type=file]").files;
@@ -1077,27 +1029,22 @@ $("#FrontImgOfCard").change(function () {
 	const reader = new FileReader();
 	if (filecount.length > 0) {
 		reader.onloadend = function () {
-			// convert image file to base64 string
 			console.log(reader.result);
 			base64 = reader.result
 			preview.src = reader.result;
 			var base64path = reader.result.split(',')[1];
 			Base64OfFrontImg = base64;
 			CardImages.push({ Base64: Base64OfFrontImg, Filename: file_name, ImagePath: '', ImgType: 'front', FileType: '' });
-
 		};
 		reader.readAsDataURL(FrontImgOfCardFile);
 	}
-
 	$("#FrontFileStatus").text(file_name);
 });
 $("#BackImgOfCard").change(function () {
 	debugger;
 	var value = $('#BackImgOfCard').val();
 	backFile_name = value.substring(value.lastIndexOf('\\') + 1);
-
 	$("#removeBackFileIcon").css('display', 'initial');
-
 	const preview = $('#BackImgOfCard').val();
 	const file = document.querySelector("input[type=file]").files[0];
 	var filecount = document.querySelector("input[type=file]").files;
@@ -1111,13 +1058,11 @@ $("#BackImgOfCard").change(function () {
 		var base64path = reader.result.split(',')[1];
 		Base64OfFrontImg = base64;
 		CardImages.push({ Base64: Base64OfFrontImg, Filename: backFile_name, ImagePath: '', ImgType: 'back', FileType: '' });
-
 	};
 	reader.readAsDataURL(BackImgOfCardFile);
-
-
 	$("#BackFileStatus").text(backFile_name);
 });
+
 var CardImages = [];
 
 function ResetFormData() {
@@ -1147,11 +1092,9 @@ function ResetFormData() {
 	$("#TxtProjectType").val('');
 	$("#FrontFileStatus").text('');
 	$("#BackFileStatus").text('');
-
 	$(".form-group").removeClass('has-error');
 	$(".txtdiv").removeClass('has-error');
 	$(".form-group > span").html('');
-
 	CardImages = [];
 }
 
@@ -1160,6 +1103,7 @@ $(document).keypress(function (e) {
 	$(".txtdiv").removeClass('has-error');
 	$(".form-group > span").html('');
 });
+
 $("#TxtCompanyName").change(function () {
 	$(".form-group").removeClass('has-error');
 	$(".txtdiv").removeClass('has-error');
@@ -1171,41 +1115,49 @@ $("#TxtLeadSource").change(function () {
 	$(".txtdiv").removeClass('has-error');
 	$(".form-group > span").html('');
 });
+
 $("#TxtStatusType").change(function () {
 	$(".form-group").removeClass('has-error');
 	$(".txtdiv").removeClass('has-error');
 	$(".form-group > span").html('');
 });
+
 $("#TxtProjectType").change(function () {
 	$(".form-group").removeClass('has-error');
 	$(".txtdiv").removeClass('has-error');
 	$(".form-group > span").html('');
 });
+
 $("#TxtCategory").change(function () {
 	$(".form-group").removeClass('has-error');
 	$(".txtdiv").removeClass('has-error');
 	$(".form-group > span").html('');
 });
+
 $("#TxtSource").change(function () {
 	$(".form-group").removeClass('has-error');
 	$(".txtdiv").removeClass('has-error');
 	$(".form-group > span").html('');
 });
+
 $("#TxtTypeOfLead").change(function () {
 	$(".form-group").removeClass('has-error');
 	$(".txtdiv").removeClass('has-error');
 	$(".form-group > span").html('');
 });
+
 $("#TxtPerson").change(function () {
 	$(".form-group").removeClass('has-error');
 	$(".txtdiv").removeClass('has-error');
 	$(".form-group > span").html('');
 });
+
 $("#TxtSource").change(function () {
 	$(".form-group").removeClass('has-error');
 	$(".txtdiv").removeClass('has-error');
 	$(".form-group > span").html('');
 });
+
 $("#TxtPlan").change(function () {
 	$(".form-group").removeClass('has-error');
 	$(".txtdiv").removeClass('has-error');
@@ -1214,7 +1166,6 @@ $("#TxtPlan").change(function () {
 
 function remark(id,status) {
 	$('#remark-modal-dialog').css('height', '460px');
-	
 	debugger;
 	$('#remarkModal').modal('show');
 	var modalBody = document.getElementById('remark-body');
@@ -1235,10 +1186,10 @@ function remark(id,status) {
 				$('#btnSaveRemark').attr('onclick', 'SaveRemark(' + "'" + id + "'" + ',' + "'" + status + "'" + ');');
 				$('#btnSaveRemarkAndNotify').attr('onclick', 'SaveRemarkAndNotify(' + "'" + id + "'" + ',' + "'" + status + "'" + ');');
 			}
-
 		}
 	});
 }
+
 function showremark(id, status) {
 	$('#remark-modal-dialog').css('height', '460px');
 	$('#remark-modal-dialog').css('margin-left', '561.6px');
@@ -1261,10 +1212,10 @@ function showremark(id, status) {
 				$('#btnSaveRemark').attr('onclick', 'SaveRemark(' + "'" + id + "'" + ',' + "'" + status + "'" + ');');
 				$('#btnSaveRemarkAndNotify').attr('onclick', 'SaveRemarkAndNotify(' + "'" + id + "'" + ',' + "'" + status + "'" + ');');
 			}
-
 		}
 	});
 }
+
 function showFilter() {
 	$('#Filter-Detail').modal('show');
 	debugger;
@@ -1281,8 +1232,7 @@ function showFilter() {
 			{
 				$("#FilterByCompanyRow").html(return_Data.GetCompanyListForFilter);
 				$("#FilterByCategoryRow").html(return_Data.GetCategoryListForFilter);
-				$("#FilterByAssignedToRow").html(return_Data.GetAssignToListForFilter);
-				
+				$("#FilterByAssignedToRow").html(return_Data.GetAssignToListForFilter);	
 				for (let i = 0; i < comapnyIdsValues.length; i++){
 					$('input.CompanyModelList[value="' + comapnyIdsValues[i] + '"]').prop('checked', true);
 				}
@@ -1296,28 +1246,28 @@ function showFilter() {
 					$('input.PriorityList[value="' + PriorityList[i] + '"]').prop('checked', true);
 				}
 			}
-
 		}
 	});
 }
+
 function ResetRemark() {
 	$("#TxtRemark").val('');
 	$(".form-group").removeClass('has-error');
 	$(".txtdiv").removeClass('has-error');
 	$(".form-group > span").html('');
 }
+
 $(document).keypress(function (e) {
 	$("#RemarkDIV").removeClass('has-error');
 	$("#ErrorForRemark").html('');
 });
+
 function myFunction(status) {
-	// Function returns the product of a and b
 	return a * b;
 }
+
 function SaveRemark(id,status) {
 	debugger;
-	var onlyText = /^[a-zA-Z0-9\s-]*$/;
-	var onlyCharacters = /^[A-Za-z\s]*$/;
 	var txtRemark = $('#TxtRemark').val().trim();
 	var activePageElement = $('.paginate_button.active');
 	var aTag = activePageElement.find('a')
@@ -1344,8 +1294,6 @@ function SaveRemark(id,status) {
 		contentType: false,
 		beforeSend: function () {
 			$('#btnSave').attr('disabled', true);
-			//var loader = "<img src='../img/ajax-loader-square.gif' style='height:15px;width:15px'/>";
-			//$(element).html(loader);
 		},
 		success: function (return_Data) {
 			if (return_Data.n == 5) {
@@ -1365,15 +1313,11 @@ function SaveRemark(id,status) {
 			$('#btnSaveRemark').removeAttr("disabled");
 			$('#btnSaveRemark').html('Save');
 		}
-
 	});
-
 }
 
 function SaveRemarkAndNotify(id,status) {
 	debugger;
-	var onlyText = /^[a-zA-Z0-9\s-]*$/;
-	var onlyCharacters = /^[A-Za-z\s]*$/;
 	var txtRemark = $('#TxtRemark').val().trim();
 	var activePageElement = $('.paginate_button.active');
 	var aTag = activePageElement.find('a')
@@ -1400,8 +1344,6 @@ function SaveRemarkAndNotify(id,status) {
 		contentType: false,
 		beforeSend: function () {
 			$('#btnSave').attr('disabled', true);
-			//var loader = "<img src='../img/ajax-loader-square.gif' style='height:15px;width:15px'/>";
-			//$(element).html(loader);
 		},
 		success: function (return_Data) {
 			if (return_Data.n == 5) {
@@ -1420,11 +1362,8 @@ function SaveRemarkAndNotify(id,status) {
 		complete: function () {
 			$('#btnSaveRemarkAndNotify').removeAttr("disabled");
 		}
-
 	});
-
 }
-
 
 function nevigateToEditClientDetails() {
 	var SpokesName = $("#TxtSpokesName").val();
@@ -1482,12 +1421,10 @@ function nevigateToEditClientDetails() {
 	nevigateToEditContactDetails.classList.add("NevigateBtn");
 	nevigateToEditProjectDetails.classList.remove("NevigateActiveBtn");
 	nevigateToEditProjectDetails.classList.add("NevigateBtn");
-
 }
+
 function nevigateToEditContactDetails() {
 	debugger;
-	var onlyText = /^[a-zA-Z0-9\s-]*$/;
-	var onlyCharacters = /^[A-Za-z\s]*$/;
 	var CompanyName = $("#TxtCompanyName").val().trim();
 	var ClientName = $("#TxtClientName").val().trim();
 	var Category = $("#TxtCategory").val();
@@ -1518,7 +1455,6 @@ function nevigateToEditContactDetails() {
 
 		var frontfile_Size = document.getElementById('FrontImgOfCard').files[0].size;
 		const fileSize = Math.round((frontfile_Size / 1024));
-		// The size of the file.
 		if (fileSize >= 4096) {
 			alert(
 				"File size limit: 4MB");
@@ -1532,7 +1468,6 @@ function nevigateToEditContactDetails() {
 
 		var backfile_Size = document.getElementById('BackImgOfCard').files[0].size;
 		const fileSize = Math.round((backfile_Size / 1024));
-		// The size of the file.
 		if (fileSize >= 4096) {
 			alert(
 				"File size limit: 4MB");
@@ -1569,7 +1504,6 @@ function nevigateToEditContactDetails() {
 	else {
 		$("#nevigateToEditClientDetails").css("border", "2px solid #3c8dbc");
 	}
-	
 
 	if (PlanName != "" && PlanPrice != "" && StatusType != "" && AssignTo != "" && ScheduleDate != "" && ScheduleTime != "") {
 		$("#nevigateToEditProjectDetails").css("border", "2px solid #00a65a");
@@ -1606,8 +1540,6 @@ function nevigateToEditContactDetails() {
 	nevigateToEditProjectDetails.classList.add("NevigateBtn");
 }
 function nevigateToEditProjectDetails() {
-	var onlyText = /^[a-zA-Z0-9\s-]*$/;
-	var onlyCharacters = /^[A-Za-z\s]*$/;
 	var CompanyName = $("#TxtCompanyName").val().trim();
 	var ClientName = $("#TxtClientName").val().trim();
 	var Category = $("#TxtCategory").val();
@@ -1635,10 +1567,8 @@ function nevigateToEditProjectDetails() {
 	var AlternateEmailAddress = $('#TxtAlternateEmailAddress').val();
 	var file_name = PathOfImg.substring(PathOfImg.lastIndexOf('\\') + 1);
 	if (PathOfImg != "") {
-
 		var frontfile_Size = document.getElementById('FrontImgOfCard').files[0].size;
 		const fileSize = Math.round((frontfile_Size / 1024));
-		// The size of the file.
 		if (fileSize >= 4096) {
 			alert(
 				"File size limit: 4MB");
@@ -1649,10 +1579,8 @@ function nevigateToEditProjectDetails() {
 		PathOfImg = FrontFileStatus;
 	}
 	if (PathOfBackImg != "") {
-
 		var backfile_Size = document.getElementById('BackImgOfCard').files[0].size;
 		const fileSize = Math.round((backfile_Size / 1024));
-		// The size of the file.
 		if (fileSize >= 4096) {
 			alert(
 				"File size limit: 4MB");
@@ -1682,6 +1610,60 @@ function nevigateToEditProjectDetails() {
 		$('#ErrorForSource').html('Select Owner Name.');
 		$('#TxtSource').focus();
 		return;
+	}
+	if (SpokesName != "") {
+		if (!onlyCharacters.test(SpokesName)) {
+			$('.help-block').html('');
+			$('#SpokesNameDIV').addClass('has-error');
+			$('#ErrorForSpokesName').html('Enter Spokes Person 1 Name');
+			$('#TxtSpokesName').focus();
+			return;
+		}
+	}
+	if (SpokesMobileNumber != "") {
+		if (!mob_regex.test(SpokesMobileNumber)) {
+			$('.help-block').html('');
+			$('#SpokesMobileDIV').addClass('has-error');
+			$('#ErrorForSpokesMobile').html('Enter valid spokes person mobile number.');
+			$('#TxtSpokesMobile').focus();
+			return;
+		}
+	}
+	if (SpokesEmailAddress != "") {
+		if (!email.test(SpokesEmailAddress)) {
+			$('.help-block').html('');
+			$('#SpokesEmailDIV').addClass('has-error');
+			$('#ErrorForSpokesEmail').html('Enter Spokes Person 1 Email Address');
+			$('#TxtSpokesEmailAddress').focus();
+			return;
+		}
+	}
+	if (AlternateSpokesName != "") {
+		if (!onlyCharacters.test(AlternateSpokesName)) {
+			$('.help-block').html('');
+			$('#AlternateSpokesNameDIV').addClass('has-error');
+			$('#ErrorForAlternateSpokesName').html('Enter Spokes Person 2 Name');
+			$('#TxtAlternateSpokesName').focus();
+			return;
+		}
+	}
+	if (AlternateSpokesMobile != "") {
+		if (!mob_regex.test(AlternateSpokesMobile)) {
+			$('.help-block').html('');
+			$('#AlternateMobileDIV').addClass('has-error');
+			$('#ErrorForAlternateMobile').html('Enter Spokes Person 2 Mobile Number.');
+			$('#TxtAlternateMobile').focus();
+			return;
+		}
+	}
+	if (AlternateEmailAddress != "") {
+		if (!email.test(AlternateSpokesMobile)) {
+			$('.help-block').html('');
+			$('#AlternateEmailDIV').addClass('has-error');
+			$('#ErrorForAlternateEmail').html('Enter Spokes Person 2 Email Address');
+			$('#TxtAlternateEmailAddress').focus();
+			return;
+		}
 	}
 	if (CompanyName != "" && ClientName != "" && Category != "" && Source != "" && TypeOfLead != "" && ProductName != "" && LeadSource != "" && Reference != "" && PathOfBackImg != "" && PathOfImg != "" && ProjectType != "") {
 		$("#nevigateToEditClientDetails").css("border", "2px solid #00a65a");
@@ -1826,7 +1808,6 @@ function FilterLeadDetails() {
 	categoryIdValue = [];
 	assignedIdValue = [];
 	PriorityList = [];
-	// Iterate over the checkboxes with the 'checkbox' class
 	$(".CompanyModelList:checked").each(function () {
 		comapnyIdsValues.push($(this).val());
 	});
@@ -1839,7 +1820,6 @@ function FilterLeadDetails() {
 	$(".PriorityList:checked").each(function () {
 		PriorityList.push('\''+$(this).val()+'\'');
 	});
-	// Join the selected values into a comma-separated string
 	var condition = "";
 	var whereCompanyId = comapnyIdsValues.join(",");
 	var whereCompanyId = comapnyIdsValues.join(","); 
@@ -1886,7 +1866,6 @@ function CompanyFilterCount() {
 	if (checkedCheckboxes.length > 0) {
 		$('#CountOfCompanyFilter').text(countOfCheckedCompanyCheckbox);
 		$('#CountOfCompanyFilter').show();
-		
 	} 
 	else {
 		$('#CountOfCompanyFilter').hide();
@@ -1942,7 +1921,6 @@ function PriorityFilterCount() {
 	if (checkedCheckboxes.length > 0) {
 		$('#CountOfPriorityFilter').text(countOfCheckedPriorityCheckbox);
 		$('#CountOfPriorityFilter').show();
-		
 	} else {
 		
 		$('#CountOfPriorityFilter').hide();
@@ -1971,13 +1949,11 @@ function getCountOfUnseenNotification(UserId) {
 					$("#countOfUnseenNotification").text(count);
 					$("#countOfUnseenNotification").css('display','initial');
 				}
-
 			}
-
 		}
 	});
-
 }
+
 function RecentNotificationDetails(UserId) {
 	debugger;
 	document.body.style.paddingRight = '0px';
@@ -1995,28 +1971,27 @@ function RecentNotificationDetails(UserId) {
 			else if (return_Data.n == 1) {
 				$("#modalbody").html(return_Data.NotificationList);
 			} else {
-
 			}
-
 		}
 	});
 }
+
 $('#TxtClientName').focus(function () {
 	debugger;
 	$('.dropdown-content a').css('display', 'block');
 	$('#myDropdown').css('display', 'block');
 });
+
 $('#TxtClientName').click(function () {
 	debugger;
 	$('.dropdown-content a').css('display', 'block');
 	$('#myDropdown').css('display', 'block');
 });
+
 $('#showClientName').click(function () {
 	debugger;
-
 	$('#myDropdown').css('display', 'block');
 	var a_tags = document.querySelectorAll(".dropdown-content a");
-
 	for (var i = 0; i < a_tags.length; i++) {
 		if (window.getComputedStyle(a_tags[i]).display === "none") {
 			a_tags[i].style.display = "block";
@@ -2024,14 +1999,12 @@ $('#showClientName').click(function () {
 			a_tags[i].style.display = "none";
 		}
 	}
-
 });
+
 $('#TxtClientName').change(function () {
 	debugger;
-
 	$('#myDropdown').css('display', 'block');
 	var a_tags = document.querySelectorAll(".dropdown-content a");
-
 	for (var i = 0; i < a_tags.length; i++) {
 		if (window.getComputedStyle(a_tags[i]).display === "none") {
 			a_tags[i].style.display = "block";
@@ -2039,8 +2012,8 @@ $('#TxtClientName').change(function () {
 			a_tags[i].style.display = "none";
 		}
 	}
-
 });
+
 document.getElementById("myDropdown").addEventListener("click", function (event) {
 	var target = event.target;
 	$(".form-group").removeClass('has-error');

@@ -1,16 +1,20 @@
-﻿var button = document.getElementById("nevigateToClientDetails");
+﻿var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //To check Email ID
+var onlyText = /^[a-zA-Z0-9\s-]*$/;
+var email = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+var onlyCharacters = /^[A-Za-z\s]*$/;
+var mob_regex = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/; //For mobile number
+var numberRegex = /^\s*[+-]?(\d+|\d*\.\d+|\d+\.\d*)([Ee][+-]?\d+)?\s*$/ //For number
+
+var button = document.getElementById("nevigateToClientDetails");
 if (button.textContent.trim() === "Client Details") {
-	// Add the 'hidden' class to the tooltip-text element
 	document.querySelector(".tooltip-text").classList.add("hidden");
 }
 var button = document.getElementById("nevigateToContactDetails");
 if (button.textContent.trim() === "Contact Details") {
-	// Add the 'hidden' class to the tooltip-text element
 	document.querySelector(".tooltip-text").classList.add("hidden");
 }
 var button = document.getElementById("nevigateToProjectDetails");
 if (button.textContent.trim() === "Project Details") {
-	// Add the 'hidden' class to the tooltip-text element
 	document.querySelector(".tooltip-text").classList.add("hidden");
 }
 
@@ -19,13 +23,11 @@ const fileInputforFrontImg = document.getElementById('FrontImgOfCard');
 var LeadId = '';
 fileInputforFrontImg.onchange = () => {
 	FrontImgOfCardFile = fileInputforFrontImg.files[0];
-	//console.log(selectedFile);
 }
 var BackImgOfCardFile = '';
 const fileInput = document.getElementById('BackImgOfCard');
 fileInput.onchange = () => {
 	BackImgOfCardFile = fileInput.files[0];
-	//console.log(selectedFile);
 }
 var IsFinal = 0;
 $("#TxtFilterDate").change(function () {
@@ -142,10 +144,6 @@ function removeBackFile() {
 }
 function UpdateFinal(id) {
 	debugger;
-	var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //To check Email ID
-	var onlyText = /^[a-zA-Z0-9\s-]*$/;
-	var onlyCharacters = /^[A-Za-z\s]*$/;
-	var mob_regex = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/; //For mobile number
 	var numberRegex = /^\s*[+-]?(\d+|\d*\.\d+|\d+\.\d*)([Ee][+-]?\d+)?\s*$/ //For number
 	var CompanyName = $("#TxtCompanyName").val().trim();
 	var ClientName = $("#TxtClientName").val().trim();
@@ -160,6 +158,7 @@ function UpdateFinal(id) {
 	var SpokesEmailAddress = $("#TxtSpokesEmailAddress").val();
 	var SpokesAddress = $('#TxtAddress').val();
 	var AlternateSpokesName = $("#TxtAlternateSpokesName").val();
+
 	var AlternateSpokesMobile = $("#TxtAlternateMobile").val();
 	var AlternateEmailAddress = $('#TxtAlternateEmailAddress').val();
 	var AlternateAddress = $('#TxtAlternateAddress').val();
@@ -356,6 +355,16 @@ function UpdateFinal(id) {
 		alert("Enter Spokes Person 1 Email Address");
 		return;
 	}
+	else if (SpokesEmailAddress != "") {
+		if (!email.test(SpokesEmailAddress)) {
+			$('.help-block').html('');
+			$('#SpokesEmailDIV').addClass('has-error');
+			$('#ErrorForSpokesEmail').html('Enter Spokes Person 1 Email Address');
+			$('#TxtSpokesEmailAddress').focus();
+			alert("Enter Spokes Person 1 Email Address");
+			return;
+		}
+	}
 	else if (SpokesAddress == "") {
 		$('.help-block').html('');
 		$('#AddressDIV').addClass('has-error');
@@ -407,6 +416,16 @@ function UpdateFinal(id) {
 		$('#TxtAlternateEmailAddress').focus();
 		alert("Enter Spokes Person 2 Email Address");
 		return;
+	}
+	else if (AlternateEmailAddress != "") {
+		if (!email.test(AlternateSpokesMobile)) {
+			$('.help-block').html('');
+			$('#AlternateEmailDIV').addClass('has-error');
+			$('#ErrorForAlternateEmail').html('Enter Spokes Person 2 Email Address');
+			$('#TxtAlternateEmailAddress').focus();
+			alert("Enter Spokes Person 2 Email Address");
+			return;
+		}
 	}
 	else if (PlanName == "") {
 		$('.help-block').html('');
@@ -551,11 +570,7 @@ function UpdateFinal(id) {
 }
 function UpdateLead(id, btnId) {
 	debugger;
-	var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //To check Email ID
-	var onlyText = /^[a-zA-Z0-9\s-]*$/;
-	var onlyCharacters = /^[A-Za-z\s]*$/;
-	var mob_regex = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/; //For mobile number
-	var numberRegex = /^\s*[+-]?(\d+|\d*\.\d+|\d+\.\d*)([Ee][+-]?\d+)?\s*$/ //For number
+	
 	var CompanyName = $("#TxtCompanyName").val().trim();
 	var ClientName = $("#TxtClientName").val().trim();
 	var Category = $("#TxtCategory").val();
@@ -596,33 +611,23 @@ function UpdateLead(id, btnId) {
 	var BackImgFileName = "";
 	var BackImgBase64 = "";
 	var BackImgFileType = "";
-
-
 	if (PathOfImg != "") {
-
 		var frontfile_Size = document.getElementById('FrontImgOfCard').files[0].size;
 		const fileSize = Math.round((frontfile_Size / 1024));
-		// The size of the file.
 		if (fileSize >= 4096) {
 			alert(
 				"File size limit: 4MB");
 			return;
 		}
-
-
 	}
 	if (PathOfBackImg != "") {
-
 		var backfile_Size = document.getElementById('BackImgOfCard').files[0].size;
 		const fileSize = Math.round((backfile_Size / 1024));
-		// The size of the file.
 		if (fileSize >= 4096) {
 			alert(
 				"File size limit: 4MB");
 			return;
 		}
-
-
 	}
 	if (SpokesName != "") {
 		if (!onlyCharacters.test(SpokesName)) {
@@ -634,6 +639,26 @@ function UpdateLead(id, btnId) {
 			return;
 		}
 	}
+	if (SpokesMobileNumber != "") {
+		if (!mob_regex.test(SpokesMobileNumber)) {
+			$('.help-block').html('');
+			$('#SpokesMobileDIV').addClass('has-error');
+			$('#ErrorForSpokesMobile').html('Enter valid spokes person mobile number');
+			$('#TxtSpokesMobile').focus();
+			alert("Enter valid spokes person mobile number");
+			return;
+		}
+	}
+	if (SpokesEmailAddress != "") {
+		if (!email.test(SpokesEmailAddress)) {
+			$('.help-block').html('');
+			$('#SpokesEmailDIV').addClass('has-error');
+			$('#ErrorForSpokesEmail').html('Enter Spokes Person 1 Email Address');
+			$('#TxtSpokesEmailAddress').focus();
+			alert("Enter Spokes Person 1 Email Address");
+			return;
+		}
+	}
 	if (AlternateSpokesName != "") {
 		if (!onlyCharacters.test(AlternateSpokesName)) {
 			$('.help-block').html('');
@@ -641,6 +666,26 @@ function UpdateLead(id, btnId) {
 			$('#ErrorForAlternateSpokesName').html('Enter Spokes Person 2 Name');
 			$('#TxtAlternateSpokesName').focus();
 			alert("Enter valid Spokes Person 2 Name");
+			return;
+		}
+	}
+	if (AlternateSpokesMobile != "") {
+		if (!mob_regex.test(AlternateSpokesMobile)) {
+			$('.help-block').html('');
+			$('#AlternateMobileDIV').addClass('has-error');
+			$('#ErrorForAlternateMobile').html('Enter valid spokes person Mobile Number');
+			$('#TxtAlternateMobile').focus();
+			alert("Enter valid spokes person Mobile Number");
+			return;
+		}
+	}
+	if (AlternateEmailAddress != "") {
+		if (!email.test(AlternateEmailAddress)) {
+			$('.help-block').html('');
+			$('#AlternateEmailDIV').addClass('has-error');
+			$('#ErrorForAlternateEmail').html('Enter Spokes Person 2 Email Address');
+			$('#TxtAlternateEmailAddress').focus();
+			alert("Enter Spokes Person 2 Email Address");
 			return;
 		}
 	}
@@ -902,11 +947,6 @@ $("#BackImgOfCard").change(function () {
 var CardImages = [];
 function SaveFinalFormData() {
 	debugger;
-	var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //To check Email ID
-	var onlyText = /^[a-zA-Z0-9\s-]*$/;
-	var onlyCharacters = /^[A-Za-z\s]*$/;
-	var mob_regex = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/; //For mobile number
-	var numberRegex = /^\s*[+-]?(\d+|\d*\.\d+|\d+\.\d*)([Ee][+-]?\d+)?\s*$/ //For number
 	var CompanyName = $("#TxtCompanyName").val().trim();
 	var ClientName = $("#TxtClientName").val().trim();
 	var Category = $("#TxtCategory").val();
@@ -1100,6 +1140,16 @@ function SaveFinalFormData() {
 		alert("Enter Spokes Person 1 Email Address");
 		return;
 	}
+	else if (SpokesEmailAddress != "") {
+		if (!email.test(SpokesEmailAddress)) {
+			$('.help-block').html('');
+			$('#SpokesEmailDIV').addClass('has-error');
+			$('#ErrorForSpokesEmail').html('Enter Spokes Person 1 Email Address');
+			$('#TxtSpokesEmailAddress').focus();
+			alert("Enter Spokes Person 1 Email Address");
+			return;
+		}
+	}
 	else if (SpokesAddress == "") {
 		$('.help-block').html('');
 		$('#AddressDIV').addClass('has-error');
@@ -1150,7 +1200,18 @@ function SaveFinalFormData() {
 		$('#TxtAlternateEmailAddress').focus();
 		alert("Enter Spokes Person 2 Email Address");
 		return;
-	} else if (AlternateAddress != "") {
+	}
+	else if (AlternateEmailAddress != "") {
+		if (!email.test(AlternateEmailAddress)) {
+			$('.help-block').html('');
+			$('#AlternateEmailDIV').addClass('has-error');
+			$('#ErrorForAlternateEmail').html('Enter Spokes Person 2 Email Address');
+			$('#TxtAlternateEmailAddress').focus();
+			alert("Enter Spokes Person 2 Email Address");
+			return;
+		}
+	}
+	else if (AlternateAddress != "") {
 		$('.help-block').html('');
 		$('#AlternateAddressDIV').addClass('has-error');
 		$('#ErrorForAlternateAddress').html('Enter valid spokes person Mobile Number');
@@ -1304,11 +1365,6 @@ function SaveFinalFormData() {
 }
 function SaveFormData(id) {
 	debugger;
-	var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //To check Email ID
-	var onlyText = /^[a-zA-Z0-9\s-]*$/;
-	var onlyCharacters = /^[A-Za-z\s]*$/;
-	var mob_regex = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/; //For mobile number
-	var numberRegex = /^\s*[+-]?(\d+|\d*\.\d+|\d+\.\d*)([Ee][+-]?\d+)?\s*$/ //For number
 	var CompanyName = $("#TxtCompanyName").val().trim();
 	var ClientName = $("#TxtClientName").val().trim();
 	var Category = $("#TxtCategory").val();
@@ -1387,7 +1443,8 @@ function SaveFormData(id) {
 		$('#ErrorForSource').html('Select Owner Name');
 		$('#TxtSource').focus();
 		return;
-	} else if (SpokesName != "") {
+	}
+	if (SpokesName != "") {
 		if (!onlyCharacters.test(SpokesName)) {
 			$('.help-block').html('');
 			$('#SpokesNameDIV').addClass('has-error');
@@ -1397,35 +1454,56 @@ function SaveFormData(id) {
 			return;
 		}
 	}
-	else if (AlternateSpokesName != "") {
-		if (!onlyCharacters.test(AlternateSpokesName)) {
-			$('.help-block').html('');
-			$('#AlternateSpokesNameDIV').addClass('has-error');
-			$('#ErrorForAlternateSpokesName').html('Enter valid Spokes Person 2 Name');
-			$('#TxtAlternateSpokesName').focus();
-			alert("Enter valid Spokes Person 2 Name");
-			return;
-		}
-	}
-	else if (SpokesMobileNumber != "") {
+	if (SpokesMobileNumber != "") {
 		if (!mob_regex.test(SpokesMobileNumber)) {
 			$('.help-block').html('');
 			$('#SpokesMobileDIV').addClass('has-error');
 			$('#ErrorForSpokesMobile').html('Enter valid spokes person mobile number');
 			$('#TxtSpokesMobile').focus();
+			alert("Enter valid spokes person mobile number");
 			return;
 		}
 	}
-	else if (AlternateSpokesMobile != "") {
+	if (SpokesEmailAddress != "") {
+		if (!email.test(SpokesEmailAddress)) {
+			$('.help-block').html('');
+			$('#SpokesEmailDIV').addClass('has-error');
+			$('#ErrorForSpokesEmail').html('Enter Spokes Person 1 Email Address');
+			$('#TxtSpokesEmailAddress').focus();
+			alert("Enter Spokes Person 1 Email Address");
+			return;
+		}
+	}
+	if (AlternateSpokesName != "") {
+		if (!onlyCharacters.test(AlternateSpokesName)) {
+			$('.help-block').html('');
+			$('#AlternateSpokesNameDIV').addClass('has-error');
+			$('#ErrorForAlternateSpokesName').html('Enter Spokes Person 2 Name');
+			$('#TxtAlternateSpokesName').focus();
+			alert("Enter valid Spokes Person 2 Name");
+			return;
+		}
+	}
+	if (AlternateSpokesMobile != "") {
 		if (!mob_regex.test(AlternateSpokesMobile)) {
 			$('.help-block').html('');
 			$('#AlternateMobileDIV').addClass('has-error');
 			$('#ErrorForAlternateMobile').html('Enter valid spokes person Mobile Number');
 			$('#TxtAlternateMobile').focus();
+			alert("Enter valid spokes person Mobile Number");
 			return;
 		}
 	}
-	
+	if (AlternateEmailAddress != "") {
+		if (!email.test(AlternateEmailAddress)) {
+			$('.help-block').html('');
+			$('#AlternateEmailDIV').addClass('has-error');
+			$('#ErrorForAlternateEmail').html('Enter Spokes Person 2 Email Address');
+			$('#TxtAlternateEmailAddress').focus();
+			alert("Enter Spokes Person 2 Email Address");
+			return;
+		}
+	}
 	var formdata = new FormData();
 	formdata.append("CompanyName", CompanyName);
 	formdata.append("ClientName", ClientName);
@@ -1608,8 +1686,6 @@ function nevigateToClientDetails() {
 }
 function nevigateToContactDetails() {
 	debugger;
-	var onlyText = /^[a-zA-Z0-9\s-]*$/;
-	var onlyCharacters = /^[A-Za-z\s]*$/;
 	var CompanyName = $("#TxtCompanyName").val().trim();
 	var ClientName = $("#TxtClientName").val().trim();
 	var Category = $("#TxtCategory").val();
@@ -1732,12 +1808,20 @@ function nevigateToContactDetails() {
 	}
 }
 function nevigateToProjectDetails() {
+	debugger;
 	var onlyText = /^[a-zA-Z0-9\s-]*$/;
+	var email = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 	var CompanyName = $("#TxtCompanyName").val().trim();
 	var ClientName = $("#TxtClientName").val().trim();
 	var Category = $("#TxtCategory").val();
 	var TypeOfLead = $("#TxtTypeOfLead").val();
 	var ProductName = $("#TxtProductName").val();
+	var SpokesName = $("#TxtSpokesName").val();
+	var AlternateSpokesName = $("#TxtAlternateSpokesName").val();
+	var SpokesEmailAddress = $("#TxtSpokesEmailAddress").val();
+	var AlternateEmailAddress = $('#TxtAlternateEmailAddress').val();
+	var SpokesMobileNumber = $("#TxtSpokesMobile").val();
+	var AlternateSpokesMobile = $("#TxtAlternateMobile").val();
 	if ($("#TxtSource").val() == "null") {
 		var Source = "";
 	}
@@ -1755,7 +1839,6 @@ function nevigateToProjectDetails() {
 
 		var frontfile_Size = document.getElementById('FrontImgOfCard').files[0].size;
 		const fileSize = Math.round((frontfile_Size / 1024));
-		// The size of the file.
 		if (fileSize >= 4096) {
 			alert(
 				"File size limit: 4MB");
@@ -1766,7 +1849,6 @@ function nevigateToProjectDetails() {
 
 		var backfile_Size = document.getElementById('BackImgOfCard').files[0].size;
 		const fileSize = Math.round((backfile_Size / 1024));
-		// The size of the file.
 		if (fileSize >= 4096) {
 			alert(
 				"File size limit: 4MB");
@@ -1780,19 +1862,73 @@ function nevigateToProjectDetails() {
 		$('#TxtCompanyName').focus();
 		return;
 	}
-	else if (ClientName == "") {
+	if (ClientName == "") {
 		$('.help-block').html('');
 		$('#ErrorForClientName').html('Enter Client Name');
 		$('#ErrorForClientName').css('color', 'red');
 		$('#TxtClientName').focus();
 		return;
 	}
-	else if (Source == "") {
+	if (Source == "") {
 		$('.help-block').html('');
 		$('#SourceDIV').addClass('has-error');
 		$('#ErrorForSource').html('Select Owner Name');
 		$('#TxtSource').focus();
 		return;
+	}
+	if (SpokesName != "") {
+		if (!onlyCharacters.test(SpokesName)) {
+			$('.help-block').html('');
+			$('#SpokesNameDIV').addClass('has-error');
+			$('#ErrorForSpokesName').html('Enter Spokes Person 1 Name');
+			$('#TxtSpokesName').focus();
+			return;
+		}
+	}
+	if (SpokesMobileNumber != "") {
+		if (!mob_regex.test(SpokesMobileNumber)) {
+			$('.help-block').html('');
+			$('#SpokesMobileDIV').addClass('has-error');
+			$('#ErrorForSpokesMobile').html('Enter valid spokes person mobile number');
+			$('#TxtSpokesMobile').focus();
+			return;
+		}
+	}
+	if (SpokesEmailAddress != "") {
+		if (!email.test(SpokesEmailAddress)) {
+			$('.help-block').html('');
+			$('#SpokesEmailDIV').addClass('has-error');
+			$('#ErrorForSpokesEmail').html('Enter Spokes Person 1 Email Address');
+			$('#TxtSpokesEmailAddress').focus();
+			return;
+		}
+	}
+	if (AlternateSpokesName != "") {
+		if (!onlyCharacters.test(AlternateSpokesName)) {
+			$('.help-block').html('');
+			$('#AlternateSpokesNameDIV').addClass('has-error');
+			$('#ErrorForAlternateSpokesName').html('Enter Spokes Person 2 Name');
+			$('#TxtAlternateSpokesName').focus();
+			return;
+		}
+	}
+	if (AlternateSpokesMobile != "") {
+		if (!mob_regex.test(AlternateSpokesMobile)) {
+			$('.help-block').html('');
+			$('#AlternateMobileDIV').addClass('has-error');
+			$('#ErrorForAlternateMobile').html('Enter valid spokes person Mobile Number');
+			$('#TxtAlternateMobile').focus();
+			return;
+		}
+	}
+	if (AlternateEmailAddress != "") {
+		if (!email.test(AlternateEmailAddress)) {
+			$('.help-block').html('');
+			$('#AlternateEmailDIV').addClass('has-error');
+			$('#ErrorForAlternateEmail').html('Enter Spokes Person 2 Email Address');
+			$('#TxtAlternateEmailAddress').focus();
+			return;
+		}
 	}
 	if (CompanyName != "" && ClientName != "" && Category != "" && Source != "" && TypeOfLead != "" && ProductName != "" && LeadSource != "" && Reference != "" && PathOfBackImg != "" && PathOfImg != "" && ProjectType != "") {
 		$("#nevigateToClientDetails").css("border", "2px solid #00a65a");

@@ -332,9 +332,7 @@
                                 <i class="fa fa-dashboard"></i><span>Dashboard</span>
                             </a>
                         </li>
-                        <li class="treeview myLi">
-
-
+                        <li class="treeview myLi" id="showMasters" onclick="showMasters()">
                             <a href="">
                                 <i class="fa fa-table"></i><span>Masters</span>
                                 <span class="pull-right-container">
@@ -345,7 +343,7 @@
                                 <li class="myInnerLi"><a href="@Url.Action("Index","LeadManagement")" id="3"><i class="fa fa-circle-o"></i>Lead Master</a></li>
                                 <li class="myInnerLi"><a href="@Url.Action("Index","Category")" id="4"><i class="fa fa-circle-o"></i>Category Master</a></li>
                                 <li class="myInnerLi"><a href="@Url.Action("Index","Company")" id="6"><i class="fa fa-circle-o"></i>Company Master</a></li>
-                                <li class="myInnerLi"><a href="@Url.Action("Index","Employee")" id="7"><i class="fa fa-circle-o"></i>Assign To Master</a></li>
+                                <li class="myInnerLi"><a href="@Url.Action("Index","Employee")" id="7"><i class="fa fa-circle-o"></i>Assignee Master</a></li>
                                 <li class="myInnerLi"><a href="@Url.Action("Index","Source")" id="8"><i class="fa fa-circle-o"></i>Owner Master</a></li>
                                 <li class="myInnerLi"><a href="@Url.Action("Index","LeadSource")" id="9"><i class="fa fa-circle-o"></i>Lead Source Master</a></li>
                                 <li class="myInnerLi"><a href="@Url.Action("Index","PlanDetail")" id="10"><i class="fa fa-circle-o"></i>Plan Detail Master</a></li>
@@ -419,9 +417,7 @@
         var ServerURL = "@System.Configuration.ConfigurationManager.AppSettings["ScreenURL"].ToString()";
         var UserId = '@Session["Admin_ID"].ToString()';
         $(document).ready(function () {
-
             getCountOfUnseenNotification(UserId);
-
         });
         function getCountOfUnseenNotification(UserId) {
             debugger;
@@ -443,12 +439,9 @@
                             $("#countOfUnseenNotification").text(count);
                             $("#countOfUnseenNotification").css('display','initial');
                         }
-                        
 			        }
-
 		        }
 	        });
-
         }
         function Logout() {
             debugger;
@@ -485,15 +478,10 @@
                 }
             });
         }
-
-
-
         function ShowForm() {
             debugger;
             window.location.href = '' + ServerURL + 'LeadManagement/AddNewLead';
-
         }
-
         function ShowFormforlist() {
             debugger;
             window.location.href = '' + ServerURL + 'LeadManagement/Index';
@@ -529,6 +517,14 @@
 
                 }
             });
+        }
+        function showMasters() {
+            debugger;
+            var hasClass = $("#body").hasClass("sidebar-collapse");
+
+            if (hasClass) {
+                $("#body").removeClass("sidebar-collapse");
+            }
         }
         function RecentNotificationDetails(UserId) {
             debugger;

@@ -20,10 +20,10 @@ namespace LeadManagementSystem.Controllers
         public ActionResult AddLeadForm()
         {
             Session["toAddLead"] = "toAddLeadForm";
-            //return View();
+            
             return RedirectToAction("Index");
         }
-        // GET: LeadManagement
+        
         public ActionResult Index()
         {
             if (Session["AuthToken"] != null)
@@ -211,7 +211,7 @@ namespace LeadManagementSystem.Controllers
         }
         public ActionResult LeadTablePartial()
         {
-            if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+            if (Session["AuthToken"] != null)
             {
                 LeadModel lm = new LeadModel();
                 LeadDetails cd = new LeadDetails();
@@ -230,7 +230,7 @@ namespace LeadManagementSystem.Controllers
 
         public ActionResult FilterLeadTablePartial(FilterBy filterBy)
         {
-            if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+            if (Session["AuthToken"] != null)
             {
                 LeadModel lm = new LeadModel();
                 LeadDetails cd = new LeadDetails();
@@ -251,8 +251,9 @@ namespace LeadManagementSystem.Controllers
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
+                    ld.ScheduleDate = ld.ScheduleDate ?? "";
                     ld.CreatedBy = Convert.ToString(Session["Admin_ID"]);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddLead", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
@@ -496,7 +497,7 @@ namespace LeadManagementSystem.Controllers
                 if (Session["AuthToken"] != null)
                 {
                     ld.CreatedBy = Convert.ToString(Session["Admin_ID"]);
-                    //rm = cs.Update(cm);
+                    ld.ScheduleDate = ld.ScheduleDate ?? "";
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdateLead", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
 
@@ -519,7 +520,7 @@ namespace LeadManagementSystem.Controllers
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     if(remarkModel.Status== "undefined")
                     {
@@ -548,7 +549,7 @@ namespace LeadManagementSystem.Controllers
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     remarkModel.CreatedBy = Convert.ToString(Session["Admin_ID"]);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddRemarkAndNotify", remarkModel, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
@@ -710,6 +711,13 @@ namespace LeadManagementSystem.Controllers
                             }
                             
                         }
+                        if (newRow != "")
+                        {
+                            stringtemp +=
+                                   $"<div class=\"col-md-12\">" +
+                                   newRow +
+                                   $"</div> <br>";
+                        }
                     }
 
                     if (LeadCategoryDetails == null || LeadCategoryDetails.Count == 0)
@@ -747,7 +755,13 @@ namespace LeadManagementSystem.Controllers
                                 i = 0;
                                 leadCategoryNames = "";
                             }
-
+                        }
+                        if (leadCategoryNames != "")
+                        {
+                            NewRowForCategory +=
+                                   $"<div class=\"col-md-12\">" +
+                                   leadCategoryNames +
+                                   $"</div> <br>";
                         }
                     }
 
@@ -786,7 +800,13 @@ namespace LeadManagementSystem.Controllers
                                 i = 0;
                                 AssignToNames = "";
                             }
-
+                        }
+                        if (AssignToNames != "")
+                        {
+                            NewRowForAssignTo +=
+                                   $"<div class=\"col-md-12\">" +
+                                   AssignToNames +
+                                   $"</div> <br>";
                         }
                     }
 
@@ -869,7 +889,7 @@ namespace LeadManagementSystem.Controllers
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     var userid = Session["Admin_ID"].ToString();
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("RemoveLead?LeadId=" + id+"&UserId="+userid, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
