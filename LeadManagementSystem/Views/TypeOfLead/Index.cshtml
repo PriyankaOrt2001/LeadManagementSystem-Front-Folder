@@ -217,12 +217,89 @@
 
     .tab-content {
         padding: 20px;
-    } 
+    }
+
+    .padding-left {
+        padding-left: 0px;
+    }
+
+    #TxtCategory {
+        width: 80%
+    }
+
+    #TxtTypeOfLeadName {
+        width: 80%
+    }
+
+    .overflow {
+        height: 60%;
+        overflow-y: scroll;
+    }
+
+    .tableWrap {
+        height: 200px;
+        border: 2px solid black;
+        overflow: auto;
+    }
+
+    thead tr th {
+        position: sticky;
+        top: 0;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    th {
+        font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+        color: white;
+        padding: 16px;
+        padding-left: 15px;
+        border-left: 0px #5ba7d7;
+        border-bottom: 1px solid #e8e8e8;
+        background: #5ba7d7;
+        text-align: left;
+        font-weight: 400;
+    }
+
+    .tableFixHead {
+        overflow: auto;
+        height: 100%;
+    }
+
+        .tableFixHead thead th {
+            position: sticky;
+            top: 0;
+        }
+
+    table {
+        width: 100%;
+    }
+
+        table td {
+            padding: 16px;
+        }
+
+    tbody tr {
+        border-bottom: 2px solid #e8e8e8;
+    }
+
+    thead {
+        color: rgba(0, 0, 0, 0.85);
+    }
+
+    tbody tr:hover {
+        background: #e6f7ff;
+    }
+
+    .padding-title {
+        padding-bottom: 7px;
+    }
 </style>
-<section class="content-header">
+<section class="content-header padding-title">
     <h1 id="boxTitle">Sub Category Details</h1>
 </section>
-
 <div class="row">
     <div class="col-md-12">
         <div class="box box-primary with-border" id="TypeOfLeadDataDIV">
@@ -230,73 +307,47 @@
                 <div class="tab-header">
                     <div class="tab" onclick="@("window.location.href='" + @Url.Action("Index", "Category") + "'");">Add Category</div>
                     <div class="tab active" onclick="@("window.location.href='" + @Url.Action("Index", "TypeOfLead") + "'");">Add Sub Category</div>
-
-                </div>  
+                </div>
             </div>
             <div class="box-body">
-                <div class="col-md-12" id="TypeOfLeadForm">
-                    <div class="form-group">
-
-                        <div class="box-body">
-
-                            <div class="row" style="padding-left: 100px;">
-                                <div class="col-md-12">
-                                    <div class="col-md-4">
-                                        <div class="form-group" id="CategoryNameDIV">
-                                            <label>Category Name<span class="text-danger">*</span></label>
-                                            <select id="TxtCategory" class="form-control">
-                                                <option selected="" value="">--Select Category--</option>
-                                                @Html.Raw(ViewBag.CategoryModelList)
-                                            </select>
-                                            <span class="help-block" id="ErrorForCategoryName"></span>
-                                        </div>
-                                    </div>
-
-
+                <div class="col-md-12 padding-left" id="TypeOfLeadForm">
+                    <div class="col-md-4 padding-left">
+                        <div class="form-group">
+                            <div class="box-body padding-left">
+                                <div class="form-group" id="CategoryNameDIV">
+                                    <label>Category Name<span class="text-danger">*</span></label>
+                                    <select id="TxtCategory" class="form-control">
+                                        <option selected="" value="">--Select Category--</option>
+                                        @Html.Raw(ViewBag.CategoryModelList)
+                                    </select>
+                                    <span class="help-block" id="ErrorForCategoryName"></span>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="col-md-4">
-                                        <div class="form-group" id="TypeOfLeadNameDIV">
-                                            <label>Sub Category Name<span class="text-danger">*</span></label>
-                                            <input type="text" maxlength="25" class="form-control" id="TxtTypeOfLeadName" placeholder="Enter Sub Category Name" autocomplete="off" />
-                                            <span class="help-block" id="ErrorForTypeOfLeadName"></span>
-                                        </div>
-                                    </div>
-
+                                <div class="form-group" id="TypeOfLeadNameDIV">
+                                    <label>Sub Category Name<span class="text-danger">*</span></label>
+                                    <input type="text" maxlength="25" class="form-control" id="TxtTypeOfLeadName" placeholder="Enter Sub Category Name" autocomplete="off" />
+                                    <span class="help-block" id="ErrorForTypeOfLeadName"></span>
                                 </div>
                             </div>
-
-                            <div class="box-footer" style="padding-left: 170px;">
+                            <div class="box-footer padding-left">
                                 <button type="button" class="btn btn-success" id="btnSave" onclick="SaveFormData();" style="margin-right: 10px;width:110px;">Save</button>
                                 <button type="button" class="btn btn-danger" id="btnreset" onclick="ResetFormData();" style="width:110px;">Reset</button>
                             </div>
                         </div>
-
                     </div>
-
-                </div>
-
-                <div class="col-md-12" id="TypeOfLeadTable" style="width: 800px;margin-left: 0px;">
-                    <div class="box box-primary with-border">
-
-                        <div class="box-body">
-                            <div id="TypeOfLeadDetails"></div>
-
+                    <div class="col-md-8" id="TypeOfLeadTable">
+                        <div class="box box-primary with-border">
+                            <div class="box-body">
+                                <div id="TypeOfLeadDetails"></div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
-
-
 @section LocalJs{
-
     <script>
-
         $(document).ready(function () {
             debugger;
             refreshDataTable(0)
@@ -307,24 +358,20 @@
                 var pageToSet = pageId;
                 var myDataTable = $('#TableTypeOfLead').DataTable({
                 });
+                $("#TableTypeOfLead").removeClass('dataTable');
+                $(".col-sm-12").addClass('overflow');
+                $(".col-sm-12").css('padding-right', '0px');
                 if (pageId != 0) {
                     sessionStorage.setItem('pageId', 0);
                 }
                 myDataTable.page(pageToSet).draw(false);
             });
         }
-
     </script>
     <script src="~/MyJavascripts/TypeOfLead.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
     <script src="https://unpkg.com/bootstrap-multiselect@0.9.13/dist/js/bootstrap-multiselect.js"></script>
-
     <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
-
 }
-
-
-
-

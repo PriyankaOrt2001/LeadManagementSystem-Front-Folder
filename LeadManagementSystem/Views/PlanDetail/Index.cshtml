@@ -132,81 +132,129 @@
         border-collapse: separate;
     }
 
+    #TxtPlanName {
+        width: 80%;
+    }
+
+    #TxtPlanPrice {
+        width: 80%
+    }
+
+    .padding-left {
+        padding-left: 0px;
+    }
+
+    .overflow {
+        height: 60%;
+        overflow-y: scroll;
+    }
+
+    .tableWrap {
+        height: 200px;
+        border: 2px solid black;
+        overflow: auto;
+    }
+
+    thead tr th {
+        position: sticky;
+        top: 0;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    th {
+        font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+        color: white;
+        padding: 16px;
+        padding-left: 15px;
+        border-left: 0px #5ba7d7;
+        border-bottom: 1px solid #e8e8e8;
+        background: #5ba7d7;
+        text-align: left;
+        font-weight: 400;
+    }
+
+    .tableFixHead {
+        overflow: auto;
+        height: 100%;
+    }
+
+        .tableFixHead thead th {
+            position: sticky;
+            top: 0;
+        }
+
+    table {
+        width: 100%;
+    }
+
+        table td {
+            padding: 16px;
+        }
+
+    tbody tr {
+        border-bottom: 2px solid #e8e8e8;
+    }
+
+    thead {
+        color: rgba(0, 0, 0, 0.85);
+    }
+
+    tbody tr:hover {
+        background: #e6f7ff;
+    }
+
+    .padding-title {
+        padding-bottom: 7px;
+    }
 </style>
-<section class="content-header">
+<section class="content-header padding-title">
     <h1>Plan Details</h1>
 </section>
-
 <div class="row">
     <div class="col-md-12">
         <div class="box box-primary with-border" id="PlanDataDIV">
             <div class="box-header with-border">
                 <h3 class="box-title" id="boxTitle">Add Plan Details</h3>
-
             </div>
             <div class="box-body">
-                <div class="col-md-12" id="PlanDetailsForm">
-                    <div class="form-group">
-
-                        <div class="box-body">
-
-                            <div class="row" style="padding-left: 100px;">
-                                <div class="col-md-12">
-                                    <div class="col-md-4">
-                                        <div class="form-group" id="PlanNameDIV">
-                                            <label>Plan Name<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" maxlength="25" id="TxtPlanName" placeholder="Enter Plan Name" autocomplete="off" />
-                                            <span class="help-block" id="ErrorForPlanName"></span>
-                                        </div>
-                                    </div>
-
-
+                <div class="col-md-12 padding-left" id="PlanDetailsForm">
+                    <div class="col-md-4 padding-left">
+                        <div class="form-group">
+                            <div class="box-body padding-left">
+                                <div class="form-group" id="PlanNameDIV">
+                                    <label>Plan Name<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" maxlength="25" id="TxtPlanName" placeholder="Enter Plan Name" autocomplete="off" />
+                                    <span class="help-block" id="ErrorForPlanName"></span>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="col-md-4">
-                                        <div class="form-group" id="PlanPriceDIV">
-                                            <label>Plan Price<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" maxlength="25" id="TxtPlanPrice" placeholder="Enter Plan Price" autocomplete="off"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');"/>
-                                            <span class="help-block" id="ErrorForPlanPrice"></span>
-                                        </div>
-                                    </div>
-
-
+                                <div class="form-group" id="PlanPriceDIV">
+                                    <label>Plan Price<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" maxlength="25" id="TxtPlanPrice" placeholder="Enter Plan Price" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" />
+                                    <span class="help-block" id="ErrorForPlanPrice"></span>
                                 </div>
                             </div>
-
-                            <div class="box-footer" style="padding-left: 170px;">
+                            <div class="box-footer padding-left">
                                 <button type="button" class="btn btn-success" id="btnSave" onclick="SaveFormData();" style="margin-right: 10px;width:110px;">Save</button>
                                 <button type="button" class="btn btn-danger" id="btnreset" onclick="ResetFormData();" style="width:110px;">Reset</button>
                             </div>
                         </div>
-
                     </div>
-
-                </div>
-
-                <div class="col-md-12" id="PlanDetailsTable" style="width: 800px;margin-left: 0px;">
-                    <div class="box box-primary with-border">
-
-                        <div class="box-body">
-                            <div id="PlanDetails"></div>
-
+                    <div class="col-md-8" id="PlanDetailsTable">
+                        <div class="box box-primary with-border">
+                            <div class="box-body">
+                                <div id="PlanDetails"></div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
-
-
 @section LocalJs{
-
     <script>
-
-
         $(document).ready(function () {
             debugger;
             refreshDataTable()
@@ -215,19 +263,13 @@
             debugger;
             $("#PlanDetails").load("@Url.Action("PlanTablePartial", "PlanDetail")", function () {
                 $("#TablePlanDetails").DataTable();
-
             });
+
         }
     </script>
     <script src="~/MyJavascripts/PlanDetails.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
     <script src="https://unpkg.com/bootstrap-multiselect@0.9.13/dist/js/bootstrap-multiselect.js"></script>
-
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
-
 }
-
-
-
-

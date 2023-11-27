@@ -215,14 +215,79 @@
     .tab-content {
         padding: 20px;
     }
-</style>
-<section class="content-header">
-    <h1 id="boxTitle">Category Details</h1>
-    @*<ol class="breadcrumb" id="toLeadDetails">
-            <li class="active"><a href="@Url.Action("Index","LeadManagement")" onclick="Leadtable();">Lead Details</a></li>
-            <li id="currentPage">Edit Lead</li>
+    .padding-left {
+        padding-left: 0px;
+    }
+    #TxtCategoryName {
+        width: 80%
+    }
+    .overflow {
+        height: 60%;
+        overflow-y: scroll;
+    }
 
-        </ol>*@
+    .tableWrap {
+        height: 200px;
+        border: 2px solid black;
+        overflow: auto;
+    }
+
+    thead tr th {
+        position: sticky;
+        top: 0;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    th {
+        font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+        color: white;
+        padding: 16px;
+        padding-left: 15px;
+        border-left: 0px #5ba7d7;
+        border-bottom: 1px solid #e8e8e8;
+        background: #5ba7d7;
+        text-align: left;
+        font-weight: 400;
+    }
+
+    .tableFixHead {
+        overflow: auto;
+        height: 100%;
+    }
+
+        .tableFixHead thead th {
+            position: sticky;
+            top: 0;
+        }
+
+    table {
+        width: 100%;
+    }
+
+        table td {
+            padding: 16px;
+        }
+
+    tbody tr {
+        border-bottom: 2px solid #e8e8e8;
+    }
+
+    thead {
+        color: rgba(0, 0, 0, 0.85);
+    }
+
+    tbody tr:hover {
+        background: #e6f7ff;
+    }
+    .padding-title {
+        padding-bottom: 7px;
+    }
+</style>
+<section class="content-header padding-title">
+    <h1 id="boxTitle">Category Details</h1>
 </section>
 
 <div class="row">
@@ -233,60 +298,38 @@
                     <div class="tab active" onclick="@("window.location.href='" + @Url.Action("Index", "Category") + "'");">Add Category</div>
                     <div class="tab" onclick="@("window.location.href='" + @Url.Action("Index", "TypeOfLead") + "'");">Add Sub Category</div>
                 </div>
-
             </div>
             <div class="box-body">
-                <div class="col-md-12" id="CategoryForm">
-                    <div class="form-group">
-
-                        <div class="box-body">
-
-                            <div class="row" style="padding-left: 100px;">
-                                <div class="col-md-12">
-                                    <div class="col-md-4">
-                                        <div class="form-group" id="CategoryNameDIV">
-                                            <label>Category Name<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="TxtCategoryName" maxlength="25" placeholder="Enter Project Type Name" autocomplete="off" />
-                                            <span class="help-block" id="ErrorForCategoryName"></span>
-                                        </div>
-                                    </div>
-
-
+                <div class="col-md-12 padding-left" id="CategoryForm">
+                    <div class="col-md-4 padding-left">
+                        <div class="form-group">
+                            <div class="box-body padding-left">
+                                <div class="form-group" id="CategoryNameDIV">
+                                    <label>Category Name<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="TxtCategoryName" maxlength="25" placeholder="Enter Project Type Name" autocomplete="off" />
+                                    <span class="help-block" id="ErrorForCategoryName"></span>
                                 </div>
                             </div>
-
-                            <div class="box-footer" style="padding-left: 170px;">
+                            <div class="box-footer padding-left">
                                 <button type="button" class="btn btn-success" id="btnSave" onclick="SaveFormData();" style="margin-right: 10px;width:110px;">Save</button>
                                 <button type="button" class="btn btn-danger" id="btnreset" onclick="ResetFormData();" style="width:110px;">Reset</button>
                             </div>
                         </div>
-
                     </div>
-
-                </div>
-
-                <div class="col-md-12" id="CategoryTable" style="width: 800px;margin-left: 0px;">
-                    <div class="box box-primary with-border">
-
-                        <div class="box-body">
-                            <div id="CategoryDetails"></div>
-
+                    <div class="col-md-8" id="CategoryTable">
+                        <div class="box box-primary with-border">
+                            <div class="box-body">
+                                <div id="CategoryDetails"></div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
-
-
 @section LocalJs{
-
     <script>
-
-
         $(document).ready(function () {
             debugger;
             refreshDataTable(0)
@@ -294,10 +337,12 @@
         function refreshDataTable(pageId) {
             debugger;
             $("#CategoryDetails").load("@Url.Action("CategoryTablePartial", "Category")", function () {
-              
                 var pageToSet = pageId;
                 var myDataTable = $('#TableCategory').DataTable({
                 });
+                $("#TableCategory").removeClass('dataTable');
+                $(".col-sm-12").addClass('overflow');
+                $(".col-sm-12").css('padding-right', '0px');
                 if (pageId != 0) {
                     sessionStorage.setItem('pageId', 0);
                 }
@@ -309,12 +354,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
     <script src="https://unpkg.com/bootstrap-multiselect@0.9.13/dist/js/bootstrap-multiselect.js"></script>
-
     <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
 
 }
-
-
-
-

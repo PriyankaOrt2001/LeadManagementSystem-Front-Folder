@@ -491,28 +491,19 @@
     .padding-title {
         padding-bottom: 7px;
     }
-    /* Set a fixed scrollable wrapper */
     .tableWrap {
         height: 200px;
         border: 2px solid black;
         overflow: auto;
     }
-    /* Set header to stick to the top of the container. */
     thead tr th {
         position: sticky;
         top: 0;
     }
-
-    /* If we use border,
-we must use table-collapse to avoid
-a slight movement of the header row */
     table {
         border-collapse: collapse;
     }
 
-    /* Because we must set sticky on th,
- we have to apply background styles here
- rather than on thead */
     th {
         font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
         color: white;
@@ -522,7 +513,6 @@ a slight movement of the header row */
         border-bottom: 1px solid #e8e8e8;
         background: #5ba7d7;
         text-align: left;
-        /* box-shadow: 0px 0px 0 2px #e8e8e8; */
         font-weight: 400;
     }
     .tableFixHead {
@@ -534,7 +524,6 @@ a slight movement of the header row */
             position: sticky;
             top: 0;
         }
-    /* Basic Demo styling */
     table {
 
         width: 100%;
