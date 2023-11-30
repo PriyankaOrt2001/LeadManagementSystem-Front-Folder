@@ -35,8 +35,8 @@ namespace LeadManagementSystem.MODEL
         public string CreatedBy { get; set; }
         public int RowNum { get; set; }
         public int SrNo { get; set; }
-        public int Employee_Id { get; set; }
-        public string Employee_Name { get; set; }
+        public int Assignee_Id { get; set; }
+        public string Assignee_Name { get; set; }
     }
     public class PlanDetailsModel
     {

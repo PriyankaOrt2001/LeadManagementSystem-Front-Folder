@@ -1,0 +1,117 @@
+﻿.openlead-bg {
+    color: white;
+    background-color: #47B0F8;
+}
+
+.closedlead-bg {
+    color: white;
+    background-color: #A694F8;
+}
+
+.ghostlead-bg {
+    color: white;
+    background-color: #D63683;
+}
+
+.convertedlead-bg {
+    color: white;
+    background-color: #F1843B;
+}
+
+.holdlead-bg {
+    color: white;
+    background-color: #F9C747;
+}
+
+a#btnAddLead {
+    padding: 6px 20px;
+}
+
+#TxtFilterDate {
+    height: 33px;
+    margin-top: 7px;
+    width: 195px;
+    margin-right: 5px;
+}
+
+.RemarkDatahead {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 600;
+    padding-left: 13px;
+    padding-top: 5px;
+    font-size: 15px;
+}
+
+.AdminRemarkDatahead {
+    color: red;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 600;
+    padding-left: 13px;
+    padding-top: 5px;
+    font-size: 15px;
+}
+
+.RemarkDatadate {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    color: #808080;
+    padding-left: 13px;
+    text-align: right
+}
+
+.RemarkDataDes {
+    font-family: 'Rubik', sans-serif;
+    text-align: left;
+    color: #333333;
+    font-size: 14px;
+    width: 90%;
+    margin-left: 13px;
+    margin-bottom: 8px;
+}
+
+.RemarkData {
+    border: 1px solid #e4e4e4;
+    border-radius: 16px;
+    box-shadow: 0px 4px 8px #e4e4e4;
+}
+
+.d-flex p {
+    margin-bottom: 5px;
+    padding-right: 20px;
+}
+
+.RemarkData_Block {
+    width: 100%;
+    height: fit-content;
+    margin-top: 10px;
+    border: 1px solid #e4e4e4;
+    border-radius: 16px;
+    box-shadow: 0px 4px 8px #e4e4e4;
+}
+
+.ClosedRemarkData_Block {
+    width: 100%;
+    height: fit-content;
+    margin-top: 10px;
+    border: 1px solid #e4e4e4;
+    border-radius: 16px;
+    box-shadow: 0px 4px 8px #e4e4e4;
+}
+
+.ConvertRemarkData_Block {
+    width: 100%;
+    height: fit-content;
+    margin-top: 10px;
+    border: 1px solid #e4e4e4;
+    border-radius: 16px;
+    box-shadow: 0px 4px 8px #e4e4e4;
+}
+
+.scrollbox {
+    overflow-y: scroll;
+    max-height: 86%;
+}
+
+.data-count-box {
+    height: auto;
+}

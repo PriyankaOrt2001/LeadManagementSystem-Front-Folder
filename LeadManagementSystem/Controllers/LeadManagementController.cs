@@ -72,7 +72,7 @@ namespace LeadManagementSystem.Controllers
                 var AssignToNames = "";
                 foreach (var AssignTo in AssignToDetails)
                 {
-                    AssignToNames += "<option value='" + AssignTo.Employee_Id + "'>" + AssignTo.Employee_Name + "</option>";
+                    AssignToNames += "<option value='" + AssignTo.Assignee_Id + "'>" + AssignTo.Assignee_Name + "</option>";
                 }
                 var PlanList = JsonConvert.DeserializeObject<PlanDetailsModel>(LMSTransaction.get("GetPlanDetailsList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                 List<PlanDetails> PlanDetails = PlanList.PlanList;
@@ -165,7 +165,7 @@ namespace LeadManagementSystem.Controllers
                 var AssignToNames = "";
                 foreach (var AssignTo in AssignToDetails)
                 {
-                    AssignToNames += "<option value='" + AssignTo.Employee_Id + "'>" + AssignTo.Employee_Name + "</option>";
+                    AssignToNames += "<option value='" + AssignTo.Assignee_Id + "'>" + AssignTo.Assignee_Name + "</option>";
                 }
                 var PlanList = JsonConvert.DeserializeObject<PlanDetailsModel>(LMSTransaction.get("GetPlanDetailsList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                 List<PlanDetails> PlanDetails = PlanList.PlanList;
@@ -784,10 +784,10 @@ namespace LeadManagementSystem.Controllers
                                      $"id=\"isActive\"" +
                                      $"name=\"isActive\"" +
                                      $"type=\"checkbox\"" +
-                                     $"value=\"{tempname.Employee_Id}\" onclick=\"AssignToFilterCount()\"/>"+
+                                     $"value=\"{tempname.Assignee_Id}\" onclick=\"AssignToFilterCount()\"/>"+
                                      $"</div>" +
                                      $"<div class=\"col-md-9\" style=\"padding:0px\">" +
-                                     $"<span id =\"Category_Consulting\"> {tempname.Employee_Name} </span>" +
+                                     $"<span id =\"Category_Consulting\"> {tempname.Assignee_Name} </span>" +
                                      $"</div>" +
                                      $"</div>";
                             i++;

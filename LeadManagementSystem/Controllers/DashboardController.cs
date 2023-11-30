@@ -18,7 +18,7 @@ namespace LeadManagementSystem.Controllers
         {
             if (Session["AuthToken"] != null)
             {
-                var result = JsonConvert.DeserializeObject<DashboardModel>(LMSTransaction.get("GetCountsForDashboard", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                var result = JsonConvert.DeserializeObject<DashboardModel>(LMSTransaction.get("GetLeadsCounts", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                 ViewBag.TotalLeads = result.TotalLeads;
                 ViewBag.OpenLeads = result.OpenLeadsCount;
                 ViewBag.ClosedLeads = result.ClosedLeadsCount;

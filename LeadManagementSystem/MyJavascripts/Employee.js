@@ -2,15 +2,15 @@
 	debugger;
 	var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //To check Email ID
 	var onlyText = /^[a-zA-Z\s]*$/;
-	var EmployeeName = $("#TxtEmployeeName").val().trim();
+	var AssigneeName = $("#TxtEmployeeName").val().trim();
 
-	if (EmployeeName == "") {
+	if (AssigneeName == "") {
 		$('.help-block').html('');
 		$('#EmployeeNameDIV').addClass('has-error');
 		$('#ErrorForEmployeeName').html('Enter Assignee Name.');
 		$('#TxtEmployeeName').focus();
 		return;
-	} else if (!onlyText.test(EmployeeName)) {
+	} else if (!onlyText.test(AssigneeName)) {
 		$('.help-block').html('');
 		$('#EmployeeNameDIV').addClass('has-error');
 		$('#ErrorForEmployeeName').html('Enter valid Assignee Name.');
@@ -18,10 +18,10 @@
 		return;
 	}
 	var formdata = new FormData();
-	formdata.append("Employee_Name", EmployeeName);
+	formdata.append("Assignee_Name", AssigneeName);
 	$.ajax({
 		type: "POST",
-		url: ServerURL + 'Employee/AddNewEmployee',
+		url: ServerURL + 'Employee/AddNewAssignee',
 		data: formdata,
 		processData: false,
 		contentType: false,
@@ -96,7 +96,7 @@ function RemoveEmployee(element) {
 				document.body.style.paddingRight = '0px';
 				$.ajax({
 					type: 'POST',
-					url: ServerURL + 'Employee/DeleteEmployee',
+					url: ServerURL + 'Employee/DeleteAssignee',
 					data: JSON.stringify({ id: id }),
 					contentType: 'application/json; charset=utf-8',
 					success: function (return_Data) {
@@ -136,7 +136,7 @@ function EditEmployeeDetails(id) {
 				window.location.href = "/LogIn/LogInForm";
 			} else (return_Data != null)
 			{
-				$('#TxtEmployeeName').val(return_Data.Employee_Name);
+				$('#TxtEmployeeName').val(return_Data.Assignee_Name);
 				$('#boxTitle').text('Update Assignee Details');
 				$('#btnSave').text('Update');
 				$('#btnSave').attr('onclick', 'UpdateEmployee(' + id + ');');
@@ -156,15 +156,15 @@ function UpdateEmployee(id) {
 	debugger;
 	var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //To check Email ID
 	var onlyText = /^[a-zA-Z\s]*$/;
-	var EmployeeName = $("#TxtEmployeeName").val().trim();
+	var AssigneeName = $("#TxtEmployeeName").val().trim();
 
-	if (EmployeeName == "") {
+	if (AssigneeName == "") {
 		$('.help-block').html('');
 		$('#EmployeeNameDIV').addClass('has-error');
 		$('#ErrorForEmployeeName').html('Enter Assignee Name.');
 		$('#TxtEmployeeName').focus();
 		return;
-	} else if (!onlyText.test(EmployeeName)) {
+	} else if (!onlyText.test(AssigneeName)) {
 		$('.help-block').html('');
 		$('#EmployeeNameDIV').addClass('has-error');
 		$('#ErrorForEmployeeName').html('Enter valid Assignee Name.');
@@ -172,11 +172,11 @@ function UpdateEmployee(id) {
 		return;
 	}
 	var formdata = new FormData();
-	formdata.append("Employee_Name", EmployeeName);
-	formdata.append("Employee_Id", id);
+	formdata.append("Assignee_Name", AssigneeName);
+	formdata.append("Assignee_Id", id);
 	$.ajax({
 		type: "POST",
-		url: ServerURL + 'Employee/UpdateEmployee',
+		url: ServerURL + 'Employee/UpdateAssignee',
 		data: formdata,
 		processData: false,
 		contentType: false,
