@@ -67,7 +67,6 @@ function IsValidDate(scheduleDate) {
 			$('#TxtScheduleTime').focus();
 		}
 	}
-
 }
 
 function enableReference(value) {
@@ -81,6 +80,7 @@ function enableReference(value) {
 		$('#TxtReference').prop('placeholder', '');
 	}
 }
+
 function changeTypeOfLead(id) {
 	debugger;
 	$.ajax({
@@ -100,13 +100,11 @@ function changeTypeOfLead(id) {
 				$.each(return_Data.TypeOfLeadList, function (i, obj) {
 					$('#TxtTypeOfLead').append(`<option value="${obj.TypeOfLead_ID}">${obj.TypeOfLead}</option>`);
 				});
-
 			}
-
 		}
 	});
-
 }
+
 function changePlanPrice(id) {
 	debugger;
 	$.ajax({
@@ -124,24 +122,24 @@ function changePlanPrice(id) {
 				$('#TxtTypeOfLead').find('option').remove().end();
 				$('#TxtPlanPrice').val(return_Data.Plan_Price);
 			}
-
 		}
 	});
-
 }
+
 function removeFrontFile() {
 	debugger;
 	$('#FrontFileStatus').text('');
 	$("#removeFrontFileIcon").css('display', 'none');
 	$('#FrontImgOfCard').val('');
-
 }
+
 function removeBackFile() {
 	debugger;
 	$('#BackFileStatus').text('');
 	$("#removeBackFileIcon").css('display', 'none');
 	$('#BackImgOfCard').val('');
 }
+
 function UpdateFinal(id) {
 	debugger;
 	var numberRegex = /^\s*[+-]?(\d+|\d*\.\d+|\d+\.\d*)([Ee][+-]?\d+)?\s*$/ //For number
@@ -187,31 +185,24 @@ function UpdateFinal(id) {
 	var BackImgBase64 = "";
 	var BackImgFileType = "";
 
-
 	if (PathOfImg != "") {
 
 		var frontfile_Size = document.getElementById('FrontImgOfCard').files[0].size;
 		const fileSize = Math.round((frontfile_Size / 1024));
-		// The size of the file.
 		if (fileSize >= 4096) {
 			alert(
 				"File size limit: 4MB");
 		}
-
-
 	}
 	if (PathOfBackImg != "") {
-
 		var backfile_Size = document.getElementById('BackImgOfCard').files[0].size;
 		const fileSize = Math.round((backfile_Size / 1024));
-		// The size of the file.
 		if (fileSize >= 4096) {
 			alert(
 				"File size limit: 4MB");
 		}
-
-
 	}
+
 	if (CompanyName == "") {
 		$('.help-block').html('');
 		$('#CompNameDIV').addClass('has-error');
@@ -300,7 +291,6 @@ function UpdateFinal(id) {
 		alert("Select back image for the card");
 		return;
 	}
-
 	else if (SpokesName == "") {
 		$('.help-block').html('');
 		$('#SpokesNameDIV').addClass('has-error');
@@ -513,8 +503,6 @@ function UpdateFinal(id) {
 			$('#FrontFileStatus').attr('href', obj.ImagePath);
 			$('#FrontFileStatus').attr('target', '_blank');
 			$('#FrontFileStatus').text(obj.Filename);
-
-
 			FrontImgFileName = obj.Filename;
 			FrontImgBase64 = obj.Base64;
 			FrontImgFileType = obj.FileType;
@@ -523,8 +511,6 @@ function UpdateFinal(id) {
 			$('#BackFileStatus').attr('href', obj.ImagePath);
 			$('#BackFileStatus').attr('target', '_blank');
 			$('#BackFileStatus').text(obj.Filename);
-
-
 			BackImgFileName = obj.Filename;
 			BackImgBase64 = obj.Base64;
 			BackImgFileType = obj.FileType;
@@ -534,13 +520,10 @@ function UpdateFinal(id) {
 	formdata.append("FrontImgFileName", FrontImgFileName);
 	formdata.append("FrontImgBase64", FrontImgBase64);
 	formdata.append("FrontImgFileType", FrontImgFileType);
-
 	formdata.append("BackImgOfCardPath", "");
 	formdata.append("BackImgFileName", BackImgFileName);
 	formdata.append("BackImgBase64", BackImgBase64);
 	formdata.append("BackImgFileType", BackImgFileType);
-
-
 	debugger;
 	$.ajax({
 		type: "POST",
@@ -560,13 +543,9 @@ function UpdateFinal(id) {
 				window.location.href = "/Dashboard/Index";
 			} else {
 				bootbox.alert(return_Data.msg);
-
 			}
 		}
 	});
-
-
-
 }
 function UpdateLead(id, btnId) {
 	debugger;
@@ -596,13 +575,10 @@ function UpdateLead(id, btnId) {
 	var PathOfImg = $('#FrontImgOfCard').val();
 	var PathOfBackImg = $('#BackImgOfCard').val();
 	var ProjectType = $('#TxtProjectType').val();
-
 	var FrontFileStatus = $('#FrontFileStatus').text();
 	var BackFileStatus = $('#BackFileStatus').text();
-
 	var cardimgdetails = CardImages;
 	var file_name = "";
-
 	var FrontImgOfCardPath = "";
 	var FrontImgFileName = "";
 	var FrontImgBase64 = "";
@@ -723,8 +699,6 @@ function UpdateLead(id, btnId) {
 			$('#FrontFileStatus').attr('href', obj.ImagePath);
 			$('#FrontFileStatus').attr('target', '_blank');
 			$('#FrontFileStatus').text(obj.Filename);
-
-
 			FrontImgFileName = obj.Filename;
 			FrontImgBase64 = obj.Base64;
 			FrontImgFileType = obj.FileType;
@@ -733,8 +707,6 @@ function UpdateLead(id, btnId) {
 			$('#BackFileStatus').attr('href', obj.ImagePath);
 			$('#BackFileStatus').attr('target', '_blank');
 			$('#BackFileStatus').text(obj.Filename);
-
-
 			BackImgFileName = obj.Filename;
 			BackImgBase64 = obj.Base64;
 			BackImgFileType = obj.FileType;
@@ -744,13 +716,10 @@ function UpdateLead(id, btnId) {
 	formdata.append("FrontImgFileName", FrontImgFileName);
 	formdata.append("FrontImgBase64", FrontImgBase64);
 	formdata.append("FrontImgFileType", FrontImgFileType);
-
 	formdata.append("BackImgOfCardPath", "");
 	formdata.append("BackImgFileName", BackImgFileName);
 	formdata.append("BackImgBase64", BackImgBase64);
 	formdata.append("BackImgFileType", BackImgFileType);
-
-
 	debugger;
 	$.ajax({
 		type: "POST",
@@ -778,13 +747,9 @@ function UpdateLead(id, btnId) {
                 }
 			} else {
 				bootbox.alert(return_Data.msg);
-
 			}
 		}
 	});
-
-
-
 }
 function ExitForm2() {
 	$("#AddNewLeadForm").css("display", "block");
@@ -821,13 +786,10 @@ function ShowAddLeadForm() {
 	$('#toLeadDetails').css('display', 'none');
 }
 function ShowForm() {
-
 	$('#btnDownloadReport').css('display', 'none');
-
 	$("#AddNewLeadForm").css("display", "block");
 	$("#ProjectDetails").css("display", "none");
 	$("#ContactDetails").css("display", "none");
-
 	$("#LeadTable").css("display", "none");
 	$("#boxTitle").text('Add Lead');
 	$('#btnAddLead').text('Show List');
@@ -907,11 +869,9 @@ $("#FrontImgOfCard").change(function () {
 			var base64path = reader.result.split(',')[1];
 			Base64OfFrontImg = base64;
 			CardImages.push({ Base64: Base64OfFrontImg, Filename: file_name, ImagePath: '', ImgType: 'front', FileType: '' });
-
 		};
 		reader.readAsDataURL(FrontImgOfCardFile);
 	}
-
 	$("#FrontFileStatus").text(file_name);
 });
 $("#BackImgOfCard").change(function () {
@@ -921,9 +881,7 @@ $("#BackImgOfCard").change(function () {
 	$(".form-group > span").html('');
 	var value = $('#BackImgOfCard').val();
 	backFile_name = value.substring(value.lastIndexOf('\\') + 1);
-
 	$("#removeBackFileIcon").css('display', 'initial');
-
 	const preview = $('#BackImgOfCard').val();
 	const file = document.querySelector("input[type=file]").files[0];
 	var filecount = document.querySelector("input[type=file]").files;
@@ -937,11 +895,8 @@ $("#BackImgOfCard").change(function () {
 		var base64path = reader.result.split(',')[1];
 		Base64OfFrontImg = base64;
 		CardImages.push({ Base64: Base64OfFrontImg, Filename: backFile_name, ImagePath: '', ImgType: 'back', FileType: '' });
-
 	};
 	reader.readAsDataURL(BackImgOfCardFile);
-
-
 	$("#BackFileStatus").text(backFile_name);
 });
 var CardImages = [];
@@ -986,7 +941,6 @@ function SaveFinalFormData() {
 	var BackImgBase64 = "";
 	var BackImgFileType = "";
 	var AlternateAddress = $('#TxtAlternateAddress').val();
-
 	var file_name = PathOfImg.substring(PathOfImg.lastIndexOf('\\') + 1);
 	if (PathOfImg != "") {
 		var frontfile_Size = document.getElementById('FrontImgOfCard').files[0].size;
@@ -1536,9 +1490,7 @@ function SaveFormData(id) {
 			$('#FrontFileStatus').attr('href', obj.ImagePath);
 			$('#FrontFileStatus').attr('target', '_blank');
 			$('#FrontFileStatus').text(obj.Filename);
-
 			$("#removeFrontFileIcon").css('display', 'initial');
-
 			FrontImgFileName = obj.Filename;
 			FrontImgBase64 = obj.Base64;
 			FrontImgFileType = obj.FileType;
@@ -1547,9 +1499,7 @@ function SaveFormData(id) {
 			$('#BackFileStatus').attr('href', obj.ImagePath);
 			$('#BackFileStatus').attr('target', '_blank');
 			$('#BackFileStatus').text(obj.Filename);
-
 			$("#removeBackFileIcon").css('display', 'initial');
-
 			BackImgFileName = obj.Filename;
 			BackImgBase64 = obj.Base64;
 			BackImgFileType = obj.FileType;
@@ -1559,12 +1509,10 @@ function SaveFormData(id) {
 	formdata.append("FrontImgFileName", FrontImgFileName);
 	formdata.append("FrontImgBase64", FrontImgBase64);
 	formdata.append("FrontImgFileType", FrontImgFileType);
-
 	formdata.append("BackImgOfCardPath", "");
 	formdata.append("BackImgFileName", BackImgFileName);
 	formdata.append("BackImgBase64", BackImgBase64);
 	formdata.append("BackImgFileType", BackImgFileType);
-
 	console.log(formdata);
 	$.ajax({
 		type: "POST",
@@ -1587,7 +1535,6 @@ function SaveFormData(id) {
 				bootbox.alert(return_Data.msg);
 				$('div').removeClass('has-error');
 				$('.help-block').html('');
-
 				LeadId = return_Data.LeadId;
 				if (id == "btnDraft") {
 					nevigateToContactDetails();
@@ -1622,42 +1569,35 @@ function nevigateToClientDetails() {
 	var AlternateSpokesName = $("#TxtAlternateSpokesName").val();
 	var AlternateSpokesMobile = $("#TxtAlternateMobile").val();
 	var AlternateEmailAddress = $('#TxtAlternateEmailAddress').val();
-
 	if (SpokesName != "" && SpokesMobileNumber != "" && SpokesEmailAddress != "" && SpokesAddress != "" && AlternateSpokesName != "" && AlternateSpokesMobile != "" && AlternateEmailAddress != "") {
 		$("#nevigateToContactDetails").css("border", "2px solid #00a65a");
 	}
 	else {
 		$("#nevigateToContactDetails").css("border", "2px solid #3c8dbc");
 	}
-
 	var PlanName = $("#TxtPlan").val();
 	var PlanPrice = $("#TxtPlanPrice").val();
 	var StatusType = $("#TxtStatusType").val();
 	var AssignTo = $("#TxtPerson").val();
 	var ScheduleDate = $('#TxtScheduleDate').val();
 	var ScheduleTime = $("#TxtScheduleTime").val();
-
 	if (PlanName != "" && PlanPrice != "" && StatusType != "" && AssignTo != "" && ScheduleDate != "" && ScheduleTime != "") {
 		$("#nevigateToProjectDetails").css("border", "2px solid #00a65a");
 	}
 	else {
 		$("#nevigateToProjectDetails").css("border", "2px solid #3c8dbc");
 	}
-
 	document.querySelector("#client-tooltip-text").classList.add("hidden");
 	document.querySelector("#contact-tooltip-text").classList.remove("hidden");
 	document.querySelector("#project-tooltip-text").classList.remove("hidden");
-
 	$("#AddNewLeadForm").css("display", "block");
 	$("#ProjectDetails").css("display", "none");
 	$("#ContactDetails").css("display", "none");
-
 	$("#boxTitle").text('Client Details');
 	$("#nevigateToClientDetails").text('Client Details');
 	$("#nevigateToContactDetails").text('2');
 	$("#nevigateToProjectDetails").text('3');
 	$("#nevigateToClientDetails").css("border", "2px solid #3c8dbc");
-
 	var nevigateToClientDetails = document.getElementById("nevigateToClientDetails");
 	var nevigateToContactDetails = document.getElementById("nevigateToContactDetails");
 	var nevigateToProjectDetails = document.getElementById("nevigateToProjectDetails");
@@ -1667,11 +1607,9 @@ function nevigateToClientDetails() {
 	nevigateToContactDetails.classList.add("NevigateBtn");
 	nevigateToProjectDetails.classList.remove("NevigateActiveBtn");
 	nevigateToProjectDetails.classList.add("NevigateBtn");
-
 	$("#nevigateToClientDetailsDiv").css("width", "12%");
 	$("#nevigateToContactDetailsDiv").css("width", "5%");
 	$("#nevigateToProjectDetailsDiv").css("width", "5%");
-
 	if (LeadId != "") {
 		$('#btnDraft').attr('onclick', 'UpdateLead(' + "'" + LeadId + "'" + ',' + "'btnDraft'" + ');');
 		$('#btnDraft2').attr('onclick', 'UpdateLead(' + "'" + LeadId + "'" + ',' + "'btnDraft2'" + ');');
@@ -1702,10 +1640,8 @@ function nevigateToContactDetails() {
 	var ProjectType = $('#TxtProjectType').val();
 	var PathOfImg = $('#FrontImgOfCard').val();
 	var PathOfBackImg = $('#BackImgOfCard').val();
-
 	var file_name = PathOfImg.substring(PathOfImg.lastIndexOf('\\') + 1);
 	if (PathOfImg != "") {
-
 		var frontfile_Size = document.getElementById('FrontImgOfCard').files[0].size;
 		const fileSize = Math.round((frontfile_Size / 1024));
 		if (fileSize >= 4096) {
@@ -1715,7 +1651,6 @@ function nevigateToContactDetails() {
 		}
 	}
 	if (PathOfBackImg != "") {
-
 		var backfile_Size = document.getElementById('BackImgOfCard').files[0].size;
 		const fileSize = Math.round((backfile_Size / 1024));
 		if (fileSize >= 4096) {
@@ -1765,22 +1700,18 @@ function nevigateToContactDetails() {
 	else {
 		$("#nevigateToProjectDetails").css("border", "2px solid #3c8dbc");
 	}
-
 	document.querySelector("#client-tooltip-text").classList.remove("hidden");
 	document.querySelector("#contact-tooltip-text").classList.add("hidden");
 	document.querySelector("#project-tooltip-text").classList.remove("hidden");
-
 	$("#AddNewLeadForm").css("display", "none");
 	$("#ProjectDetails").css("display", "none");
 	$("#ContactDetails").css("display", "block");
 	$("#LeadTable").css("display", "none");
-
 	$("#boxTitle").text('Contact Details');
 	$("#nevigateToClientDetails").text('1');
 	$("#nevigateToContactDetails").text('Contact Details');
 	$("#nevigateToProjectDetails").text('3');
 	$("#nevigateToContactDetails").css("border", "2px solid #3c8dbc");
-
 	var nevigateToClientDetails = document.getElementById("nevigateToClientDetails");
 	var nevigateToContactDetails = document.getElementById("nevigateToContactDetails");
 	var nevigateToProjectDetails = document.getElementById("nevigateToProjectDetails");
@@ -1790,11 +1721,9 @@ function nevigateToContactDetails() {
 	nevigateToContactDetails.classList.add("NevigateActiveBtn");
 	nevigateToProjectDetails.classList.remove("NevigateActiveBtn");
 	nevigateToProjectDetails.classList.add("NevigateBtn");
-
 	$("#nevigateToClientDetailsDiv").css("width", "5%");
 	$("#nevigateToContactDetailsDiv").css("width", "12%");
 	$("#nevigateToProjectDetailsDiv").css("width", "5%");
-
 	if (LeadId != "") {
 		$('#btnDraft').attr('onclick', 'UpdateLead(' + "'" + LeadId + "'" + ',' + "'btnDraft'" + ');');
 		$('#btnDraft2').attr('onclick', 'UpdateLead(' + "'" + LeadId + "'" + ',' + "'btnDraft2'" + ');');
@@ -2021,9 +1950,6 @@ function ResetFormData() {
 	$("#TxtProjectType").val('');
 	$("#FrontFileStatus").text('');
 	$("#BackFileStatus").text('');
-
-
-
 	CardImages = [];
 }
 

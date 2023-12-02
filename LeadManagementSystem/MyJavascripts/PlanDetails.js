@@ -83,11 +83,9 @@ $(document).keypress(function (e) {
 function ResetFormData() {
 	$("#TxtPlanName").val('');
 	$("#TxtPlanPrice").val('');
-
 	$('#boxTitle').text('Add Plan Details');
 	$('#btnSave').text('Save');
 	$('#btnSave').attr('onclick', 'SaveFormData();');
-
 	$(".form-group").removeClass('has-error');
 	$(".txtdiv").removeClass('has-error');
 	$(".form-group > span").html('');
@@ -156,12 +154,9 @@ function EditPlan(id) {
 				$('#boxTitle').text('Update Plan');
 				$('#btnSave').text('Update');
 				$('#btnSave').attr('onclick', 'UpdatePlan(' + id + ');');
-
 			}
-
 		}
 	});
-
 }
 function UpdatePlan(id) {
 	debugger;
@@ -170,7 +165,6 @@ function UpdatePlan(id) {
 	var numberRegex = /^\s*[+-]?(\d+|\d*\.\d+|\d+\.\d*)([Ee][+-]?\d+)?\s*$/ //For number
 	var PlanName = $("#TxtPlanName").val().trim();
 	var PlanPrice = $("#TxtPlanPrice").val().trim();
-
 	if (PlanName == "") {
 		$('.help-block').html('');
 		$('#PlanNameDIV').addClass('has-error');
@@ -239,7 +233,5 @@ function UpdatePlan(id) {
 			$('#btnSave').removeAttr("disabled");
 			$('#btnSave').html('Save');
 		}
-
 	});
-
 }

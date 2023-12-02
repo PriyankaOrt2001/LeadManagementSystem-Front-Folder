@@ -8,7 +8,6 @@ var email = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 var button = document.getElementById("nevigateToEditClientDetails");
 if (button.textContent.trim() === "Client Details") {
-	// Add the 'hidden' class to the tooltip-text element
 	document.querySelector(".tooltip-text").classList.add("hidden");
 }
 
@@ -115,10 +114,8 @@ function IsValidDate(scheduleDate) {
 		console.log(newdate)
 		const schedule_Date = new Date(newdate);
 		const Current_date = new Date(formattedToday);
-
 		const schedule_Date_ = schedule_Date.toISOString().split('T')[0];
 		const Current_date_ = Current_date.toISOString().split('T')[0];
-
 		if (schedule_Date_ < Current_date_) {
 			alert("Select current or upcoming date");
 			$('#TxtScheduleDate').val('');
@@ -193,13 +190,11 @@ function changeLeadStatus(id, Status) {
 					else {
 						selectElement.value = valueAttribute;
 					}
-
 					bootbox.hideAll();
 				}
 			}
 		});
     }
-	
 }
 
 $("#TxtFilterDate").change(function () {
@@ -508,7 +503,6 @@ function UpdateFinal(id) {
 	formdata.append("FrontImgFileName", FrontImgFileName);
 	formdata.append("FrontImgBase64", FrontImgBase64);
 	formdata.append("FrontImgFileType", FrontImgFileType);
-
 	formdata.append("BackImgOfCardPath", "");
 	formdata.append("BackImgFileName", BackImgFileName);
 	formdata.append("BackImgBase64", BackImgBase64);
@@ -532,7 +526,6 @@ function UpdateFinal(id) {
 				window.location.href = "/LeadManagement/Index";
 			} else {
 				bootbox.alert(return_Data.msg);
-
 			}
 		}
 	});
@@ -698,7 +691,6 @@ function UpdateLead(id,btnId,page_Id) {
 			$('#BackFileStatus').attr('href', obj.ImagePath);
 			$('#BackFileStatus').attr('target', '_blank');
 			$('#BackFileStatus').text(obj.Filename);
-
 			BackImgFileName = obj.Filename;
 			BackImgBase64 = obj.Base64;
 			BackImgFileType = obj.FileType;
@@ -708,12 +700,10 @@ function UpdateLead(id,btnId,page_Id) {
 	formdata.append("FrontImgFileName", FrontImgFileName);
 	formdata.append("FrontImgBase64", FrontImgBase64);
 	formdata.append("FrontImgFileType", FrontImgFileType);
-
 	formdata.append("BackImgOfCardPath", "");
 	formdata.append("BackImgFileName", BackImgFileName);
 	formdata.append("BackImgBase64", BackImgBase64);
 	formdata.append("BackImgFileType", BackImgFileType);
-
 	debugger;
 	$.ajax({
 		type: "POST",
@@ -778,12 +768,10 @@ function View(id) {
 		success: function (return_Data) {
 			debugger;
 			if (return_Data != null) {
-
 				console.log(return_Data);
 				$("#nevigationDiv").css("display", "block");
 				$("#LeadTableDIV").css("display", "none");
 				$("#MainEditLeadDIV").css("display", "block");
-
 				$("#LeadForm").css("display", "block");
 				$("#LeadTable").css("display", "none");
 				$("#boxTitle").text('Client Details');
@@ -867,10 +855,8 @@ function View(id) {
 				$("#TxtScheduleTime").val(return_Data.ScheduleTime);
 				$("#FileStatus").text(return_Data.Filename);
 				$("#TxtProjectType").val(return_Data.ProjectType);
-
 				$('#content_header').text('Edit Details');
 				$('#boxTitle').text('Client Details');
-
 				if (return_Data.FrontImgFileName != "") {
 					$("#removeFrontFileIcon").css('display', 'initial');
                 }
@@ -1373,36 +1359,30 @@ function nevigateToEditClientDetails() {
 	var AlternateSpokesName = $("#TxtAlternateSpokesName").val();
 	var AlternateSpokesMobile = $("#TxtAlternateMobile").val();
 	var AlternateEmailAddress = $('#TxtAlternateEmailAddress').val();
-
 	if (SpokesName != "" && SpokesMobileNumber != "" && SpokesEmailAddress != "" && SpokesAddress != "" && AlternateSpokesName != "" && AlternateSpokesMobile != "" && AlternateEmailAddress != "") {
 		$("#nevigateToEditContactDetails").css("border", "2px solid #00a65a");
 	}
 	else {
 		$("#nevigateToEditContactDetails").css("border", "2px solid #3c8dbc");
 	}
-
 	var PlanName = $("#TxtPlan").val();
 	var PlanPrice = $("#TxtPlanPrice").val();
 	var StatusType = $("#TxtStatusType").val();
 	var AssignTo = $("#TxtPerson").val();
 	var ScheduleDate = $('#TxtScheduleDate').val();
 	var ScheduleTime = $("#TxtScheduleTime").val();
-
 	if (PlanName != "" && PlanPrice != "" && StatusType != "" && AssignTo != "" && ScheduleDate != "" && ScheduleTime != "") {
 		$("#nevigateToEditProjectDetails").css("border", "2px solid #00a65a");
 	}
 	else {
 		$("#nevigateToEditProjectDetails").css("border", "2px solid #3c8dbc");
 	}
-
 	$("#LeadForm").css("display", "block");
 	$("#ProjectDetails").css("display", "none");
 	$("#ContactDetails").css("display", "none");
-
 	document.querySelector("#edit-client-tooltip-text").classList.add("hidden");
 	document.querySelector("#edit-contact-tooltip-text").classList.remove("hidden");
 	document.querySelector("#edit-project-tooltip-text").classList.remove("hidden");
-
 	$("#boxTitle").text('Client Details');
 	$("#nevigateToEditClientDetails").text('Client Details');
 	$("#nevigateToEditContactDetails").text('2');
@@ -1411,7 +1391,6 @@ function nevigateToEditClientDetails() {
 	$("#nevigateToEditClientDetailsDiv").css("width", "12%");
 	$("#nevigateToEditContactDetailsDiv").css("width", "5%");
 	$("#nevigateToEditProjectDetailsDiv").css("width", "5%");
-
 	var nevigateToEditClientDetails = document.getElementById("nevigateToEditClientDetails");
 	var nevigateToEditContactDetails = document.getElementById("nevigateToEditContactDetails");
 	var nevigateToEditProjectDetails = document.getElementById("nevigateToEditProjectDetails");
@@ -1449,7 +1428,6 @@ function nevigateToEditContactDetails() {
 	var ScheduleTime = $("#TxtScheduleTime").val();
 	var FrontFileStatus = $('#FrontFileStatus').text();
 	var BackFileStatus = $('#BackFileStatus').text();
-
 	var file_name = PathOfImg.substring(PathOfImg.lastIndexOf('\\') + 1);
 	if (PathOfImg != "") {
 
@@ -1515,11 +1493,9 @@ function nevigateToEditContactDetails() {
 	$("#ProjectDetails").css("display", "none");
 	$("#ContactDetails").css("display", "block");
 	$("#LeadTable").css("display", "none");
-
 	document.querySelector("#edit-client-tooltip-text").classList.remove("hidden");
 	document.querySelector("#edit-contact-tooltip-text").classList.add("hidden");
 	document.querySelector("#edit-project-tooltip-text").classList.remove("hidden");
-
 	$("#boxTitle").text('Contact Details');
 	$("#nevigateToEditClientDetails").text('1');
 	$("#nevigateToEditContactDetails").text('Contact Details');
@@ -1528,7 +1504,6 @@ function nevigateToEditContactDetails() {
 	$("#nevigateToEditClientDetailsDiv").css("width", "5%");
 	$("#nevigateToEditContactDetailsDiv").css("width", "12%");
 	$("#nevigateToEditProjectDetailsDiv").css("width", "5%");
-
 	var nevigateToEditClientDetails = document.getElementById("nevigateToEditClientDetails");
 	var nevigateToEditContactDetails = document.getElementById("nevigateToEditContactDetails");
 	var nevigateToEditProjectDetails = document.getElementById("nevigateToEditProjectDetails");
@@ -1682,11 +1657,9 @@ function nevigateToEditProjectDetails() {
 	$("#ContactDetails").css("display", "none");
 	$("#LeadTable").css("display", "none");
 	$("#boxTitle").text('Project Details');
-
 	document.querySelector("#edit-client-tooltip-text").classList.remove("hidden");
 	document.querySelector("#edit-contact-tooltip-text").classList.remove("hidden");
 	document.querySelector("#edit-project-tooltip-text").classList.add("hidden");
-
 	$("#nevigateToEditClientDetails").text('1');
 	$("#nevigateToEditContactDetails").text('2');
 	$("#nevigateToEditProjectDetails").text('Project Details');
@@ -1694,7 +1667,6 @@ function nevigateToEditProjectDetails() {
 	$("#nevigateToEditClientDetailsDiv").css("width", "5%");
 	$("#nevigateToEditContactDetailsDiv").css("width", "5%");
 	$("#nevigateToEditProjectDetailsDiv").css("width", "12%");
-
 	var nevigateToEditClientDetails = document.getElementById("nevigateToEditClientDetails");
 	var nevigateToEditContactDetails = document.getElementById("nevigateToEditContactDetails");
 	var nevigateToEditProjectDetails = document.getElementById("nevigateToEditProjectDetails");
@@ -2077,5 +2049,3 @@ function closeRemarkModal(id) {
 
 	bootbox.hideAll();
 }
-
-

@@ -28,7 +28,7 @@ namespace LeadManagementSystem.Controllers
         }
         public ActionResult CategoryTablePartial()
         {
-            if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+            if (Session["AuthToken"] != null)
             {
                 LeadCategoryModel lcm = new LeadCategoryModel();
                 LeadCategoryDetails cd = new LeadCategoryDetails();
@@ -54,9 +54,7 @@ namespace LeadManagementSystem.Controllers
                     var result = JsonConvert.DeserializeObject<LeadCategoryDetails>(LMSTransaction.get("ViewCategoryDetails?Category_Id=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     ld = result;
                     return Json(ld, JsonRequestBehavior.AllowGet);
-
                 }
-
                 else
                 {
                     rm.n = 5;
@@ -77,7 +75,7 @@ namespace LeadManagementSystem.Controllers
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     ld.CreatedBy = Convert.ToString(Session["Admin_ID"]);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddCategory", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
@@ -101,7 +99,7 @@ namespace LeadManagementSystem.Controllers
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("RemoveCategory?id=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
@@ -124,7 +122,7 @@ namespace LeadManagementSystem.Controllers
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     cd.CreatedBy = Convert.ToString(Session["Admin_ID"]);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdateCategory", cd, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);

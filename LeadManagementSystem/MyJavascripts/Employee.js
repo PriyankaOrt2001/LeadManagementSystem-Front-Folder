@@ -49,18 +49,14 @@
 			$('#btnSave').removeAttr("disabled");
 			$('#btnSave').html('Save');
 		}
-
 	});
-
 }
 
 function ResetFormData() {
 	$("#TxtEmployeeName").val('');
-
 	$('#boxTitle').text('Add Assignee Details');
 	$('#btnSave').text('Save');
 	$('#btnSave').attr('onclick', 'SaveFormData();');
-
 	$(".form-group").removeClass('has-error');
 	$(".txtdiv").removeClass('has-error');
 	$(".form-group > span").html('');
@@ -123,7 +119,6 @@ function RemoveEmployee(element) {
 	});
 }
 function EditEmployeeDetails(id) {
-
 	$.ajax({
 		type: "POST",
 		url: ServerURL + 'Employee/ViewAssignToDetails',
@@ -140,9 +135,7 @@ function EditEmployeeDetails(id) {
 				$('#boxTitle').text('Update Assignee Details');
 				$('#btnSave').text('Update');
 				$('#btnSave').attr('onclick', 'UpdateEmployee(' + id + ');');
-
 			}
-
 		}
 	});
 
@@ -157,7 +150,6 @@ function UpdateEmployee(id) {
 	var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //To check Email ID
 	var onlyText = /^[a-zA-Z\s]*$/;
 	var AssigneeName = $("#TxtEmployeeName").val().trim();
-
 	if (AssigneeName == "") {
 		$('.help-block').html('');
 		$('#EmployeeNameDIV').addClass('has-error');
@@ -204,7 +196,5 @@ function UpdateEmployee(id) {
 			$('#btnSave').removeAttr("disabled");
 			$('#btnSave').html('Save');
 		}
-
 	});
-
 }

@@ -11,6 +11,76 @@
     .dataTable > thead > tr > th[class*="sort"]:after {
         content: "" !important;
     }
+
+    .overflow {
+        height: 60%;
+        overflow-y: scroll;
+    }
+
+    .tableWrap {
+        height: 200px;
+        border: 2px solid black;
+        overflow: auto;
+    }
+
+    thead tr th {
+        position: sticky;
+        top: 0;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    th {
+        font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+        color: white;
+        padding: 16px;
+        padding-left: 15px;
+        border-left: 0px #5ba7d7;
+        border-bottom: 1px solid #e8e8e8;
+        background: #5ba7d7;
+        text-align: left;
+        font-weight: 400;
+    }
+
+    .tableFixHead {
+        overflow: auto;
+        height: 100%;
+    }
+
+        .tableFixHead thead th {
+            position: sticky;
+            top: 0;
+        }
+
+    table {
+        width: 100%;
+    }
+
+        table td {
+            padding: 16px;
+        }
+
+    tbody tr {
+        border-bottom: 2px solid #e8e8e8;
+    }
+
+    thead {
+        color: rgba(0, 0, 0, 0.85);
+    }
+
+    tbody tr:hover {
+        background: #e6f7ff;
+    }
+
+    .padding-title {
+        padding-bottom: 7px;
+    }
+
+    .padding-left {
+        padding-left: 0px;
+    }
 </style>
 
 <section class="content-header">
@@ -46,16 +116,15 @@
         });
         function refreshDataTable() {
             debugger;
-
             $("#NotificationDetails").load("@Url.Action("NotificationTablePartial", "Notification")", function () {
                 $("#TableNotification").DataTable();
-
+                $(".col-sm-12").addClass('overflow');
+                $(".col-sm-12").css('padding-right', '0px');
          });
-
         }
     </script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
     <script src="https://unpkg.com/bootstrap-multiselect@0.9.13/dist/js/bootstrap-multiselect.js"></script>
-    }
+}
 

@@ -139,16 +139,12 @@ function EditCategory(id) {
 			} else (return_Data != null)
 			{
 				$('#TxtCategoryName').val(return_Data.Category_Name);
-
 				$('#boxTitle').text('Update Category');
 				$('#btnSave').text('Update');
 				$('#btnSave').attr('onclick', 'UpdateCategory(' + id + ');');
-
 			}
-
 		}
 	});
-
 }
 function UpdateCategory(id) {
 	var activePageElement = $('.paginate_button.active');
@@ -207,7 +203,5 @@ function UpdateCategory(id) {
 			$('#btnSave').removeAttr("disabled");
 			$('#btnSave').html('Save');
 		}
-
 	});
-
 }

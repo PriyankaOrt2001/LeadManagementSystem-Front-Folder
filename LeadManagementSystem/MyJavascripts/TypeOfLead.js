@@ -57,19 +57,15 @@
 			$('#btnSave').removeAttr("disabled");
 			$('#btnSave').html('Save');
 		}
-
 	});
-
 }
 
 function ResetFormData() {
 	$("#TxtCategory").val('');
 	$("#TxtTypeOfLeadName").val('');
-
 	$('#boxTitle').text('Add Sub Category');
 	$('#btnSave').text('Save');
 	$('#btnSave').attr('onclick', 'SaveFormData();');
-
 	$(".form-group").removeClass('has-error');
 	$(".txtdiv").removeClass('has-error');
 	$(".form-group > span").html('');
@@ -82,7 +78,6 @@ $(document).keypress(function (e) {
 });
 
 $("#TxtCategory").change(function () {
-	
 	$(".form-group").removeClass('has-error');
 	$(".txtdiv").removeClass('has-error');
 	$(".form-group > span").html('');
@@ -155,16 +150,12 @@ function EditTypeOfLead(id) {
 			{
 				$('#TxtCategory').val(return_Data.Category_Id);
 				$('#TxtTypeOfLeadName').val(return_Data.TypeOfLead);
-
 				$('#boxTitle').text('Update Sub Category Details');
 				$('#btnSave').text('Update');
 				$('#btnSave').attr('onclick', 'UpdateTypeOfLead(' + id + ');');
-
 			}
-
 		}
 	});
-
 }
 function UpdateTypeOfLead(id) {
 	var activePageElement = $('.paginate_button.active');
@@ -231,7 +222,5 @@ function UpdateTypeOfLead(id) {
 			$('#btnSave').removeAttr("disabled");
 			$('#btnSave').html('Save');
 		}
-
 	});
-
 }

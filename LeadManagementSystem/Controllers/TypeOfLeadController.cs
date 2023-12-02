@@ -33,11 +33,10 @@ namespace LeadManagementSystem.Controllers
                 rm.n = 5;
                 return RedirectToAction("LogInForm", "LogIn");
             }
-            
         }
         public ActionResult TypeOfLeadTablePartial()
         {
-            if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+            if (Session["AuthToken"] != null)
             {
                 TypeOfLeadModel lm = new TypeOfLeadModel();
                 TypeOfLeadDetails cd = new TypeOfLeadDetails();
@@ -51,13 +50,12 @@ namespace LeadManagementSystem.Controllers
                 rm.n = 5;
                 return RedirectToAction("LogInForm", "LogIn");
             }
-            
         }
         public ActionResult AddTypeOfLead(TypeOfLeadDetails ld)
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     ld.CreatedBy = Convert.ToString(Session["Admin_ID"]);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddTypeOfLead", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
@@ -76,13 +74,12 @@ namespace LeadManagementSystem.Controllers
                 rm.n = 0;
             }
             return Json(rm, JsonRequestBehavior.AllowGet);
-            
         }
         public ActionResult DeleteTypeOfLead(string id)
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("RemoveTypeOfLead?id=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
@@ -111,9 +108,7 @@ namespace LeadManagementSystem.Controllers
                     var result = JsonConvert.DeserializeObject<TypeOfLeadDetails>(LMSTransaction.get("ViewTypeOfLeadDetails?TypeOfLead_ID=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     ld = result;
                     return Json(ld, JsonRequestBehavior.AllowGet);
-
                 }
-
                 else
                 {
                     rm.n = 5;
@@ -128,13 +123,12 @@ namespace LeadManagementSystem.Controllers
                 rm.n = 0;
             }
             return Json(rm, JsonRequestBehavior.AllowGet);
-
         }
         public ActionResult UpdateTypeOfLead(TypeOfLeadDetails ld)
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     ld.CreatedBy = Convert.ToString(Session["Admin_ID"]);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdateTypeOfLead", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);

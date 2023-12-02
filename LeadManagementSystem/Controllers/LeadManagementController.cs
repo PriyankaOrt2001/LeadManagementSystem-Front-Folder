@@ -393,10 +393,8 @@ namespace LeadManagementSystem.Controllers
                 if (Session["AuthToken"] != null)
                 {
                     ld.CreatedBy = Convert.ToString(Session["Admin_ID"]);
-                    //rm = cs.Update(cm);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdateFinalDraftLead", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
-
                 }
                 else
                 {
@@ -419,10 +417,8 @@ namespace LeadManagementSystem.Controllers
                 if (Session["AuthToken"] != null)
                 {
                     ld.CreatedBy = Convert.ToString(Session["Admin_ID"]);
-                    //rm = cs.Update(cm);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdateFirstDraftLead", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
-
                 }
                 else
                 {
@@ -445,10 +441,8 @@ namespace LeadManagementSystem.Controllers
                 if (Session["AuthToken"] != null)
                 {
                     ld.CreatedBy = Convert.ToString(Session["Admin_ID"]);
-                    //rm = cs.Update(cm);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdateFinalLead", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
-
                 }
                 else
                 {
@@ -471,10 +465,8 @@ namespace LeadManagementSystem.Controllers
                 if (Session["AuthToken"] != null)
                 {
                     ld.CreatedBy = Convert.ToString(Session["Admin_ID"]);
-                    //rm = cs.Update(cm);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdateDraftLead", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
-
                 }
                 else
                 {
@@ -500,7 +492,6 @@ namespace LeadManagementSystem.Controllers
                     ld.ScheduleDate = ld.ScheduleDate ?? "";
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdateLead", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
-
                 }
                 else
                 {
@@ -628,13 +619,9 @@ namespace LeadManagementSystem.Controllers
                                 $"</div>";
                         }
                     }
-
                     ViewBag.GetRemarksList = stringtemp;
-
                     return Content(ViewBag.GetRemarksList);
-
                 }
-
                 else
                 {
                     rm.n = 5;
@@ -649,7 +636,6 @@ namespace LeadManagementSystem.Controllers
                 rm.n = 0;
             }
             return Json(rm, JsonRequestBehavior.AllowGet);
-
         }
         public ActionResult GetCompanyListForFilter()
         {
@@ -658,7 +644,6 @@ namespace LeadManagementSystem.Controllers
                 if (Session["AuthToken"] != null)
                 {
                     FilterDetailsModel fdm = new FilterDetailsModel();
-
                     CompanyDetails cd = new CompanyDetails();
                     var result = JsonConvert.DeserializeObject<CompanyModel>(LMSTransaction.get("GetCompanyList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     List<CompanyDetails> CompanyModelList = result.CompanyList;
@@ -719,7 +704,6 @@ namespace LeadManagementSystem.Controllers
                                    $"</div> <br>";
                         }
                     }
-
                     if (LeadCategoryDetails == null || LeadCategoryDetails.Count == 0)
                     {
                         leadCategoryNames = 
@@ -764,7 +748,6 @@ namespace LeadManagementSystem.Controllers
                                    $"</div> <br>";
                         }
                     }
-
                     if (AssignToDetails == null || AssignToDetails.Count == 0)
                     {
                         AssignToNames =
@@ -809,14 +792,11 @@ namespace LeadManagementSystem.Controllers
                                    $"</div> <br>";
                         }
                     }
-
                     fdm.GetCompanyListForFilter = stringtemp;
                     fdm.GetCategoryListForFilter = NewRowForCategory;
                     fdm.GetAssignToListForFilter = NewRowForAssignTo;
                     return Json(fdm, JsonRequestBehavior.AllowGet);
-
                 }
-
                 else
                 {
                     rm.n = 5;
@@ -831,7 +811,6 @@ namespace LeadManagementSystem.Controllers
                 rm.n = 0;
             }
             return Json(rm, JsonRequestBehavior.AllowGet);
-
         }
         public ActionResult ChangeLeadStatus(LeadDetails ld)
         {
@@ -840,10 +819,8 @@ namespace LeadManagementSystem.Controllers
                 if (Session["AuthToken"] != null)
                 {
                     ld.UpdatedBy = Convert.ToString(Session["Admin_ID"]);
-                    //rm = cs.Update(cm);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("ChangeLeadStatus", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
-
                 }
                 else
                 {
@@ -866,10 +843,8 @@ namespace LeadManagementSystem.Controllers
                 if (Session["AuthToken"] != null)
                 {
                     ld.UpdatedBy = Convert.ToString(Session["Admin_ID"]);
-                    //rm = cs.Update(cm);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddToFav", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
-
                 }
                 else
                 {

@@ -50,7 +50,7 @@ namespace LeadManagementSystem.Controllers
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     ld.CreatedBy = Convert.ToString(Session["Admin_ID"]);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddNewComapny", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);

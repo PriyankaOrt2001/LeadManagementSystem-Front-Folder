@@ -13,7 +13,6 @@ namespace LeadManagementSystem.Controllers
     public class DashboardController : Controller
     {
         ResponseStatusModel rm = new ResponseStatusModel();
-        // GET: Dashboard
         public ActionResult Index()
         {
             if (Session["AuthToken"] != null)
@@ -95,9 +94,7 @@ namespace LeadManagementSystem.Controllers
                         }
                     }
                 }
-
                 ViewBag.GetRemarksList = stringtemp;
-
                 ViewBag.LineChartData = result.LeadList;
                 return View();
             }

@@ -54,7 +54,6 @@ function SaveFormData() {
 	var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //To check Email ID
 	var onlyText = /^[a-zA-Z\s-]*$/;
 	var LeadSourceName = $("#TxtLeadSourceName").val().trim();
-
 	if (LeadSourceName == "") {
 		$('.help-block').html('');
 		$('#LeadSourceNameDIV').addClass('has-error');
@@ -100,18 +99,14 @@ function SaveFormData() {
 			$('#btnSave').removeAttr("disabled");
 			$('#btnSave').html('Save');
 		}
-
 	});
-
 }
 
 function ResetFormData() {
 	$("#TxtLeadSourceName").val('');
-
 	$('#boxTitle').text('Add Owner Details');
 	$('#btnSave').text('Save');
 	$('#btnSave').attr('onclick', 'SaveFormData();');
-
 	$(".form-group").removeClass('has-error');
 	$(".txtdiv").removeClass('has-error');
 	$(".form-group > span").html('');
@@ -142,16 +137,12 @@ function EditLeadOwner(id) {
 			} else (return_Data != null)
 			{
 				$('#TxtLeadSourceName').val(return_Data.Owner_Name);
-
 				$('#boxTitle').text('Update Owner Details');
 				$('#btnSave').text('Update');
 				$('#btnSave').attr('onclick', 'UpdateLeadOwner(' + id + ');');
-
 			}
-
 		}
 	});
-
 }
 function UpdateLeadOwner(id) {
 	var activePageElement = $('.paginate_button.active');
@@ -163,7 +154,6 @@ function UpdateLeadOwner(id) {
 	var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //To check Email ID
 	var onlyText = /^[a-zA-Z\s-]*$/;
 	var LeadSourceName = $("#TxtLeadSourceName").val().trim();
-
 	if (LeadSourceName == "") {
 		$('.help-block').html('');
 		$('#LeadSourceNameDIV').addClass('has-error');
@@ -210,7 +200,5 @@ function UpdateLeadOwner(id) {
 			$('#btnSave').removeAttr("disabled");
 			$('#btnSave').html('Save');
 		}
-
 	});
-
 }

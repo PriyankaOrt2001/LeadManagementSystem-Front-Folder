@@ -21,6 +21,7 @@ namespace LeadManagementSystem.MODEL
         public int SrNo { get; set; }
         public int Company_Id { get; set; }
         public string Company_Name { get; set; }
+        public string Short_Company_Name { get; set; }
     }
     public class AssignToModel
     {

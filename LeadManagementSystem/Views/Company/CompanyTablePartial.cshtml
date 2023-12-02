@@ -8,6 +8,7 @@
             <tr>
                 <th class="text-center">Sr.No</th>
                 <th class="text-center">Comapny Name</th>
+                <th class="text-center">Abbreviation</th>
                 <th class="text-center" id="colAction">Action</th>
             </tr>
         </thead>
@@ -17,7 +18,7 @@
                 <tr>
                     <td>@Model.CompanyList[i].RowNum</td>
                     <td>@Model.CompanyList[i].Company_Name</td>
-
+                    <td>@Model.CompanyList[i].Short_Company_Name</td>
                     <td style="padding: 3px;">
                         <div class="btn-group">
 
@@ -38,7 +39,8 @@ else
         <thead>
             <tr>
                 <th class="text-center">Sr.No</th>
-                <th class="text-center">Category Name</th>
+                <th class="text-center">Comapny Name</th>
+                <th class="text-center">Abbreviation</th>
                 <th class="text-center" id="colAction">Action</th>
             </tr>
         </thead>

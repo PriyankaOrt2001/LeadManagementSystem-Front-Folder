@@ -15,7 +15,7 @@ namespace LeadManagementSystem.Controllers
         NotificationDetailsList ndl = new NotificationDetailsList();
         public ActionResult Index()
         {
-            if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+            if (Session["AuthToken"] != null)
             {
                 return View();
             }
@@ -28,7 +28,7 @@ namespace LeadManagementSystem.Controllers
         }
         public ActionResult NotificationTablePartial()
         {
-            if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+            if (Session["AuthToken"] != null)
             {
                 NotificationDetailsList ndl = new NotificationDetailsList();
                 NotificationDetails nd = new NotificationDetails();

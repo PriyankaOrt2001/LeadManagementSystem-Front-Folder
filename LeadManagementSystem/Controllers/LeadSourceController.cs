@@ -27,7 +27,7 @@ namespace LeadManagementSystem.Controllers
         }
         public ActionResult LeadSourceDetailsTablePartial()
         {
-            if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+            if (Session["AuthToken"] != null)
             {
                 LeadSourceModel lcm = new LeadSourceModel();
                 LeadSourceDetails cd = new LeadSourceDetails();
@@ -41,13 +41,12 @@ namespace LeadManagementSystem.Controllers
                 rm.n = 5;
                 return RedirectToAction("LogInForm", "LogIn");
             }
-
         }
         public ActionResult DeleteLeadSourceName(string id)
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("RemoveLeadSource?id=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
@@ -70,7 +69,7 @@ namespace LeadManagementSystem.Controllers
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     ld.CreatedBy = Convert.ToString(Session["Admin_ID"]);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddLeadSource", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
@@ -100,9 +99,7 @@ namespace LeadManagementSystem.Controllers
                     var result = JsonConvert.DeserializeObject<LeadSourceDetails>(LMSTransaction.get("ViewLeadSource?SourceId=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     ld = result;
                     return Json(ld, JsonRequestBehavior.AllowGet);
-
                 }
-
                 else
                 {
                     rm.n = 5;
@@ -117,13 +114,12 @@ namespace LeadManagementSystem.Controllers
                 rm.n = 0;
             }
             return Json(rm, JsonRequestBehavior.AllowGet);
-
         }
         public ActionResult UpdateLeadSourceName(LeadSourceDetails sd)
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     sd.CreatedBy = Convert.ToString(Session["Admin_ID"]);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdateLeadSource", sd, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);

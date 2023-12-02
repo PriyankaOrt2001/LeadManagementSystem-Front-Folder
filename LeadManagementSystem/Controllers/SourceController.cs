@@ -27,7 +27,7 @@ namespace LeadManagementSystem.Controllers
         }
         public ActionResult LeadSourceTablePartial()
         {
-            if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+            if (Session["AuthToken"] != null)
             {
                 LeadOwnerModel lcm = new LeadOwnerModel();
                 LeadOwnerDetails cd = new LeadOwnerDetails();
@@ -47,7 +47,7 @@ namespace LeadManagementSystem.Controllers
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("RemoveLeadOwner?id=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
@@ -70,7 +70,7 @@ namespace LeadManagementSystem.Controllers
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     ld.CreatedBy = Convert.ToString(Session["Admin_ID"]);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddNewLeadOwner", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
@@ -100,9 +100,7 @@ namespace LeadManagementSystem.Controllers
                     var result = JsonConvert.DeserializeObject<LeadOwnerDetails>(LMSTransaction.get("ViewLeadOwner?OwnerId=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     ld = result;
                     return Json(ld, JsonRequestBehavior.AllowGet);
-
                 }
-
                 else
                 {
                     rm.n = 5;
@@ -123,7 +121,7 @@ namespace LeadManagementSystem.Controllers
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     sd.CreatedBy = Convert.ToString(Session["Admin_ID"]);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdateLeadOwner", sd, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);

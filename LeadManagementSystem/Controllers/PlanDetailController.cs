@@ -28,7 +28,7 @@ namespace LeadManagementSystem.Controllers
         }
         public ActionResult PlanTablePartial()
         {
-            if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+            if (Session["AuthToken"] != null)
             {
                 PlanDetailsModel pdm = new PlanDetailsModel();
                 PlanDetails pd = new PlanDetails();
@@ -42,7 +42,6 @@ namespace LeadManagementSystem.Controllers
                 rm.n = 5;
                 return RedirectToAction("LogInForm", "LogIn");
             }
-
         }
         public ActionResult ViewPlanDetails(string id)
         {
@@ -54,9 +53,7 @@ namespace LeadManagementSystem.Controllers
                     var result = JsonConvert.DeserializeObject<PlanDetails>(LMSTransaction.get("ViewPlanDetails?PlanId=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     ld = result;
                     return Json(ld, JsonRequestBehavior.AllowGet);
-
                 }
-
                 else
                 {
                     rm.n = 5;
@@ -71,13 +68,12 @@ namespace LeadManagementSystem.Controllers
                 rm.n = 0;
             }
             return Json(rm, JsonRequestBehavior.AllowGet);
-
         }
         public ActionResult AddNewPlan(PlanDetails pd)
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     pd.CreatedBy = Convert.ToString(Session["Admin_ID"]);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddNewPlan", pd, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
@@ -101,7 +97,7 @@ namespace LeadManagementSystem.Controllers
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("RemovePlan?id=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
@@ -124,7 +120,7 @@ namespace LeadManagementSystem.Controllers
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     pd.CreatedBy = Convert.ToString(Session["Admin_ID"]);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdatePlan", pd, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);

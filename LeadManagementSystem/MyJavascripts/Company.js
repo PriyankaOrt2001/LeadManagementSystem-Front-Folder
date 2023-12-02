@@ -3,6 +3,7 @@
 	var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //To check Email ID
 	var onlyText = /^[a-zA-Z0-9\s-]*$/;
 	var CompanyName = $("#TxtCompanyName").val().trim();
+	var ShortCompanyName = $("#TxtShortCompanyName").val().trim();
 
 	if (CompanyName == "") {
 		$('.help-block').html('');
@@ -10,15 +11,17 @@
 		$('#ErrorForCompanyName').html('Enter Company Name.');
 		$('#TxtCompanyName').focus();
 		return;
-	} else if (!onlyText.test(CompanyName)) {
+	}
+	else if (ShortCompanyName == "") {
 		$('.help-block').html('');
-		$('#CompanyNameDIV').addClass('has-error');
-		$('#ErrorForCompanyName').html('Enter valid Company Name.');
-		$('#TxtCompanyName').focus();
+		$('#ShortCompanyNameDIV').addClass('has-error');
+		$('#ErrorForShortCompanyName').html('Enter Abbreviation');
+		$('#TxtShortCompanyName').focus();
 		return;
 	}
 	var formdata = new FormData();
 	formdata.append("Company_Name", CompanyName);
+	formdata.append("Short_Company_Name", ShortCompanyName);
 	$.ajax({
 		type: "POST",
 		url: ServerURL + '/Company/AddCompany',
@@ -49,18 +52,15 @@
 			$('#btnSave').removeAttr("disabled");
 			$('#btnSave').html('Save');
 		}
-
 	});
-
 }
 
 function ResetFormData() {
 	$("#TxtCompanyName").val('');
-
+	$('#TxtShortCompanyName').val('');
 	$('#boxTitle').text('Add Company');
 	$('#btnSave').text('Save');
 	$('#btnSave').attr('onclick', 'SaveFormData();');
-
 	$(".form-group").removeClass('has-error');
 	$(".txtdiv").removeClass('has-error');
 	$(".form-group > span").html('');
@@ -121,7 +121,6 @@ function RemoveCompany(element) {
 	});
 }
 function EditCompany(id) {
-
 	$.ajax({
 		type: "POST",
 		url: ServerURL + 'Company/ViewCompanyDetails',
@@ -135,15 +134,13 @@ function EditCompany(id) {
 			} else (return_Data != null)
 			{
 				$('#TxtCompanyName').val(return_Data.Company_Name);
+				$('#TxtShortCompanyName').val(return_Data.Short_Company_Name);
 				$('#boxTitle').text('Update Company Details');
 				$('#btnSave').text('Update');
 				$('#btnSave').attr('onclick', 'UpdateCompany(' + id + ');');
-
 			}
-
 		}
 	});
-
 }
 function UpdateCompany(id) {
 	var activePageElement = $('.paginate_button.active');
@@ -155,6 +152,7 @@ function UpdateCompany(id) {
 	var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //To check Email ID
 	var onlyText = /^[a-zA-Z0-9\s-]*$/;
 	var CompanyName = $("#TxtCompanyName").val().trim();
+	var ShortCompanyName = $("#TxtShortCompanyName").val().trim();
 
 	if (CompanyName == "") {
 		$('.help-block').html('');
@@ -162,15 +160,16 @@ function UpdateCompany(id) {
 		$('#ErrorForCompanyName').html('Enter Company Name.');
 		$('#TxtCompanyName').focus();
 		return;
-	} else if (!onlyText.test(CompanyName)) {
+	} else if (ShortCompanyName == "") {
 		$('.help-block').html('');
-		$('#CompanyNameDIV').addClass('has-error');
-		$('#ErrorForCompanyName').html('Enter valid Company Name.');
+		$('#ShortCompanyNameDIV').addClass('has-error');
+		$('#ErrorForShortCompanyName').html('Enter Abbreviation');
 		$('#TxtCompanyName').focus();
 		return;
 	}
 	var formdata = new FormData();
 	formdata.append("Company_Name", CompanyName);
+	formdata.append("Short_Company_Name", ShortCompanyName);
 	formdata.append("Company_Id", id);
 	$.ajax({
 		type: "POST",
@@ -202,7 +201,5 @@ function UpdateCompany(id) {
 			$('#btnSave').removeAttr("disabled");
 			$('#btnSave').html('Save');
 		}
-
 	});
-
 }

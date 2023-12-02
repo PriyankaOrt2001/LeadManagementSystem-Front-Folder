@@ -27,7 +27,7 @@ namespace LeadManagementSystem.Controllers
         }
         public ActionResult EmployeeTablePartial()
         {
-            if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+            if (Session["AuthToken"] != null)
             {
                 AssignToModel lcm = new AssignToModel();
                 AssignToDetails cd = new AssignToDetails();
@@ -41,13 +41,12 @@ namespace LeadManagementSystem.Controllers
                 rm.n = 5;
                 return RedirectToAction("LogInForm", "LogIn");
             }
-
         }
         public ActionResult AddNewAssignee(AssignToDetails ld)
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     ld.CreatedBy = Convert.ToString(Session["Admin_ID"]);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddNewAssignee", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
@@ -71,7 +70,7 @@ namespace LeadManagementSystem.Controllers
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("RemoveAssignee?id=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
@@ -100,9 +99,7 @@ namespace LeadManagementSystem.Controllers
                     var result = JsonConvert.DeserializeObject<AssignToDetails>(LMSTransaction.get("ViewAssignToDetails?Assignee_Id=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     ld = result;
                     return Json(ld, JsonRequestBehavior.AllowGet);
-
                 }
-
                 else
                 {
                     rm.n = 5;
@@ -117,13 +114,12 @@ namespace LeadManagementSystem.Controllers
                 rm.n = 0;
             }
             return Json(rm, JsonRequestBehavior.AllowGet);
-
         }
         public ActionResult UpdateAssignee(AssignToDetails ad)
         {
             try
             {
-                if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)
+                if (Session["AuthToken"] != null)
                 {
                     ad.CreatedBy = Convert.ToString(Session["Admin_ID"]);
                     var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdateAssignee", ad, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
