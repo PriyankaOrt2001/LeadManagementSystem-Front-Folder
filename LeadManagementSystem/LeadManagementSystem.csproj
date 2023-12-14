@@ -178,6 +178,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AssigneeController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -207,8 +208,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\No data-pana.svg" />
     <Content Include="Images\personal-information.svg" />
     <Content Include="MyJavascripts\AddNewLead.js" />
+    <Content Include="MyJavascripts\Assignee.js" />
     <Content Include="MyJavascripts\Category.js" />
     <Content Include="MyJavascripts\Company.js" />
     <Content Include="MyJavascripts\Dashboard.js" />
@@ -249,6 +252,7 @@
     <Content Include="ThemeContent\css\PlanDetailsStyleSheet.css" />
     <Content Include="ThemeContent\css\SourceStyleSheet.css" />
     <Content Include="ThemeContent\css\TypeOfLeadStyleSheet.css" />
+    <Content Include="ThemeContent\Img\No data-pana.svg" />
     <Content Include="ThemeContent\js\Chart.js" />
     <Content Include="ThemeContent\css\dataTables.bootstrap.css" />
     <Content Include="ThemeContent\css\datepicker3.css" />
@@ -327,6 +331,8 @@
     <Content Include="Views\Notification\NotificationTablePartial.cshtml" />
     <Content Include="Views\LeadSource\Index.cshtml" />
     <Content Include="Views\LeadSource\LeadSourceDetailsTablePartial.cshtml" />
+    <Content Include="Views\Assignee\Index.cshtml" />
+    <Content Include="Views\Assignee\AssigneeTablePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

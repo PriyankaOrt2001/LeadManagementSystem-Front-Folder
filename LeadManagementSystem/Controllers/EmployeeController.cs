@@ -1,5 +1,6 @@
 ﻿using LeadManagementSystem.MODEL;
 using LeadManagementSystem.MyServices;
+using LeadManagementSystem.Service;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace LeadManagementSystem.Controllers
 {
+    [SessionOut]
     public class EmployeeController : Controller
     {
         ResponseStatusModel rm = new ResponseStatusModel();
@@ -29,10 +31,10 @@ namespace LeadManagementSystem.Controllers
         {
             if (Session["AuthToken"] != null)
             {
-                AssignToModel lcm = new AssignToModel();
-                AssignToDetails cd = new AssignToDetails();
-                var result = JsonConvert.DeserializeObject<AssignToModel>(LMSTransaction.get("GetAssignToList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
-                lcm.AssignToList = result.AssignToList;
+                AssigneeModel lcm = new AssigneeModel();
+                AssigneeDetails cd = new AssigneeDetails();
+                var result = JsonConvert.DeserializeObject<AssigneeModel>(LMSTransaction.get("GetAssignToList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                lcm.AssigneeList = result.AssigneeList;
                 return PartialView("EmployeeTablePartial", lcm);
             }
             else
@@ -42,7 +44,7 @@ namespace LeadManagementSystem.Controllers
                 return RedirectToAction("LogInForm", "LogIn");
             }
         }
-        public ActionResult AddNewAssignee(AssignToDetails ld)
+        public ActionResult AddNewAssignee(AssigneeDetails ld)
         {
             try
             {
@@ -95,8 +97,8 @@ namespace LeadManagementSystem.Controllers
             {
                 if (Session["AuthToken"] != null)
                 {
-                    AssignToDetails ld = new AssignToDetails();
-                    var result = JsonConvert.DeserializeObject<AssignToDetails>(LMSTransaction.get("ViewAssignToDetails?Assignee_Id=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                    AssigneeDetails ld = new AssigneeDetails();
+                    var result = JsonConvert.DeserializeObject<AssigneeDetails>(LMSTransaction.get("ViewAssignToDetails?Assignee_Id=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     ld = result;
                     return Json(ld, JsonRequestBehavior.AllowGet);
                 }
@@ -115,7 +117,7 @@ namespace LeadManagementSystem.Controllers
             }
             return Json(rm, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult UpdateAssignee(AssignToDetails ad)
+        public ActionResult UpdateAssignee(AssigneeDetails ad)
         {
             try
             {

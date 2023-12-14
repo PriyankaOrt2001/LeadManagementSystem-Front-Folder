@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace LeadManagementSystem.Controllers
 {
+    [SessionOut]
     public class PlanDetailController : Controller
     {
         ResponseStatusModel rm = new ResponseStatusModel();

@@ -12,7 +12,12 @@
     color: white;
     background-color: #D63683;
 }
-
+.small-box {
+    height: 90px;
+    pointer-events: none;
+    margin-bottom: 10px;
+    color: white
+}
 .convertedlead-bg {
     color: white;
     background-color: #F1843B;
@@ -114,4 +119,201 @@ a#btnAddLead {
 
 .data-count-box {
     height: auto;
+}
+#customTooltip {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border-radius: 3px;
+    padding: 10px;
+    transition: opacity 0.30s;
+}
+.chartjs-tooltip {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border-radius: 3px;
+    padding: 10px;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: 9999;
+}
+.header-container {
+    width: 100%;
+    display: flex;
+    background-color: #fff;
+    padding: 8px;
+    border-radius: 8px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.form-container {
+    background-color: #fff;
+    padding: 3px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    width: 50%;
+    padding-right: 0px;
+    justify-content: end;
+}
+#form-container {
+    text-align: right;
+    padding-left: 98px;
+}
+.form-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.refresh {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+    .form-row label {
+        width: 34px;
+        text-align: right;
+    }
+
+
+.form-button {
+    margin-top: 10px;
+}
+#showPreviousData{
+
+}
+.previous-row {
+    width: 50%;
+    float: right;
+    display: flex;
+    background-color: #fff;
+    padding: 8px;
+    border-radius: 8px;
+}
+.category-price-details{
+    text-align:right;
+}
+#category-price-details {
+    display: none;
+    font-size: 22px;
+    padding-right: 11px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+#datePicker {
+    width: 200px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#refreshIcon {
+    margin-left: 10px;
+    cursor: pointer;
+}
+.date-picker-container{
+    margin-left:9px;
+}
+#datePicker {
+    width: 200px;
+    padding: 8px 30px 8px 8px; /* Adjust padding for icon */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#clearDates {
+    position: absolute;
+    right: 27px;
+    top: 22%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #999;
+    display: none;
+}
+/* Clearable text inputs */
+.clearable {
+    position: relative;
+    display: inline-block;
+}
+
+    .clearable input[type=text] {
+        padding-right: 24px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+.clearable__clear {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0 8px;
+    font-style: normal;
+    font-size: 1.2em;
+    user-select: none;
+    cursor: pointer;
+}
+
+.clearable input::-ms-clear { /* Remove IE default X */
+    display: none;
+}
+.clearable__clear {
+    display:none;
+    font-size: x-large;
+    padding-top: 2px;
+    display: inline;
+}
+#clearable__clear {
+    display: none;
+}
+.custom-button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+}
+#show_records {
+    color: white;
+    border-radius: 11px;
+    border-top-width: 1px;
+    margin-top: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    background-color: #3c8dbc;
+    border-color: #3c8dbc;
+}
+.flatpickr-current-month {
+    padding-top: 2.48px;
+}
+.flatpickr-months {
+    height: 32px;
+}
+.custom-button-container {
+    height: 38px;
+}
+.flatpickr-calendar {
+    height: 261px;
+}
+.flatpickr-day {
+    height: 26px;
+    line-height: 30px;
+}
+.flatpickr-current-month, .flatpickr-monthDropdown-months, .flatpickr-yearDropdown-years {
+    height: 26px;
+    line-height: 30px;
+}
+.data_not_found {
+    height: 269px;
+    width: 100%;
+}
+.calendar-icon {
+    padding-top: 10px;
+    font-size: 20px;
+}
+#chart-container {
+    height: fit-content;
 }

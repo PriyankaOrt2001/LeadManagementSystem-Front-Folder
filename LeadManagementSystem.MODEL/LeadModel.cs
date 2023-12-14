@@ -99,38 +99,18 @@ namespace LeadManagementSystem.MODEL
     }
     public class RemarkModel
     {
-        public string CreatedBy
-        {
-            get; set;
-        }
-        public string CreatedByName
-        {
-            get; set;
-        }
-        public string CreatedDate
-        {
-            get; set;
-        }
-        public string CreatedTime
-        {
-            get; set;
-        }
-        public string Lead_Id
-        { 
-            get; set;
-        }
-        public string Remark
-        {
-            get; set;
-        }
-        public string Status
-        {
-            get;set;
-        }
+        public string CreatedBy { get; set; }
+        public string CreatedByName { get; set; }
+        public string CreatedDate { get; set; }
+        public string CreatedTime { get; set; }
+        public string Lead_Id { get; set; }
+        public string Remark { get; set; }
+        public string Status { get; set; }
         public string ClientName
         {
             get; set;
         } = "";
+        public string RemarkStatus { get; set; }
     }
     public class FilterDetailsModel
     {

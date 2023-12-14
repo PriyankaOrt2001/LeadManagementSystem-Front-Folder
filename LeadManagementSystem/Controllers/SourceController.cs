@@ -1,5 +1,6 @@
 ﻿using LeadManagementSystem.MODEL;
 using LeadManagementSystem.MyServices;
+using LeadManagementSystem.Service;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace LeadManagementSystem.Controllers
 {
+    [SessionOut]
     public class SourceController : Controller
     {
         ResponseStatusModel rm = new ResponseStatusModel();
@@ -41,7 +43,6 @@ namespace LeadManagementSystem.Controllers
                 rm.n = 5;
                 return RedirectToAction("LogInForm", "LogIn");
             }
-
         }
         public ActionResult DeleteLeadOwner(string id)
         {
@@ -115,7 +116,6 @@ namespace LeadManagementSystem.Controllers
                 rm.n = 0;
             }
             return Json(rm, JsonRequestBehavior.AllowGet);
-
         }
         public ActionResult UpdateLeadOwner(LeadOwnerDetails sd)
         {

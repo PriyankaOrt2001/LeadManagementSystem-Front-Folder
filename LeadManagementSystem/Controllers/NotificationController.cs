@@ -1,5 +1,6 @@
 ﻿using LeadManagementSystem.MODEL;
 using LeadManagementSystem.MyServices;
+using LeadManagementSystem.Service;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace LeadManagementSystem.Controllers
 {
+    [SessionOut]
     public class NotificationController : Controller
     {
         ResponseStatusModel rm = new ResponseStatusModel();
@@ -54,7 +56,6 @@ namespace LeadManagementSystem.Controllers
                 var result = JsonConvert.DeserializeObject<NotificationDetailsList>(LMSTransaction.get("RecentNotificationDetails?UserId=" + UserID, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                 ndl.NotificationDetails = result.NotificationDetails;
                 var stringtemp12 = "";
-                
                 if (result.NotificationDetails == null || result.NotificationDetails.Count == 0)
                 {
                     stringtemp12 = "No Notification.....";
@@ -83,7 +84,6 @@ namespace LeadManagementSystem.Controllers
                             $"</div>";
                     }
                 }
-
                 ViewBag.NotificationList = stringtemp12;
                 rm.n = 1;
                 rm.NotificationList = stringtemp12;
@@ -132,7 +132,6 @@ namespace LeadManagementSystem.Controllers
                     rm.n = 1;
                     rm.TotalUnseenNotification = coum.TotalUnseenNotification;
                 }
-
                 else
                 {
                     rm.n = 5;
@@ -147,7 +146,6 @@ namespace LeadManagementSystem.Controllers
                 rm.n = 0;
             }
             return Json(rm, JsonRequestBehavior.AllowGet);
-
         }
     }
 }

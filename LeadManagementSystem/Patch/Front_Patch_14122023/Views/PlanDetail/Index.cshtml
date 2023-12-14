@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<link href="~/ThemeContent/css/PlanDetailsStyleSheet.css" rel="stylesheet" />
+<section class="content-header padding-title">
+    <h1>Plan Details</h1>
+</section>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary with-border" id="PlanDataDIV">
+            <div class="box-header with-border">
+                <h3 class="box-title" id="boxTitle">Add Plan Details</h3>
+            </div>
+            <div class="box-body">
+                <div class="col-md-12 padding-left" id="PlanDetailsForm">
+                    <div class="col-md-4 padding-left">
+                        <div class="form-group">
+                            <div class="box-body padding-left">
+                                <div class="form-group" id="PlanNameDIV">
+                                    <label>Plan Name<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" maxlength="25" id="TxtPlanName" placeholder="Enter Plan Name" autocomplete="off" />
+                                    <span class="help-block" id="ErrorForPlanName"></span>
+                                </div>
+                                <div class="form-group" id="PlanPriceDIV">
+                                    <label>Plan Price<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" maxlength="25" id="TxtPlanPrice" placeholder="Enter Plan Price" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" />
+                                    <span class="help-block" id="ErrorForPlanPrice"></span>
+                                </div>
+                            </div>
+                            <div class="box-footer padding-left">
+                                <button type="button" class="btn btn-success" id="btnSave" onclick="SaveFormData();" style="margin-right: 10px;width:110px;">Save</button>
+                                <button type="button" class="btn btn-danger" id="btnreset" onclick="ResetFormData();" style="width:110px;">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8" id="PlanDetailsTable">
+                        <div class="box box-primary with-border">
+                            <div class="box-body">
+                                <div id="PlanDetails"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section LocalJs{
+    <script>
+        $(document).ready(function () {
+            debugger;
+            refreshDataTable()
+        });
+
+        function refreshDataTable() {
+            debugger;
+            $("#PlanDetails").load("@Url.Action("PlanTablePartial", "PlanDetail")", function () {
+                var myDataTable = $('#TablePlanDetails').DataTable({
+                });
+            });
+
+        }
+    </script>
+    <script src="~/MyJavascripts/PlanDetails.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
+    <script src="https://unpkg.com/bootstrap-multiselect@0.9.13/dist/js/bootstrap-multiselect.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+}

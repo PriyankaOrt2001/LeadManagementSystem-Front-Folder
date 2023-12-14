@@ -9,20 +9,27 @@ namespace LeadManagementSystem.Service
 {
     public class SessionOut : ActionFilterAttribute
     {
-        public bool skip { get; set; } = true;
-        ResponseStatusModel rm = new ResponseStatusModel();
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (skip)
+            HttpContextBase httpContext = filterContext.HttpContext;
+
+            if (httpContext.Session != null && httpContext.Session["AuthToken"] == null)
             {
-                if (string.IsNullOrEmpty(Convert.ToString(HttpContext.Current.Session["Admin_ID"])))
-                {
-                    HttpContext.Current.Session.Clear();
-                    filterContext.Result = new RedirectResult("~/LogIn/LogInForm");
-                    return;
-                }
+                // Session expired, redirect to login page or display a message
+                filterContext.Result = new RedirectToRouteResult(
+                    new System.Web.Routing.RouteValueDictionary {
+                    { "controller", "LogIn" },
+                    { "action", "LogInForm" }
+                    });
+
+                // Optionally, you can set a message to be displayed on the login page
+                // TempData["SessionExpiredMessage"] = "Your session has expired. Please log in again.";
+
+                return;
             }
+
             base.OnActionExecuting(filterContext);
         }
+
     }
 }

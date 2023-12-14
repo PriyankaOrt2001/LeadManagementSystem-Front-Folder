@@ -17,5 +17,9 @@ namespace LeadManagementSystem
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            Session.Timeout = 40;
+        }
     }
 }

@@ -138,7 +138,8 @@ span.input-group-addon {
 }
 
 .overflow {
-    height: 60%;
+    height: fit-content;
+    max-height: 60%;
     overflow-y: scroll;
 }
 

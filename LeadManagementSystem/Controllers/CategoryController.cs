@@ -10,8 +10,29 @@ using System.Web.Mvc;
 
 namespace LeadManagementSystem.Controllers
 {
+    [SessionOut]
     public class CategoryController : Controller
     {
+        private  int GetSessionTimeoutFromConfig()
+        {
+            try
+            {
+                // Retrieve the session timeout value from httpRuntime in web.config
+                var sessionStateSection = System.Web.Configuration.WebConfigurationManager.GetSection("system.web/sessionState") as System.Web.Configuration.SessionStateSection;
+                if (sessionStateSection != null)
+                {
+                    int sessionTimeoutMinutes = (int)sessionStateSection.Timeout.TotalMinutes;
+                    return sessionTimeoutMinutes;
+                }
+                return 30;
+            }
+            catch (Exception ex)
+            {
+                // Log or handle any exceptions
+                Console.WriteLine($"Error retrieving session timeout: {ex.Message}");
+                return 20; // Set your default value here
+            }
+        }
         ResponseStatusModel rm = new ResponseStatusModel();
         public ActionResult Index()
         {
@@ -30,6 +51,10 @@ namespace LeadManagementSystem.Controllers
         {
             if (Session["AuthToken"] != null)
             {
+                int sessionTimeoutMinutes = GetSessionTimeoutFromConfig();
+
+                // Display the session timeout in the view
+                ViewBag.SessionTimeout = sessionTimeoutMinutes;
                 LeadCategoryModel lcm = new LeadCategoryModel();
                 LeadCategoryDetails cd = new LeadCategoryDetails();
                 var result = JsonConvert.DeserializeObject<LeadCategoryModel>(LMSTransaction.get("GetLeadCategoryList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);

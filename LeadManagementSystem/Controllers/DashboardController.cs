@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace LeadManagementSystem.Controllers
 {
+    [SessionOut]
     public class DashboardController : Controller
     {
         ResponseStatusModel rm = new ResponseStatusModel();
@@ -24,14 +25,12 @@ namespace LeadManagementSystem.Controllers
                 ViewBag.OnHold = result.HoldLeadsCount;
                 ViewBag.ConvertedLeads = result.ConvertedLeadsCount;
                 ViewBag.GhostLeads = result.GhostLeadsCount;
-
                 ViewBag.TotalPriceOfTotalLeads = result.PriceOfTotalLeads;
                 ViewBag.TotalPriceOfOpenLeads = result.PriceOfOpenLeads;
                 ViewBag.TotalPriceOfClosedLeads = result.PriceOfClosedLeads;
                 ViewBag.TotalPriceOfHoldLeads = result.PriceOfHoldLeads;
                 ViewBag.TotalPriceOfConvertedLeads = result.PriceOfConvertedLeads;
                 ViewBag.TotalPriceOfGhostLeads = result.PriceOfGhostLeads;
-
                 LeadModel lm = new LeadModel();
                 var leadDetails = JsonConvert.DeserializeObject<RemarkModelList>(LMSTransaction.get("GetRecentRemarksList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                 List<RemarkModel> RemarkModel = leadDetails.RemarkModels;
@@ -54,7 +53,6 @@ namespace LeadManagementSystem.Controllers
                         }
                         else
                         {
-
                             if (tempname.Status == "Converted")
                             {
                                 classname = "ConvertRemarkData_Block";
@@ -104,6 +102,71 @@ namespace LeadManagementSystem.Controllers
                 rm.n = 5;
                 return RedirectToAction("LogInForm", "LogIn");
             }
+        }
+        public ActionResult ViewCategoryPriceByStatus(LeadsAmountByDate leadsAmountBy)
+        {
+            try
+            {
+                if (Session["AuthToken"] != null)
+                {
+                    int sessionTimeoutMinutes = Session.Timeout;
+                    CategoryPriceList cp = new CategoryPriceList();
+                    var result = JsonConvert.DeserializeObject<CategoryPriceList>(LMSTransaction.post("GetCategoryPriceByStatus", leadsAmountBy, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                    cp = result;
+                    return Json(cp, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    rm.n = 5;
+                    rm.msg = "Session Expired";
+                    return Json(rm, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                rm.RStatus = "Error";
+                rm.msg = "Some error occured while processing your request, Please try again later";
+                rm.n = 0;
+            }
+            return Json(rm, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetLeadsPriceByDates(LeadsAmountByDate leadsAmountBy)
+        {
+            try
+            {
+                if (Session["AuthToken"] != null)
+                {
+                    DashboardModel dm = new DashboardModel();
+                    var result = JsonConvert.DeserializeObject<DashboardModel>(LMSTransaction.post("GetLeadsPriceByDates",leadsAmountBy, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                    ViewBag.TotalLeads = result.TotalLeads;
+                    ViewBag.OpenLeads = result.OpenLeadsCount;
+                    ViewBag.ClosedLeads = result.ClosedLeadsCount;
+                    ViewBag.OnHold = result.HoldLeadsCount;
+                    ViewBag.ConvertedLeads = result.ConvertedLeadsCount;
+                    ViewBag.GhostLeads = result.GhostLeadsCount;
+                    ViewBag.TotalPriceOfTotalLeads = result.PriceOfTotalLeads;
+                    ViewBag.TotalPriceOfOpenLeads = result.PriceOfOpenLeads;
+                    ViewBag.TotalPriceOfClosedLeads = result.PriceOfClosedLeads;
+                    ViewBag.TotalPriceOfHoldLeads = result.PriceOfHoldLeads;
+                    ViewBag.TotalPriceOfConvertedLeads = result.PriceOfConvertedLeads;
+                    ViewBag.TotalPriceOfGhostLeads = result.PriceOfGhostLeads;
+                    dm = result;
+                    return Json(dm, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    rm.n = 5;
+                    rm.msg = "Session Expired";
+                    return Json(rm, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                rm.RStatus = "Error";
+                rm.msg = "Some error occured while processing your request, Please try again later";
+                rm.n = 0;
+            }
+            return Json(rm, JsonRequestBehavior.AllowGet);
         }
     }
 }

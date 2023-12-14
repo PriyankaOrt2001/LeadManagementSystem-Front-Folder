@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+<link href="~/ThemeContent/css/TypeOfLeadStyleSheet.css" rel="stylesheet" />
+<section class="content-header padding-title">
+    <h1 id="boxTitle">Sub Category Details</h1>
+</section>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary with-border" id="TypeOfLeadDataDIV">
+            <div class="box-header with-border">
+                <div class="tab-header">
+                    <div class="tab" onclick="@("window.location.href='" + @Url.Action("Index", "Category") + "'");">Add Category</div>
+                    <div class="tab active" onclick="@("window.location.href='" + @Url.Action("Index", "TypeOfLead") + "'");">Add Sub Category</div>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="col-md-12 padding-left" id="TypeOfLeadForm">
+                    <div class="col-md-4 padding-left">
+                        <div class="form-group">
+                            <div class="box-body padding-left">
+                                <div class="form-group" id="CategoryNameDIV">
+                                    <label>Category Name<span class="text-danger">*</span></label>
+                                    <select id="TxtCategory" class="form-control">
+                                        <option selected="" value="">--Select Category--</option>
+                                        @Html.Raw(ViewBag.CategoryModelList)
+                                    </select>
+                                    <span class="help-block" id="ErrorForCategoryName"></span>
+                                </div>
+                                <div class="form-group" id="TypeOfLeadNameDIV">
+                                    <label>Sub Category Name<span class="text-danger">*</span></label>
+                                    <input type="text" maxlength="25" class="form-control" id="TxtTypeOfLeadName" placeholder="Enter Sub Category Name" autocomplete="off" />
+                                    <span class="help-block" id="ErrorForTypeOfLeadName"></span>
+                                </div>
+                            </div>
+                            <div class="box-footer padding-left">
+                                <button type="button" class="btn btn-success" id="btnSave" onclick="SaveFormData();" style="margin-right: 10px;width:110px;">Save</button>
+                                <button type="button" class="btn btn-danger" id="btnreset" onclick="ResetFormData();" style="width:110px;">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8" id="TypeOfLeadTable">
+                        <div class="box box-primary with-border">
+                            <div class="box-body">
+                                <div id="TypeOfLeadDetails"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section LocalJs{
+    <script>
+        $(document).ready(function () {
+            debugger;
+            refreshDataTable(0)
+        });
+        function refreshDataTable(pageId) {
+            debugger;
+            $("#TypeOfLeadDetails").load("@Url.Action("TypeOfLeadTablePartial", "TypeOfLead")", function () {
+                var pageToSet = pageId;
+                var myDataTable = $('#TableTypeOfLead').DataTable({
+                });
+                $("#TableTypeOfLead").removeClass('dataTable');
+                $(".col-sm-12").addClass('overflow');
+                $(".col-sm-12").css('padding-right', '0px');
+                if (pageId != 0) {
+                    sessionStorage.setItem('pageId', 0);
+                }
+                myDataTable.page(pageToSet).draw(false);
+            });
+        }
+    </script>
+    <script src="~/MyJavascripts/TypeOfLead.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
+    <script src="https://unpkg.com/bootstrap-multiselect@0.9.13/dist/js/bootstrap-multiselect.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+}

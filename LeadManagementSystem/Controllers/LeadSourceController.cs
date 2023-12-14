@@ -1,5 +1,6 @@
 ﻿using LeadManagementSystem.MODEL;
 using LeadManagementSystem.MyServices;
+using LeadManagementSystem.Service;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace LeadManagementSystem.Controllers
 {
+    [SessionOut]
     public class LeadSourceController : Controller
     {
         ResponseStatusModel rm = new ResponseStatusModel();

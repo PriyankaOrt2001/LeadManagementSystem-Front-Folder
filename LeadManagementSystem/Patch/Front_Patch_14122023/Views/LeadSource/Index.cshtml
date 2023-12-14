@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<link href="~/ThemeContent/css/LeadSourceStyleSheet.css" rel="stylesheet" />
+<section class="content-header padding-title">
+    <h1>Lead Source Details</h1>
+</section>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary with-border" id="LeadSourceDataDIV">
+            <div class="box-header with-border">
+                <h3 class="box-title" id="boxTitle">Add Lead Source Details</h3>
+            </div>
+            <div class="box-body">
+                <div class="col-md-12 padding-left" id="LeadSourceForm">
+                    <div class="col-md-4 padding-left">
+                        <div class="form-group">
+                            <div class="box-body padding-left">
+                                <div class="form-group" id="LeadSourceNameDIV">
+                                    <label>Lead Source Name<span class="text-danger">*</span></label>
+                                    <input type="text" maxlength="25" class="form-control" id="TxtLeadSourceName" placeholder="Enter Lead Source Name" autocomplete="off" />
+                                    <span class="help-block" id="ErrorForLeadSource"></span>
+                                </div>
+                            </div>
+                            <div class="box-footer padding-left">
+                                <button type="button" class="btn btn-success" id="btnSave" onclick="SaveFormData();" style="margin-right: 10px;width:110px;">Save</button>
+                                <button type="button" class="btn btn-danger" id="btnreset" onclick="ResetFormData();" style="width:110px;">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8" id="LeadSourceTable">
+                        <div class="box box-primary with-border">
+                            <div class="box-body">
+                                <div id="LeadSourceDetails"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section LocalJs{
+    <script>
+        function refreshDataTable(pageId) {
+            debugger;
+            $("#LeadSourceDetails").load("@Url.Action("LeadSourceDetailsTablePartial", "LeadSource")", function () {
+                var pageToSet = pageId;
+                var myDataTable = $('#TableLeadSource').DataTable({
+                });
+                $("#TableLeadSource").removeClass('dataTable');
+                $(".col-sm-12").addClass('overflow');
+                $(".col-sm-12").css('padding-right', '0px');
+                if (pageId != 0) {
+                    sessionStorage.setItem('pageId', 0);
+                }
+                myDataTable.page(pageToSet).draw(false);
+         });
+        }
+        $(document).ready(function () {
+            debugger;
+            refreshDataTable(0)
+        });
+    </script>
+    <script src="~/MyJavascripts/LeadSource.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
+    <script src="https://unpkg.com/bootstrap-multiselect@0.9.13/dist/js/bootstrap-multiselect.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+}

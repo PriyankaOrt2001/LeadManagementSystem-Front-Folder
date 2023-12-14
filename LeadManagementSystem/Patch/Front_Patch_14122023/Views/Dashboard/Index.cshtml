@@ -1,0 +1,304 @@
+﻿@model LeadManagementSystem.MODEL.LeadModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+<link href="~/ThemeContent/css/DashboardStyleSheet.css" rel="stylesheet" />
+<section class="content-header" style="padding-bottom:15px;">
+    <h1>Dashboard</h1>
+</section>
+<section class="content" style="padding-top: 0px;padding-left: 0px;padding-right: 0px;padding-bottom: 0px;">
+
+    <div class="row" id="dashboardpanel">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-info data-count-box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Lead Details</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="col-md-4">
+                                <div class="small-box bg-green">
+                                    <div class="inner" style="padding-bottom: 0px;">
+                                        <h3>@ViewBag.TotalLeads</h3>
+
+                                        <p>Total Lead</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="small-box closedlead-bg">
+                                    <div class="inner" style="padding-bottom: 0px;">
+                                        <h3>@ViewBag.ClosedLeads</h3>
+
+                                        <p>Closed Lead</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="small-box ghostlead-bg">
+                                    <div class="inner" style="padding-bottom: 0px;">
+                                        <h3>@ViewBag.GhostLeads</h3>
+
+                                        <p>Ghost Lead</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="small-box convertedlead-bg">
+                                    <div class="inner" style="padding-bottom: 0px;">
+                                        <h3>@ViewBag.ConvertedLeads</h3>
+
+                                        <p>Converted Lead</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="small-box holdlead-bg">
+                                    <div class="inner" style="padding-bottom: 0px;">
+                                        <h3>@ViewBag.OnHold</h3>
+
+                                        <p>OnHold Lead</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="small-box openlead-bg">
+                                    <div class="inner" style="padding-bottom: 0px;">
+                                        <h3>@ViewBag.OpenLeads</h3>
+
+                                        <p>Open Lead</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box box-info" style="height:500px;">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Lead Details In Line Chart</h3>
+
+                        </div>
+                        <div class="box-body">
+                            <div id="chartContainer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-info" style="height:fit-content;">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Plan Price Chart</h3>
+                        </div>
+                        <div class="box-body" id="chart-container">
+                            <div class="box-header category-price-details" id="category-price-details">
+                                <h3 class="category-price-title">Plan Price Chart</h3>
+                            </div>
+                            <div class="header-container">
+                                <div class="previous-row">
+                                    <div class="form-row">
+                                        <span style="display:none;" id="showPreviousData" onclick="showPreviousData()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+                                    </div>
+                                </div>
+                                <div class="form-container">
+                                    <label for="datePicker">Select Dates:</label>
+                                    <div class="date-picker-container clearable">
+                                        <input type="text" id="datePicker" placeholder="Select dates" class="flatpickr-input active" readonly="readonly" onchange="showRefreshIcon()">
+                                        <i class="fa fa-calendar-o clearable__clear calendar-icon" id="calendar-icon" aria-hidden="true" style="display: block;"></i>
+                                        <i class="clearable__clear" id="clearable__clear" onclick="clearDatesFromCalendar()" style="display: none;" read>&times;</i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="data_not_found" style="display:none;">
+                                <img src="~/Images/No data-pana.svg" class="data_not_found" />
+                            </div>
+                            <canvas id="filteredDataChart" height="220" width="600" style="display:none; height:235px; width:652px;"></canvas>
+                            <canvas id="myPieChart" height="220" width="600" style="display:block; height:235px; width:652px;"></canvas>
+                            <canvas id="CategoryPricePieChart" height="220" width="600" style="display:none; height:235px; width:652px;"></canvas>
+                        </div>
+                    </div>
+                    <div class="box box-info" style="height: 450px;">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Recent Remarks</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="col-md-12 table-responsive scrollbox">
+                                @Html.Raw(ViewBag.GetRemarksList)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade"
+         id="ViewFrontCardImage"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <canvas id="CategoryPricePieChart" height="220" width="400" style="display: block;height: 80%;width: 600px;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="~/MyJavascripts/Dashboard.js"></script>
+@section LocalJs{
+    <script>
+
+        debugger;
+        var TotalLeads ="@Html.Raw(ViewBag.TotalLeads)";
+        var ClosedLeads ="@Html.Raw(ViewBag.ClosedLeads)";
+        var OpenLeads = "@Html.Raw(ViewBag.OpenLeads)";
+        var HoldLeads = "@Html.Raw(ViewBag.OnHold)";
+        var LineChartData=@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.LineChartData));
+        var dataforLine = LineChartData;
+        var TotalPriceOfTotalLeads = 0;
+        var TotalPriceOfOpenLeads = 0;
+        var TotalPriceOfClosedLeads = 0;
+        var TotalPriceOfHoldLeads = 0;
+        var TotalPriceOfConvertedLeads = 0;
+        var TotalPriceOfGhostLeads = 0;
+
+        if (!sessionStorage.getItem('TotalPriceOfTotalLeads')) {
+        sessionStorage.setItem('TotalPriceOfTotalLeads', "@Html.Raw(ViewBag.TotalPriceOfTotalLeads)");
+        }
+        TotalPriceOfTotalLeads = sessionStorage.getItem('TotalPriceOfTotalLeads');
+        if (!sessionStorage.getItem('TotalPriceOfOpenLeads')) {
+        sessionStorage.setItem('TotalPriceOfOpenLeads', "@Html.Raw(ViewBag.TotalPriceOfOpenLeads)");
+        }
+        TotalPriceOfOpenLeads = sessionStorage.getItem('TotalPriceOfOpenLeads');
+        if (!sessionStorage.getItem('TotalPriceOfClosedLeads')) {
+        sessionStorage.setItem('TotalPriceOfClosedLeads', "@Html.Raw(ViewBag.TotalPriceOfClosedLeads)");
+        }
+        TotalPriceOfClosedLeads = "@Html.Raw(ViewBag.TotalPriceOfClosedLeads)";
+        if (!sessionStorage.getItem('TotalPriceOfHoldLeads')) {
+        sessionStorage.setItem('TotalPriceOfHoldLeads', "@Html.Raw(ViewBag.TotalPriceOfHoldLeads)");
+        }
+        TotalPriceOfHoldLeads = "@Html.Raw(ViewBag.TotalPriceOfHoldLeads)";
+        if (!sessionStorage.getItem('TotalPriceOfConvertedLeads')) {
+        sessionStorage.setItem('TotalPriceOfConvertedLeads', "@Html.Raw(ViewBag.TotalPriceOfConvertedLeads)");
+        }
+        TotalPriceOfConvertedLeads = "@Html.Raw(ViewBag.TotalPriceOfConvertedLeads)";
+        if (!sessionStorage.getItem('TotalPriceOfGhostLeads')) {
+        sessionStorage.setItem('TotalPriceOfGhostLeads', "@Html.Raw(ViewBag.TotalPriceOfGhostLeads)");
+        }
+        TotalPriceOfGhostLeads = "@Html.Raw(ViewBag.TotalPriceOfGhostLeads)";
+        var TotalAmount = Number(TotalPriceOfOpenLeads) + Number(TotalPriceOfClosedLeads) + Number(TotalPriceOfHoldLeads) + Number(TotalPriceOfConvertedLeads);
+        var procChart = new Morris.Line({
+            element: 'chartContainer',
+            data: dataforLine,
+            xkey: ['MonthName'],
+            ykeys: ['CountOfTotalLeads', 'CountOfOpenLeads', 'CountOfConvertedLeads', 'CountOfGhostLeads', 'CountOfClosedLeads','CountOfHoldLeads'],
+            labels: ['Total Leads','Open Leads','Converted Leads','Ghost Leads', 'Closed Leads',"On-Hold Leads"],
+            lineColors: ["#00a65a", '#47B0F8', '#F1843B',
+                "#D63683", '#A694F8', '#F9C747'],
+            hideHover: 'auto',
+            resize: true,
+            parseTime: false
+        });
+        const ctx = document.getElementById('myPieChart');
+        var dataList = [];
+        var newData = [];
+        var newBackgroundColor = [];
+        dataList = {
+            labels: [
+                'Open',
+                'Closed',
+                'On-Hold',
+                'Converted'
+            ],
+            datasets: [{
+                data: [TotalPriceOfOpenLeads, TotalPriceOfClosedLeads, TotalPriceOfHoldLeads, TotalPriceOfConvertedLeads],
+                backgroundColor: [
+                    '#47B0F8',
+                    '#A694F8',
+                    '#F9C747',
+                    '#F1843B'
+                ],
+                hoverBackgroundColor: [
+                    '#47B0F8',
+                    '#A694F8',
+                    '#F9C747',
+                    '#F1843B'
+                ]
+            }]
+        };
+        // Create a div element to display the total amount
+        var totalAmountDiv = document.createElement('div');
+        totalAmountDiv.id = 'show_total_amount';
+        var formattedTotalAmount = TotalAmount.toLocaleString('en-IN');
+        totalAmountDiv.innerHTML = '₹ ' + formattedTotalAmount;
+        totalAmountDiv.style.position = 'absolute';
+        totalAmountDiv.style.top = '60%';
+        totalAmountDiv.style.left = '41%';
+        totalAmountDiv.style.transform = 'translate(-50%, -50%)';
+        totalAmountDiv.style.fontSize = '16px';
+        totalAmountDiv.style.fontFamily = 'Arial';
+        totalAmountDiv.style.color = '#000';
+
+        // Append the div to the chart container
+        document.getElementById('chart-container').appendChild(totalAmountDiv);
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: dataList,
+            options: {
+                legend: {
+                    position: 'right',
+                },
+                cutout: '70%',
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: false
+                    }
+                },
+                animation: false,
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltipItem, data) {
+                            debugger;
+                            var label = data.labels[tooltipItem.index];
+                            var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                            var total = TotalAmount;
+                            var parsedValue = parseFloat(value);
+                            var parsedTotal = parseFloat(total);
+                            var percentage = ((parsedValue / parsedTotal) * 100).toFixed(2);
+                            var formattedNumber = parsedValue.toLocaleString('en-IN');
+                            return label + ': ₹ ' + formattedNumber + ' (' + percentage + '%)';
+                        }
+                    }
+                },
+                onClick: function (event, elements) {
+                    if (elements.length > 0) {
+                        var clickedLabel = dataList.labels[elements[0]._index];
+                        if (clickedLabel == 'Open' || clickedLabel == 'On-Hold') {
+                            debounce(function () {
+                                showCategoryPriceByStatus(clickedLabel);
+                            }, 300);
+                        }
+                    }
+                }
+            }
+        });
+        var debounceTimeout;
+        function debounce(func, delay) {
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(func, delay);
+        }
+    </script>
+}

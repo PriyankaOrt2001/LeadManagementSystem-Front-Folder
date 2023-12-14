@@ -19,7 +19,6 @@ namespace LeadManagementSystem.Controllers
             return View();
         }
 
-        [HttpPost]
         public ActionResult APILogIn(string username,string password, string DeviceId)
         {
             LoginModel crm = new LoginModel();
@@ -40,7 +39,6 @@ namespace LeadManagementSystem.Controllers
                 Session["AdminUname"] = rm.UserName;
                 Session["AuthToken"] = rm.AuthToken;
                 Session["toAddLead"] = null;
-
                 HttpCookie myCookie1 = new HttpCookie("Admin_ID", Convert.ToString(Session["Admin_ID"]));
                 myCookie1.Expires = DateTime.Now.AddDays(2);
                 Response.Cookies.Add(myCookie1);
@@ -59,10 +57,6 @@ namespace LeadManagementSystem.Controllers
                 var UserId = Session["Admin_ID"];
                 var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("logout?UserId=" + UserId, Session["AuthToken"].ToString(),Session["Admin_ID"].ToString()).Content);
                 rm = result;
-
-                Session.Abandon();
-                Session.Clear();
-                Session.RemoveAll();
 
                 HttpCookie myCookie1 = new HttpCookie("Admin_ID");
                 myCookie1.Expires = DateTime.Now.AddDays(-1);

@@ -81,5 +81,38 @@ namespace LeadManagementSystem.MODEL
         {
             get; set;
         }
+        public string CountOfOpenLeads
+        {
+            get; set;
+        }
+        public string CountOfGhostLeads
+        {
+            get; set;
+        }
+        public string CountOfConvertedLeads
+        {
+            get; set;
+        }
+    }
+    public class CategoryPrice
+    {
+        public List<CategoryPriceList> CategoryPriceList
+        {
+            get; set;
+        }
+        public ResponseStatusModel Response { get; set; }
+    }
+    public class CategoryPriceList
+    {
+        public int HotLeadsAmount { get; set; }
+        public int ColdLeadsAmount { get; set; }
+        public int WarmLeadsAmount { get; set; }
+        public int GhostLeadsAmount { get; set; }
+    }
+    public class LeadsAmountByDate
+    {
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
+        public string StatusType { get; set; }
     }
 }

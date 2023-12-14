@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace LeadManagementSystem.Controllers
 {
+    [SessionOut]
     public class CompanyController : Controller
     {
         ResponseStatusModel rm = new ResponseStatusModel();
@@ -27,7 +28,6 @@ namespace LeadManagementSystem.Controllers
             }
 
         }
-
         public ActionResult CompanyTablePartial()
         {
             if (Session["AuthToken"] != null) // if (cc.checkSession() == 1)

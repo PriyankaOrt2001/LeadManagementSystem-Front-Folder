@@ -23,15 +23,15 @@ namespace LeadManagementSystem.MODEL
         public string Company_Name { get; set; }
         public string Short_Company_Name { get; set; }
     }
-    public class AssignToModel
+    public class AssigneeModel
     {
-        public List<AssignToDetails> AssignToList
+        public List<AssigneeDetails> AssigneeList
         {
             get; set;
         }
         public ResponseStatusModel Response { get; set; }
     }
-    public class AssignToDetails
+    public class AssigneeDetails
     {
         public string CreatedBy { get; set; }
         public int RowNum { get; set; }
