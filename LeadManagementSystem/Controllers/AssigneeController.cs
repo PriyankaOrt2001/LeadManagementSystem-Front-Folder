@@ -31,11 +31,11 @@ namespace LeadManagementSystem.Controllers
         {
             if (Session["AuthToken"] != null)
             {
-                AssigneeModel lcm = new AssigneeModel();
+                AssigneeModel lm = new AssigneeModel();
                 AssigneeDetails cd = new AssigneeDetails();
-                var result = JsonConvert.DeserializeObject<AssigneeModel>(LMSTransaction.get("GetAssignToList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
-                lcm.AssigneeList = result.AssigneeList;
-                return PartialView("AssigneeTablePartial", lcm);
+                var result = JsonConvert.DeserializeObject<AssigneeModel>(LMSTransaction.get("GetAssigneeList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                lm.AssigneeList = result.AssigneeList;
+                return PartialView("AssigneeTablePartial", lm);
             }
             else
             {

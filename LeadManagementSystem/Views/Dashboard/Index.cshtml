@@ -261,10 +261,21 @@
                 cutout: '70%',
                 plugins: {
                     legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        enabled: false
+                        onClick: (evt, legendItem, legend) => {
+                            debugger;
+                            const index = legendItem.datasetIndex;
+                            const ci = legend.chart;
+
+                            legend.chart.data.datasets.forEach((d, i) => {
+                                ci.hide(i);
+                                d.hidden = true;
+                            })
+
+                            ci.show(index);
+                            legendItem.hidden = false;
+                            totalAmountDiv.innerHTML = '₹ ' ;
+                            ci.update();
+                        }
                     }
                 },
                 animation: false,

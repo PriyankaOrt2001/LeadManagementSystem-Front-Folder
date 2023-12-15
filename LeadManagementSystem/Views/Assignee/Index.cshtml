@@ -50,7 +50,7 @@
         });
         function refreshDataTable(pageId) {
             debugger;
-            $("#AssigneeDetails").load("@Url.Action("EmployeeTablePartial", "Employee")", function () {
+            $("#AssigneeDetails").load("@Url.Action("AssigneeTablePartial", "Assignee")", function () {
 
                 var pageToSet = pageId;
                 var myDataTable = $('#TableAssignee').DataTable({
