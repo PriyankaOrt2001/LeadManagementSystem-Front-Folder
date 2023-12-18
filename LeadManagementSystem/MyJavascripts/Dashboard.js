@@ -263,10 +263,12 @@ $('#datePicker').on('click', function () {
 });
 function showpricebydate(startDate,endDate){
     debugger;
-    if (startDate == endDate) {
-        var customButton = document.getElementById('show_records');
-        customButton.disabled = true;
-        return;
+    if (startDate != "" && endDate != "") {
+        if (startDate == endDate) {
+            var customButton = document.getElementById('show_records');
+            customButton.disabled = true;
+            return;
+        }
     }
     var formdata = new FormData();
     formdata.append("FromDate", startDate);
@@ -300,6 +302,12 @@ function showpricebydate(startDate,endDate){
                 $('#filteredDataChart').css('display', 'block');
                 $('#CategoryPricePieChart').css('display', 'none');
                 $('.flatpickr-calendar').removeClass('open');
+                $('#TotalLeads').text(return_Data.TotalLeads);
+                $('#ClosedLeads').text(return_Data.ClosedLeadsCount);
+                $('#GhostLeads').text(return_Data.GhostLeadsCount);
+                $('#ConvertedLeads').text(return_Data.ConvertedLeadsCount);
+                $('#OnHold').text(return_Data.HoldLeadsCount);
+                $('#OpenLeads').text(return_Data.OpenLeadsCount);
                 var TotalAmount = Number(return_Data.PriceOfOpenLeads) + Number(return_Data.PriceOfClosedLeads) + Number(return_Data.PriceOfHoldLeads) + Number(return_Data.PriceOfConvertedLeads);
                 var total_Amount_Div = document.getElementById("show_total_filtered_amount");
                 var formattedTotalAmount = TotalAmount.toLocaleString('en-IN');

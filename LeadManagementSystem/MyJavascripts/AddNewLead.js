@@ -583,6 +583,34 @@ function UpdateLead(id, btnId) {
 	var BackImgFileName = "";
 	var BackImgBase64 = "";
 	var BackImgFileType = "";
+	if (CompanyName == "") {
+		$('.help-block').html('');
+		$('#CompNameDIV').addClass('has-error');
+		$('#ErrorForCompanyName').html('Select Company Name');
+		$('#TxtCompanyName').focus();
+		return;
+	}
+	else if (ClientName == "") {
+		$('.help-block').html('');
+		$('#ErrorForClientName').html('Enter Client Name');
+		$('#ErrorForClientName').css('color', 'red');
+		$('#TxtClientName').focus();
+		return;
+	}
+	else if (Source == "") {
+		$('.help-block').html('');
+		$('#SourceDIV').addClass('has-error');
+		$('#ErrorForSource').html('Select Owner Name');
+		$('#TxtSource').focus();
+		return;
+	}
+	else if (Category == "") {
+		$('.help-block').html('');
+		$('#CategoryDIV').addClass('has-error');
+		$('#ErrorForCategory').html('Select Priority');
+		$('#TxtCategory').focus();
+		return;
+	}
 	if (PathOfImg != "") {
 		var frontfile_Size = document.getElementById('FrontImgOfCard').files[0].size;
 		const fileSize = Math.round((frontfile_Size / 1024));
@@ -1391,6 +1419,13 @@ function SaveFormData(id) {
 		$('#TxtSource').focus();
 		return;
 	}
+	else if (Category == "") {
+		$('.help-block').html('');
+		$('#CategoryDIV').addClass('has-error');
+		$('#ErrorForCategory').html('Select Priority');
+		$('#TxtCategory').focus();
+		return;
+	}
 	if (SpokesName != "") {
 		if (!onlyCharacters.test(SpokesName)) {
 			$('.help-block').html('');
@@ -1672,6 +1707,13 @@ function nevigateToContactDetails() {
 		$('#TxtSource').focus();
 		return;
 	}
+	else if (Category == "") {
+		$('.help-block').html('');
+		$('#CategoryDIV').addClass('has-error');
+		$('#ErrorForCategory').html('Select Priority');
+		$('#TxtCategory').focus();
+		return;
+	}
 	if (CompanyName != "" && ClientName != "" && Category != "" && Source != "" && TypeOfLead != "" && ProductName != "" && LeadSource != "" && Reference != "" && PathOfBackImg != "" && PathOfImg != "" && ProjectType != "") {
 		$("#nevigateToClientDetails").css("border", "2px solid #00a65a");
 	}
@@ -1845,6 +1887,13 @@ function nevigateToProjectDetails() {
 		$('#SourceDIV').addClass('has-error');
 		$('#ErrorForSource').html('Select Owner Name');
 		$('#TxtSource').focus();
+		return;
+	}
+	if (Category == "") {
+		$('.help-block').html('');
+		$('#CategoryDIV').addClass('has-error');
+		$('#ErrorForCategory').html('Select Priority');
+		$('#TxtCategory').focus();
 		return;
 	}
 	const result_ = IsValid();

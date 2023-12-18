@@ -566,6 +566,34 @@ function UpdateLead(id,btnId,page_Id) {
 	var BackImgFileName = "";
 	var BackImgBase64 = "";
 	var BackImgFileType = "";
+	if (CompanyName == "") {
+		$('.help-block').html('');
+		$('#CompNameDIV').addClass('has-error');
+		$('#ErrorForCompanyName').html('Select Company Name');
+		$('#TxtCompanyName').focus();
+		return;
+	}
+	else if (ClientName == "") {
+		$('.help-block').html('');
+		$('#ErrorForClientName').html('Enter Client Name');
+		$('#ErrorForClientName').css('color', 'red');
+		$('#TxtClientName').focus();
+		return;
+	}
+	else if (Source == "") {
+		$('.help-block').html('');
+		$('#SourceDIV').addClass('has-error');
+		$('#ErrorForSource').html('Select Owner Name');
+		$('#TxtSource').focus();
+		return;
+	}
+	else if (Category == "") {
+		$('.help-block').html('');
+		$('#CategoryDIV').addClass('has-error');
+		$('#ErrorForCategory').html('Select Priority');
+		$('#TxtCategory').focus();
+		return;
+	}
 	if (PathOfImg != "") {
 		var frontfile_Size = document.getElementById('FrontImgOfCard').files[0].size;
 		const fileSize = Math.round((frontfile_Size / 1024));
@@ -1348,6 +1376,105 @@ function SaveRemarkAndNotify(id,status) {
 		}
 	});
 }
+function IsClientDetailsValid() {
+	var CompanyName = $("#TxtCompanyName").val().trim();
+	var ClientName = $("#TxtClientName").val().trim();
+	var Source = $("#TxtSource").val();
+	var Category = $("#TxtCategory").val();
+	if (CompanyName == "") {
+		$('.help-block').html('');
+		$('#CompNameDIV').addClass('has-error');
+		$('#ErrorForCompanyName').html('Select Company Name');
+		$('#TxtCompanyName').focus();
+		return;
+	}
+	else if (ClientName == "") {
+		$('.help-block').html('');
+		$('#ErrorForClientName').html('Enter Client Name');
+		$('#ErrorForClientName').css('color', 'red');
+		$('#TxtClientName').focus();
+		return;
+	}
+	else if (Source == "") {
+		$('.help-block').html('');
+		$('#SourceDIV').addClass('has-error');
+		$('#ErrorForSource').html('Select Owner Name');
+		$('#TxtSource').focus();
+		return;
+	}
+	else if (Category == "") {
+		$('.help-block').html('');
+		$('#CategoryDIV').addClass('has-error');
+		$('#ErrorForCategory').html('Select Priority');
+		$('#TxtCategory').focus();
+		return;
+	}
+}
+
+function IsContactDetailsValid() {
+	var SpokesName = $("#TxtSpokesName").val();
+	var SpokesMobileNumber = $("#TxtSpokesMobile").val();
+	var SpokesEmailAddress = $("#TxtSpokesEmailAddress").val();
+	var SpokesAddress = $('#TxtAddress').val();
+	var AlternateSpokesName = $("#TxtAlternateSpokesName").val();
+	var AlternateSpokesMobile = $("#TxtAlternateMobile").val();
+	var AlternateEmailAddress = $('#TxtAlternateEmailAddress').val();
+	
+	if (SpokesName != "") {
+		if (!onlyCharacters.test(SpokesName)) {
+			$('.help-block').html('');
+			$('#SpokesNameDIV').addClass('has-error');
+			$('#ErrorForSpokesName').html('Enter Spokes Person 1 Name');
+			$('#TxtSpokesName').focus();
+			return true;
+		}
+	}
+	if (SpokesMobileNumber != "") {
+		if (!mob_regex.test(SpokesMobileNumber)) {
+			$('.help-block').html('');
+			$('#SpokesMobileDIV').addClass('has-error');
+			$('#ErrorForSpokesMobile').html('Enter valid spokes person mobile number.');
+			$('#TxtSpokesMobile').focus();
+			return true;
+		}
+	}
+	if (SpokesEmailAddress != "") {
+		if (!email.test(SpokesEmailAddress)) {
+			$('.help-block').html('');
+			$('#SpokesEmailDIV').addClass('has-error');
+			$('#ErrorForSpokesEmail').html('Enter Spokes Person 1 Email Address');
+			$('#TxtSpokesEmailAddress').focus();
+			return true;
+		}
+	}
+	if (AlternateSpokesName != "") {
+		if (!onlyCharacters.test(AlternateSpokesName)) {
+			$('.help-block').html('');
+			$('#AlternateSpokesNameDIV').addClass('has-error');
+			$('#ErrorForAlternateSpokesName').html('Enter Spokes Person 2 Name');
+			$('#TxtAlternateSpokesName').focus();
+			return true;
+		}
+	}
+	if (AlternateSpokesMobile != "") {
+		if (!mob_regex.test(AlternateSpokesMobile)) {
+			$('.help-block').html('');
+			$('#AlternateMobileDIV').addClass('has-error');
+			$('#ErrorForAlternateMobile').html('Enter Spokes Person 2 Mobile Number.');
+			$('#TxtAlternateMobile').focus();
+			return true;
+		}
+	}
+	if (AlternateEmailAddress != "") {
+		if (!email.test(AlternateEmailAddress)) {
+			$('.help-block').html('');
+			$('#AlternateEmailDIV').addClass('has-error');
+			$('#ErrorForAlternateEmail').html('Enter Spokes Person 2 Email Address');
+			$('#TxtAlternateEmailAddress').focus();
+			return true;
+		}
+	}
+}
 function IsValid() {
 	var CompanyName = $("#TxtCompanyName").val().trim();
 	var ClientName = $("#TxtClientName").val().trim();
@@ -1436,7 +1563,7 @@ function IsValid() {
 	}
 }
 function nevigateToEditClientDetails() {
-	const result_ = IsValid();
+	const result_ = IsContactDetailsValid();
 	if (result_) {
 		return;
     }
@@ -1540,9 +1667,37 @@ function nevigateToEditContactDetails() {
 	}
 	else {
 		PathOfBackImg = BackFileStatus;
-    }
-	const result_ = IsValid();
-	if (result_) {
+	}
+	var CompanyName = $("#TxtCompanyName").val().trim();
+	var ClientName = $("#TxtClientName").val().trim();
+	var Source = $("#TxtSource").val();
+	var Category = $("#TxtCategory").val();
+	if (CompanyName == "") {
+		$('.help-block').html('');
+		$('#CompNameDIV').addClass('has-error');
+		$('#ErrorForCompanyName').html('Select Company Name');
+		$('#TxtCompanyName').focus();
+		return;
+	}
+	else if (ClientName == "") {
+		$('.help-block').html('');
+		$('#ErrorForClientName').html('Enter Client Name');
+		$('#ErrorForClientName').css('color', 'red');
+		$('#TxtClientName').focus();
+		return;
+	}
+	else if (Source == "") {
+		$('.help-block').html('');
+		$('#SourceDIV').addClass('has-error');
+		$('#ErrorForSource').html('Select Owner Name');
+		$('#TxtSource').focus();
+		return;
+	}
+	else if (Category == "") {
+		$('.help-block').html('');
+		$('#CategoryDIV').addClass('has-error');
+		$('#ErrorForCategory').html('Select Priority');
+		$('#TxtCategory').focus();
 		return;
 	}
 	if (CompanyName != "" && ClientName != "" && Category != "" && Source != "" && TypeOfLead != "" && ProductName != "" && LeadSource != "" && Reference != "" && PathOfBackImg != "" && PathOfImg != "" && ProjectType != "") {
@@ -1584,10 +1739,7 @@ function nevigateToEditContactDetails() {
 	nevigateToEditProjectDetails.classList.add("NevigateBtn");
 }
 function nevigateToEditProjectDetails() {
-	const result_ = IsValid();
-	if (result_) {
-		return;
-	}
+	
 	var CompanyName = $("#TxtCompanyName").val().trim();
 	var ClientName = $("#TxtClientName").val().trim();
 	var Category = $("#TxtCategory").val();
@@ -1614,6 +1766,34 @@ function nevigateToEditProjectDetails() {
 	var AlternateSpokesMobile = $("#TxtAlternateMobile").val();
 	var AlternateEmailAddress = $('#TxtAlternateEmailAddress').val();
 	var file_name = PathOfImg.substring(PathOfImg.lastIndexOf('\\') + 1);
+	if (CompanyName == "") {
+		$('.help-block').html('');
+		$('#CompNameDIV').addClass('has-error');
+		$('#ErrorForCompanyName').html('Select Company Name');
+		$('#TxtCompanyName').focus();
+		return;
+	}
+	else if (ClientName == "") {
+		$('.help-block').html('');
+		$('#ErrorForClientName').html('Enter Client Name');
+		$('#ErrorForClientName').css('color', 'red');
+		$('#TxtClientName').focus();
+		return;
+	}
+	else if (Source == "") {
+		$('.help-block').html('');
+		$('#SourceDIV').addClass('has-error');
+		$('#ErrorForSource').html('Select Owner Name');
+		$('#TxtSource').focus();
+		return;
+	}
+	else if (Category == "") {
+		$('.help-block').html('');
+		$('#CategoryDIV').addClass('has-error');
+		$('#ErrorForCategory').html('Select Priority');
+		$('#TxtCategory').focus();
+		return;
+	}
 	if (PathOfImg != "") {
 		var frontfile_Size = document.getElementById('FrontImgOfCard').files[0].size;
 		const fileSize = Math.round((frontfile_Size / 1024));

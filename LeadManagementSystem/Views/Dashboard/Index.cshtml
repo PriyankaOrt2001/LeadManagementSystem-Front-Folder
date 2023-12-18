@@ -21,7 +21,7 @@
                             <div class="col-md-4">
                                 <div class="small-box bg-green">
                                     <div class="inner" style="padding-bottom: 0px;">
-                                        <h3>@ViewBag.TotalLeads</h3>
+                                        <h3 id="TotalLeads">@ViewBag.TotalLeads</h3>
 
                                         <p>Total Lead</p>
                                     </div>
@@ -31,7 +31,7 @@
                             <div class="col-md-4">
                                 <div class="small-box closedlead-bg">
                                     <div class="inner" style="padding-bottom: 0px;">
-                                        <h3>@ViewBag.ClosedLeads</h3>
+                                        <h3 id="ClosedLeads">@ViewBag.ClosedLeads</h3>
 
                                         <p>Closed Lead</p>
                                     </div>
@@ -40,7 +40,7 @@
                             <div class="col-md-4">
                                 <div class="small-box ghostlead-bg">
                                     <div class="inner" style="padding-bottom: 0px;">
-                                        <h3>@ViewBag.GhostLeads</h3>
+                                        <h3 id="GhostLeads">@ViewBag.GhostLeads</h3>
 
                                         <p>Ghost Lead</p>
                                     </div>
@@ -49,7 +49,7 @@
                             <div class="col-md-4">
                                 <div class="small-box convertedlead-bg">
                                     <div class="inner" style="padding-bottom: 0px;">
-                                        <h3>@ViewBag.ConvertedLeads</h3>
+                                        <h3 id="ConvertedLeads">@ViewBag.ConvertedLeads</h3>
 
                                         <p>Converted Lead</p>
                                     </div>
@@ -58,7 +58,7 @@
                             <div class="col-md-4">
                                 <div class="small-box holdlead-bg">
                                     <div class="inner" style="padding-bottom: 0px;">
-                                        <h3>@ViewBag.OnHold</h3>
+                                        <h3 id="OnHold">@ViewBag.OnHold</h3>
 
                                         <p>OnHold Lead</p>
                                     </div>
@@ -67,7 +67,7 @@
                             <div class="col-md-4">
                                 <div class="small-box openlead-bg">
                                     <div class="inner" style="padding-bottom: 0px;">
-                                        <h3>@ViewBag.OpenLeads</h3>
+                                        <h3 id="OpenLeads">@ViewBag.OpenLeads</h3>
 
                                         <p>Open Lead</p>
                                     </div>
@@ -171,6 +171,13 @@
         var TotalPriceOfHoldLeads = 0;
         var TotalPriceOfConvertedLeads = 0;
         var TotalPriceOfGhostLeads = 0;
+
+        $('#TotalLeads').text("@Html.Raw(ViewBag.TotalLeads)");
+        $('#ClosedLeads').text("@Html.Raw(ViewBag.ClosedLeads)");
+        $('#GhostLeads').text("@Html.Raw(ViewBag.GhostLeads)");
+        $('#ConvertedLeads').text("@Html.Raw(ViewBag.ConvertedLeads)");
+        $('#OnHold').text("@Html.Raw(ViewBag.OnHold)");
+        $('#OpenLeads').text("@Html.Raw(ViewBag.OpenLeads)");
 
         if (!sessionStorage.getItem('TotalPriceOfTotalLeads')) {
         sessionStorage.setItem('TotalPriceOfTotalLeads', "@Html.Raw(ViewBag.TotalPriceOfTotalLeads)");
@@ -284,7 +291,7 @@
                         //myChart.update();
 
                         // Assuming you have an array to keep track of hidden states for each legend item
-                        
+
 
                         // Function to toggle the visibility of a legend item
                         function toggleLegendItemVisibility(legendItemIndex) {
@@ -316,7 +323,7 @@
                 cutout: '70%',
                 plugins: {
                     legend: {
-                        
+
                     }
                 },
                 animation: false,
