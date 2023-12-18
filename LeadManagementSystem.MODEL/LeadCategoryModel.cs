@@ -43,4 +43,23 @@ namespace LeadManagementSystem.MODEL
         public string TypeOfLead { get; set; }
     }
 
+    public class SubCategoryModel
+    {
+        public List<SubCategoryDetails> SubCategoryList
+        {
+            get; set;
+        }
+        public ResponseStatusModel Response { get; set; }
+    }
+    public class SubCategoryDetails
+    {
+        public string CreatedBy { get; set; }
+        public int RowNum { get; set; }
+        public int SrNo { get; set; }
+        public string Category_Name { get; set; }
+        public int Category_Id { get; set; }
+        public int SubCategory_ID { get; set; }
+        public string SubCategory { get; set; }
+    }
+
 }

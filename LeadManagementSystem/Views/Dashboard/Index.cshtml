@@ -249,33 +249,74 @@
         totalAmountDiv.style.fontFamily = 'Arial';
         totalAmountDiv.style.color = '#000';
 
+        var totalFilteredAmountDiv = document.createElement('div');
+        totalFilteredAmountDiv.id = 'show_total_filtered_amount';
+        var formattedTotalAmount = TotalAmount.toLocaleString('en-IN');
+        totalFilteredAmountDiv.innerHTML = '₹ ' + formattedTotalAmount;
+        totalFilteredAmountDiv.style.position = 'absolute';
+        totalFilteredAmountDiv.style.top = '60%';
+        totalFilteredAmountDiv.style.left = '41%';
+        totalFilteredAmountDiv.style.transform = 'translate(-50%, -50%)';
+        totalFilteredAmountDiv.style.fontSize = '16px';
+        totalFilteredAmountDiv.style.fontFamily = 'Arial';
+        totalFilteredAmountDiv.style.color = '#000';
+
         // Append the div to the chart container
         document.getElementById('chart-container').appendChild(totalAmountDiv);
-        new Chart(ctx, {
+        document.getElementById('chart-container').appendChild(totalFilteredAmountDiv);
+        var hiddenStates = [];
+        var originalValues = [];
+        var myChart=new Chart(ctx, {
             type: 'doughnut',
             data: dataList,
             options: {
                 legend: {
                     position: 'right',
+                    onClick: function (e, legendItem) {
+                        debugger;
+                        //var datasetIndex = 0; // Replace with the index of the dataset
+                        //var dataIndexToHide = legendItem.index; // Replace with the index of the data point to hide
+
+                        //// Set the specific data point to null
+                        //dataList.datasets[datasetIndex].data[dataIndexToHide] = null;
+
+                        //// Update the chart
+                        //myChart.update();
+
+                        // Assuming you have an array to keep track of hidden states for each legend item
+                        
+
+                        // Function to toggle the visibility of a legend item
+                        function toggleLegendItemVisibility(legendItemIndex) {
+                            var datasetIndex = 0; // Replace with the index of the dataset
+                            var dataIndexToHide = legendItemIndex;
+                            var meta = myChart.getDatasetMeta(datasetIndex);
+
+                            if (hiddenStates[dataIndexToHide] == false) {
+                                // Show the part again by setting it back to the original value
+                                dataList.datasets[datasetIndex].data[dataIndexToHide] = originalValues[dataIndexToHide];
+                                hiddenStates[dataIndexToHide] = true;
+                            } else {
+                                // Hide the part by setting the specific data point to null
+                                hiddenStates[dataIndexToHide] = false;
+                                originalValues[dataIndexToHide] = dataList.datasets[datasetIndex].data[dataIndexToHide];
+                                dataList.datasets[datasetIndex].data[dataIndexToHide] = null;
+                                legendItem.textDecoration = 'line-through';
+                            }
+
+                            myChart.update();
+                        }
+
+                        // Usage example: Call this function when a legend item is clicked
+                        toggleLegendItemVisibility(legendItem.index);
+
+                    }
+
                 },
                 cutout: '70%',
                 plugins: {
                     legend: {
-                        onClick: (evt, legendItem, legend) => {
-                            debugger;
-                            const index = legendItem.datasetIndex;
-                            const ci = legend.chart;
-
-                            legend.chart.data.datasets.forEach((d, i) => {
-                                ci.hide(i);
-                                d.hidden = true;
-                            })
-
-                            ci.show(index);
-                            legendItem.hidden = false;
-                            totalAmountDiv.innerHTML = '₹ ' ;
-                            ci.update();
-                        }
+                        
                     }
                 },
                 animation: false,
@@ -306,6 +347,19 @@
                 }
             }
         });
+        //document.getElementById('myPieChart').onclick = function (evt, legendItem, legend) {
+        //    debugger;
+        //    legendItem = myChart.getElementAtEvent(e)[0];
+
+        //    if (legendItem) {
+        //        var datasetIndex = legendItem._datasetIndex;
+        //        var meta = myChart.getDatasetMeta(datasetIndex);
+        //        meta.hidden = meta.hidden === null ? !myChart.data.datasets[datasetIndex].hidden : null;
+
+        //        // Update the chart
+        //        myChart.update();
+        //    }
+        //};
         var debounceTimeout;
         function debounce(func, delay) {
             clearTimeout(debounceTimeout);

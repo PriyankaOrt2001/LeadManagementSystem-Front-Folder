@@ -317,3 +317,6 @@ a#btnAddLead {
 #chart-container {
     height: fit-content;
 }
+.legend-item-hidden {
+    text-decoration: line-through;
+}

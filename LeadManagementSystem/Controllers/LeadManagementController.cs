@@ -26,7 +26,7 @@ namespace LeadManagementSystem.Controllers
         public ActionResult Index()
         {
             if (Session["AuthToken"] != null)
-            {
+             {
                 if(Session["toAddLead"]!= null)
                 {
                     ViewBag.toAddLeadForm = Session["toAddLead"];

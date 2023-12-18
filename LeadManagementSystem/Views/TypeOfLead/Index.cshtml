@@ -3,13 +3,18 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_MyLayout.cshtml";
 }
+<style>
+    #TxtSubCategoryName {
+        width: 80%;
+    }
+</style>
 <link href="~/ThemeContent/css/TypeOfLeadStyleSheet.css" rel="stylesheet" />
 <section class="content-header padding-title">
     <h1 id="boxTitle">Sub Category Details</h1>
 </section>
 <div class="row">
     <div class="col-md-12">
-        <div class="box box-primary with-border" id="TypeOfLeadDataDIV">
+        <div class="box box-primary with-border" id="SubCategoryDataDIV">
             <div class="box-header with-border">
                 <div class="tab-header">
                     <div class="tab" onclick="@("window.location.href='" + @Url.Action("Index", "Category") + "'");">Add Category</div>
@@ -17,7 +22,7 @@
                 </div>
             </div>
             <div class="box-body">
-                <div class="col-md-12 padding-left" id="TypeOfLeadForm">
+                <div class="col-md-12 padding-left" id="SubCategoryForm">
                     <div class="col-md-4 padding-left">
                         <div class="form-group">
                             <div class="box-body padding-left">
@@ -29,10 +34,10 @@
                                     </select>
                                     <span class="help-block" id="ErrorForCategoryName"></span>
                                 </div>
-                                <div class="form-group" id="TypeOfLeadNameDIV">
+                                <div class="form-group" id="SubCategoryNameDIV">
                                     <label>Sub Category Name<span class="text-danger">*</span></label>
-                                    <input type="text" maxlength="25" class="form-control" id="TxtTypeOfLeadName" placeholder="Enter Sub Category Name" autocomplete="off" />
-                                    <span class="help-block" id="ErrorForTypeOfLeadName"></span>
+                                    <input type="text" maxlength="25" class="form-control" id="TxtSubCategoryName" placeholder="Enter Sub Category Name" autocomplete="off" />
+                                    <span class="help-block" id="ErrorForSubCategoryName"></span>
                                 </div>
                             </div>
                             <div class="box-footer padding-left">
@@ -41,10 +46,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8" id="TypeOfLeadTable">
+                    <div class="col-md-8" id="SubCategoryTable">
                         <div class="box box-primary with-border">
                             <div class="box-body">
-                                <div id="TypeOfLeadDetails"></div>
+                                <div id="SubCategoryDetails"></div>
                             </div>
                         </div>
                     </div>
@@ -61,11 +66,11 @@
         });
         function refreshDataTable(pageId) {
             debugger;
-            $("#TypeOfLeadDetails").load("@Url.Action("TypeOfLeadTablePartial", "TypeOfLead")", function () {
+            $("#SubCategoryDetails").load("@Url.Action("TypeOfLeadTablePartial", "TypeOfLead")", function () {
                 var pageToSet = pageId;
-                var myDataTable = $('#TableTypeOfLead').DataTable({
+                var myDataTable = $('#TableSubCategory').DataTable({
                 });
-                $("#TableTypeOfLead").removeClass('dataTable');
+                $("#TableSubCategory").removeClass('dataTable');
                 $(".col-sm-12").addClass('overflow');
                 $(".col-sm-12").css('padding-right', '0px');
                 if (pageId != 0) {

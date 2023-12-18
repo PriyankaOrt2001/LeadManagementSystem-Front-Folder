@@ -3,7 +3,7 @@
 	var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //To check Email ID
 	var onlyText = /^[a-zA-Z0-9\s-]*$/;
 	var CategoryName = $("#TxtCategory").val().trim();
-	var TypeOfLead = $("#TxtTypeOfLeadName").val().trim();
+	var TypeOfLead = $("#TxtSubCategoryName").val().trim();
 
 	if (CategoryName == "") {
 		$('.help-block').html('');
@@ -13,23 +13,23 @@
 		return;
 	} else if (TypeOfLead == "") {
 		$('.help-block').html('');
-		$('#TypeOfLeadNameDIV').addClass('has-error');
-		$('#ErrorForTypeOfLeadName').html('Enter sub category Name.');
-		$('#TxtTypeOfLeadName').focus();
+		$('#SubCategoryNameDIV').addClass('has-error');
+		$('#ErrorForSubCategoryName').html('Enter sub category Name.');
+		$('#TxtSubCategoryName').focus();
 		return;
 	} else if (!onlyText.test(TypeOfLead)) {
 		$('.help-block').html('');
-		$('#TypeOfLeadNameDIV').addClass('has-error');
-		$('#ErrorForTypeOfLeadName').html('Enter valid sub category Name.');
-		$('#TxtTypeOfLeadName').focus();
+		$('#SubCategoryNameDIV').addClass('has-error');
+		$('#ErrorForSubCategoryName').html('Enter valid sub category Name.');
+		$('#TxtSubCategoryName').focus();
 		return;
 	}
 	var formdata = new FormData();
 	formdata.append("Category_Id", CategoryName);
-	formdata.append("TypeOfLead", TypeOfLead);
+	formdata.append("SubCategory", TypeOfLead);
 	$.ajax({
 		type: "POST",
-		url: ServerURL + '/TypeOfLead/AddTypeOfLead',
+		url: ServerURL + '/TypeOfLead/AddSubCategory',
 		data: formdata,
 		processData: false,
 		contentType: false,
@@ -62,7 +62,7 @@
 
 function ResetFormData() {
 	$("#TxtCategory").val('');
-	$("#TxtTypeOfLeadName").val('');
+	$("#TxtSubCategoryName").val('');
 	$('#boxTitle').text('Add Sub Category');
 	$('#btnSave').text('Save');
 	$('#btnSave').attr('onclick', 'SaveFormData();');
@@ -82,7 +82,7 @@ $("#TxtCategory").change(function () {
 	$(".txtdiv").removeClass('has-error');
 	$(".form-group > span").html('');
 });
-function RemoveTypeOfLead(element) {
+function RemoveSubCategory(element) {
 	var activePageElement = $('.paginate_button.active');
 	var aTag = activePageElement.find('a')
 	var dataDtIdxValue = aTag.data('dt-idx');
@@ -107,7 +107,7 @@ function RemoveTypeOfLead(element) {
 				document.body.style.paddingRight = '0px';
 				$.ajax({
 					type: 'POST',
-					url: ServerURL + '/TypeOfLead/DeleteTypeOfLead',
+					url: ServerURL + '/TypeOfLead/DeleteSubCategory',
 					data: JSON.stringify({ id: id }),
 					contentType: 'application/json; charset=utf-8',
 					success: function (return_Data) {
@@ -130,7 +130,7 @@ function RemoveTypeOfLead(element) {
 		}
 	});
 }
-function EditTypeOfLead(id) {
+function EditSubCategory(id) {
 	var activePageElement = $('.paginate_button.active');
 	var aTag = activePageElement.find('a')
 	var dataDtIdxValue = aTag.data('dt-idx');
@@ -138,7 +138,7 @@ function EditTypeOfLead(id) {
 	console.log(pageId);
 	$.ajax({
 		type: "POST",
-		url: ServerURL + 'TypeOfLead/ViewTypeOfLeadDetails',
+		url: ServerURL + 'TypeOfLead/ViewSubCategoryDetails',
 		data: JSON.stringify({ id: id }),
 		contentType: 'application/json; charset=utf-8',
 		success: function (return_Data) {
@@ -149,15 +149,15 @@ function EditTypeOfLead(id) {
 			} else (return_Data != null)
 			{
 				$('#TxtCategory').val(return_Data.Category_Id);
-				$('#TxtTypeOfLeadName').val(return_Data.TypeOfLead);
+				$('#TxtSubCategoryName').val(return_Data.SubCategory);
 				$('#boxTitle').text('Update Sub Category Details');
 				$('#btnSave').text('Update');
-				$('#btnSave').attr('onclick', 'UpdateTypeOfLead(' + id + ');');
+				$('#btnSave').attr('onclick', 'UpdateSubCategory(' + id + ');');
 			}
 		}
 	});
 }
-function UpdateTypeOfLead(id) {
+function UpdateSubCategory(id) {
 	var activePageElement = $('.paginate_button.active');
 	var aTag = activePageElement.find('a')
 	var dataDtIdxValue = aTag.data('dt-idx');
@@ -167,7 +167,7 @@ function UpdateTypeOfLead(id) {
 	var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //To check Email ID
 	var onlyText = /^[a-zA-Z0-9\s-]*$/;
 	var CategoryName = $("#TxtCategory").val().trim();
-	var TypeOfLead = $("#TxtTypeOfLeadName").val().trim();
+	var TypeOfLead = $("#TxtSubCategoryName").val().trim();
 
 	if (CategoryName == "") {
 		$('.help-block').html('');
@@ -177,24 +177,24 @@ function UpdateTypeOfLead(id) {
 		return;
 	} else if (TypeOfLead == "") {
 		$('.help-block').html('');
-		$('#TypeOfLeadNameDIV').addClass('has-error');
-		$('#ErrorForTypeOfLeadName').html('Enter sub category name.');
-		$('#TxtTypeOfLeadName').focus();
+		$('#SubCategoryNameDIV').addClass('has-error');
+		$('#ErrorForSubCategoryName').html('Enter sub category name.');
+		$('#TxtSubCategoryName').focus();
 		return;
 	} else if (!onlyText.test(TypeOfLead)) {
 		$('.help-block').html('');
-		$('#TypeOfLeadNameDIV').addClass('has-error');
-		$('#ErrorForTypeOfLeadName').html('Enter valid sub category name.');
-		$('#TxtTypeOfLeadName').focus();
+		$('#SubCategoryNameDIV').addClass('has-error');
+		$('#ErrorForSubCategoryName').html('Enter valid sub category name.');
+		$('#TxtSubCategoryName').focus();
 		return;
 	}
 	var formdata = new FormData();
 	formdata.append("Category_Id", CategoryName);
-	formdata.append("TypeOfLead", TypeOfLead);
-	formdata.append("TypeOfLead_ID", id);
+	formdata.append("SubCategory", TypeOfLead);
+	formdata.append("SubCategory_ID", id);
 	$.ajax({
 		type: "POST",
-		url: ServerURL + '/TypeOfLead/UpdateTypeOfLead',
+		url: ServerURL + '/TypeOfLead/UpdateSubCategory',
 		data: formdata,
 		processData: false,
 		contentType: false,

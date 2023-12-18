@@ -55,7 +55,7 @@
                             <option selected="" value="Open">Open</option>
                             <option value="Closed">Closed</option>
                             <option value="Converted">Converted</option>
-                            <option value="Hold">Hold</option>
+                            <option value="On Hold">On Hold</option>
                             <option value="Ghost">Ghost</option>
                         </select>
                     }
@@ -65,7 +65,7 @@
                             <option value="Open">Open</option>
                             <option selected="" value="Closed">Closed</option>
                             <option value="Converted">Converted</option>
-                            <option value="Hold">Hold</option>
+                            <option value="Hold">On Hold</option>
                             <option value="Ghost">Ghost</option>
 
 
@@ -77,17 +77,17 @@
                             <option value="Open">Open</option>
                             <option value="Closed">Closed</option>
                             <option selected="" value="Converted">Converted</option>
-                            <option value="Hold">Hold</option>
+                            <option value="On Hold">On Hold</option>
                             <option value="Ghost">Ghost</option>
                         </select>
                     }
-                    else if (Model.LeadList[i].StatusType == "Hold")
+                    else if (Model.LeadList[i].StatusType == "On Hold")
                     {
                         <select id="DrpStatusType_@Model.LeadList[i].LeadId" style="width: 68%;" class="form-control" onchange="changeLeadStatus('@Model.LeadList[i].LeadId',this.value)" value="Hold">
                             <option value="Open">Open</option>
                             <option value="Closed">Closed</option>
                             <option value="Converted">Converted</option>
-                            <option selected="" value="Hold">Hold</option>
+                            <option selected="" value="On Hold">On Hold</option>
                             <option value="Ghost">Ghost</option>
                         </select>
                     }
@@ -97,7 +97,7 @@
                             <option value="Open">Open</option>
                             <option value="Closed">Closed</option>
                             <option value="Converted">Converted</option>
-                            <option value="Hold">Hold</option>
+                            <option value="On Hold">On Hold</option>
                             <option selected="" value="Ghost">Ghost</option>
                         </select>
                     }
@@ -108,7 +108,7 @@
                             <option value="Open">Open</option>
                             <option value="Closed">Closed</option>
                             <option value="Converted">Converted</option>
-                            <option value="Hold">Hold</option>
+                            <option value="On Hold">On Hold</option>
                             <option value="Ghost">Ghost</option>
                         </select>
                     }

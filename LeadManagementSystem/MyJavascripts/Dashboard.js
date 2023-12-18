@@ -82,6 +82,7 @@ function showCategoryPriceByStatus(StatusType) {
                     $('#data_not_found').css('display', 'block');
                     $('#myPieChart').css('display', 'none');
                     $('#show_total_amount').css('display', 'none');
+                    $('#show_total_filtered_amount').css('display', 'none');
                     $('#CategoryPricePieChart').css('display', 'none');
                     $('#filteredDataChart').css('display', 'none');
                     $('#showPreviousData').css('display', 'block');
@@ -96,6 +97,7 @@ function showCategoryPriceByStatus(StatusType) {
                     $('#showPreviousData').css('display', 'block');
                     $('#myPieChart').css('display', 'none');
                     $('#show_total_amount').css('display', 'none');
+                    $('#show_total_filtered_amount').css('display', 'none');
                     $('#data_not_found').css('display', 'none');
                     $('#clearable__clear').css('display', 'none');
                     $('#CategoryPricePieChart').css('display', 'block');
@@ -172,15 +174,17 @@ function showPreviousData() {
     $('#category-price-details').css('display', 'none');
     $('#data_not_found').css('display', 'none');
     $('#clearable__clear').css('display', 'block');
-    if (startDate == "" && endDate == "") {
+    if (from_date == "" && to_date == "") {
         $('#filteredDataChart').css('display', 'none');
         $('#myPieChart').css('display', 'block');
         $('#show_total_amount').css('display', 'block');
+        $('#show_total_filtered_amount').css('display', 'none');
     }
     else {
-        $('#filteredDataChart').css('display', 'none');
-        $('#myPieChart').css('display', 'block');
-        $('#show_total_amount').css('display', 'block');
+        $('#filteredDataChart').css('display', 'block');
+        $('#myPieChart').css('display', 'none');
+        $('#show_total_amount').css('display', 'none');
+        $('#show_total_filtered_amount').css('display', 'block');
     }
 }
 function updateMinDate() {
@@ -279,6 +283,7 @@ function showpricebydate(startDate,endDate){
                 $('#data_not_found').css('display', 'block');
                 $('#myPieChart').css('display', 'none');
                 $('#show_total_amount').css('display', 'none');
+                $('#show_total_filtered_amount').css('display', 'none');
                 $('#CategoryPricePieChart').css('display', 'none');
                 $('#filteredDataChart').css('display', 'none');
                 $('.flatpickr-calendar').removeClass('open');
@@ -291,10 +296,14 @@ function showpricebydate(startDate,endDate){
                 $('#data_not_found').css('display', 'none');
                 $('#myPieChart').css('display', 'none');
                 $('#show_total_amount').css('display', 'none');
+                $('#show_total_filtered_amount').css('display', 'block');
                 $('#filteredDataChart').css('display', 'block');
                 $('#CategoryPricePieChart').css('display', 'none');
                 $('.flatpickr-calendar').removeClass('open');
                 var TotalAmount = Number(return_Data.PriceOfOpenLeads) + Number(return_Data.PriceOfClosedLeads) + Number(return_Data.PriceOfHoldLeads) + Number(return_Data.PriceOfConvertedLeads);
+                var total_Amount_Div = document.getElementById("show_total_filtered_amount");
+                var formattedTotalAmount = TotalAmount.toLocaleString('en-IN');
+                total_Amount_Div.innerHTML = '₹ ' + formattedTotalAmount;
                 var labelsInFilteredChart = [
                     'Open',
                     'Closed',
@@ -386,6 +395,7 @@ function clearDatesFromCalendar() {
     $('#filteredDataChart').css('display', 'none');
     $('#myPieChart').css('display', 'block');
     $('#show_total_amount').css('display', 'block');
+    $('#show_total_filtered_amount').css('display', 'none');
     selectedDates = [];
     document.getElementById('datePicker')._flatpickr.clear();
     var highlightedDates = document.querySelectorAll('.highlighted');

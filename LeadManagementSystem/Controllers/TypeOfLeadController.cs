@@ -39,10 +39,10 @@ namespace LeadManagementSystem.Controllers
         {
             if (Session["AuthToken"] != null)
             {
-                TypeOfLeadModel lm = new TypeOfLeadModel();
-                TypeOfLeadDetails cd = new TypeOfLeadDetails();
-                var result = JsonConvert.DeserializeObject<TypeOfLeadModel>(LMSTransaction.get("GetLeadTypesList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
-                lm.TypeOfLeadList = result.TypeOfLeadList;
+                SubCategoryModel lm = new SubCategoryModel();
+                SubCategoryDetails cd = new SubCategoryDetails();
+                var result = JsonConvert.DeserializeObject<SubCategoryModel>(LMSTransaction.get("GetSubCategoryList", Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                lm.SubCategoryList = result.SubCategoryList;
                 return PartialView("TypeOfLeadTablePartial", lm);
             }
             else
@@ -52,14 +52,14 @@ namespace LeadManagementSystem.Controllers
                 return RedirectToAction("LogInForm", "LogIn");
             }
         }
-        public ActionResult AddTypeOfLead(TypeOfLeadDetails ld)
+        public ActionResult AddSubCategory(SubCategoryDetails ld)
         {
             try
             {
                 if (Session["AuthToken"] != null)
                 {
                     ld.CreatedBy = Convert.ToString(Session["Admin_ID"]);
-                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddTypeOfLead", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("AddSubCategory", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
                 }
                 else
@@ -76,13 +76,13 @@ namespace LeadManagementSystem.Controllers
             }
             return Json(rm, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult DeleteTypeOfLead(string id)
+        public ActionResult DeleteSubCategory(string id)
         {
             try
             {
                 if (Session["AuthToken"] != null)
                 {
-                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("RemoveTypeOfLead?id=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.get("RemoveSubCategory?id=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
                 }
                 else
@@ -99,14 +99,14 @@ namespace LeadManagementSystem.Controllers
             }
             return Json(rm, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult ViewTypeOfLeadDetails(string id)
+        public ActionResult ViewSubCategoryDetails(string id)
         {
             try
             {
                 if (Session["AuthToken"] != null)
                 {
-                    TypeOfLeadDetails ld = new TypeOfLeadDetails();
-                    var result = JsonConvert.DeserializeObject<TypeOfLeadDetails>(LMSTransaction.get("ViewTypeOfLeadDetails?TypeOfLead_ID=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                    SubCategoryDetails ld = new SubCategoryDetails();
+                    var result = JsonConvert.DeserializeObject<SubCategoryDetails>(LMSTransaction.get("ViewSubCategoryDetails?SubCategory_ID=" + id, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     ld = result;
                     return Json(ld, JsonRequestBehavior.AllowGet);
                 }
@@ -125,14 +125,14 @@ namespace LeadManagementSystem.Controllers
             }
             return Json(rm, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult UpdateTypeOfLead(TypeOfLeadDetails ld)
+        public ActionResult UpdateSubCategory(SubCategoryDetails ld)
         {
             try
             {
                 if (Session["AuthToken"] != null)
                 {
                     ld.CreatedBy = Convert.ToString(Session["Admin_ID"]);
-                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdateTypeOfLead", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
+                    var result = JsonConvert.DeserializeObject<ResponseStatusModel>(LMSTransaction.post("UpdateSubCategory", ld, Session["AuthToken"].ToString(), Session["Admin_ID"].ToString()).Content);
                     rm = result;
                 }
                 else
