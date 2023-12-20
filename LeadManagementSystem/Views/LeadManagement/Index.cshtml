@@ -264,7 +264,7 @@
         cursor: pointer;
     }
 
-    #FilterByCompany, #FilterByCategory, #FilterByPriority, #FilterByAssignedTo {
+    #FilterByCompany, #FilterByCategory, #FilterByPriority, #FilterByAssignedTo,#FilterByStatus {
         margin-bottom: 1%;
         margin-top: 1px;
         border-top-width: 0px;
@@ -588,6 +588,9 @@
     .table-btn-style {
         font-weight: 600;
         margin-right: 4px;
+    }
+    .filter-header {
+        padding-left: 2px;
     }
 </style>
 <section class="content-header padding-title">
@@ -1032,7 +1035,7 @@
                         <div class="modal-body" id="filter-body">
                             <div class="box" id="FilterByCompany">
                                 <div class="box-header">
-                                    <h3 class="box-title" id="FilterBoxTitle">Company</h3>  &nbsp;&nbsp; <button class="filterCount" id="CountOfCompanyFilter" style="display: none;"></button>
+                                    <h3 class="box-title filter-header" id="FilterBoxTitle">Company</h3>  &nbsp;&nbsp; <button class="filterCount" id="CountOfCompanyFilter" style="display: none;"></button>
                                     <i class="fa fa-angle-down" id="showCompanyIcon" aria-hidden="true" style="float:right" onclick="showCompanyList()"></i>
                                 </div>
                                 <div class="box-body" id="FilterByCompanyBody">
@@ -1043,7 +1046,7 @@
                             </div>
                             <div class="box" id="FilterByCategory">
                                 <div class="box-header">
-                                    <h3 class="box-title" id="FilterBoxTitle">Category</h3>  &nbsp;&nbsp; <button class="filterCount" id="CountOfCategoryFilter" style="display: none;"></button>
+                                    <h3 class="box-title filter-header" id="FilterBoxTitle">Category</h3>  &nbsp;&nbsp; <button class="filterCount" id="CountOfCategoryFilter" style="display: none;"></button>
                                     <i class="fa fa-angle-down" id="showCategoryIcon" aria-hidden="true" style="float:right" onclick="showCategoryList()"></i>
                                 </div>
                                 <div class="box-body" id="FilterByCategoryBody">
@@ -1054,7 +1057,7 @@
                             </div>
                             <div class="box" id="FilterByPriority">
                                 <div class="box-header">
-                                    <h3 class="box-title" id="FilterBoxTitle">Priority</h3>  &nbsp;&nbsp; <button class="filterCount" id="CountOfPriorityFilter" style="display: none;"></button>
+                                    <h3 class="box-title filter-header" id="FilterBoxTitle">Priority</h3>  &nbsp;&nbsp; <button class="filterCount" id="CountOfPriorityFilter" style="display: none;"></button>
                                     <i class="fa fa-angle-down" id="showPriorityIcon" aria-hidden="true" style="float:right" onclick="showPriorityList()"></i>
                                 </div>
                                 <div class="box-body" id="FilterByPriorityBody">
@@ -1100,9 +1103,83 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="box" id="FilterByStatus">
+                                <div class="box-header">
+                                    <h3 class="box-title filter-header" id="FilterBoxTitle">Status</h3>  &nbsp;&nbsp; <button class="filterCount" id="CountOfStatusFilter" style="display: none;"></button>
+                                    <i class="fa fa-angle-down" id="showStatusIcon" aria-hidden="true" style="float:right" onclick="showStatusList()"></i>
+                                </div>
+                                <div class="box-body" id="FilterByStatusBody" style="display: none;">
+                                    <div class="row" id="FilterByStatusRow">
+                                        <div class="col-md-12">
+                                            <div class="col-md-4">
+                                                <div class="col-md-4" style="padding:0px">
+                                                    <input class="StatusList" data-val="true"
+                                                           id="isActive"
+                                                           name="isActive"
+                                                           type="checkbox"
+                                                           value="Open" onclick="StatusFilterCount()" />
+                                                </div>
+                                                <div class="col-md-8" style="padding:0px">
+                                                    <span id="Status_Value">Open</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="col-md-4" style="padding:0px">
+                                                    <input class="StatusList" data-val="true"
+                                                           id="isActive"
+                                                           name="isActive"
+                                                           type="checkbox"
+                                                           value="Closed" onclick="StatusFilterCount()" />
+                                                </div>
+                                                <div class="col-md-8" style="padding:0px">
+                                                    <span id="Status_Value">Closed</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="col-md-4" style="padding:0px">
+                                                    <input class="StatusList" data-val="true"
+                                                           id="isActive"
+                                                           name="isActive"
+                                                           type="checkbox"
+                                                           value="Converted" onclick="StatusFilterCount()" />
+                                                </div>
+                                                <div class="col-md-8" style="padding:0px">
+                                                    <span id="Status_Value">Converted</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-4">
+                                                <div class="col-md-4" style="padding:0px">
+                                                    <input class="StatusList" data-val="true"
+                                                           id="isActive"
+                                                           name="isActive"
+                                                           type="checkbox"
+                                                           value="On Hold" onclick="StatusFilterCount()" />
+                                                </div>
+                                                <div class="col-md-8" style="padding:0px">
+                                                    <span id="Status_Value">On Hold</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="col-md-4" style="padding:0px">
+                                                    <input class="StatusList" data-val="true"
+                                                           id="isActive"
+                                                           name="isActive"
+                                                           type="checkbox"
+                                                           value="Ghost" onclick="StatusFilterCount()" />
+                                                </div>
+                                                <div class="col-md-8" style="padding:0px">
+                                                    <span id="Status_Value">Ghost</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="box" id="FilterByAssignedTo">
                                 <div class="box-header">
-                                    <h3 class="box-title" id="FilterBoxTitle">Assigned To</h3> &nbsp;&nbsp; <button class="filterCount" id="CountOfAssignToFilter" style="display: none;"></button>
+                                    <h3 class="box-title filter-header" id="FilterBoxTitle">Assigned To</h3> &nbsp;&nbsp; <button class="filterCount" id="CountOfAssignToFilter" style="display: none;"></button>
                                     <i class="fa fa-angle-down" id="showAssignToIcon" aria-hidden="true" style="float:right" onclick="showAssignedToList()"></i>
                                 </div>
                                 <div class="box-body" style="padding-bottom: 0px;padding-top: 0px;display:none" id="FilterByAssignedToBody">
@@ -1519,7 +1596,7 @@
          });
          
         }
-        function FilterDataTable(whereCompanyId, whereCategoryId, whereAssignedToId, wherePriorityListId)
+        function FilterDataTable(whereCompanyId, whereCategoryId, whereAssignedToId, wherePriorityListId, whereStatusListId)
         {
 	        debugger;
 	        $('#FilterLeadDetails').attr('disabled', true);
@@ -1528,7 +1605,7 @@
 	        $('#FilterLeadDetails').html(loader);
 	        debugger;
 	        var User_ID = "@Session["Admin_ID"].ToString()";
-	        if (whereCompanyId == "" && whereCategoryId == "" && whereAssignedToId == "" && wherePriorityListId == "") {
+            if (whereCompanyId == "" && whereCategoryId == "" && whereAssignedToId == "" && wherePriorityListId == "" && whereStatusListId == "") {
 		    refreshDataTable(0);
 		    $('#FilterLeadDetails').removeAttr('disabled');
 		    $("#Filter-Detail .close").click();
@@ -1540,8 +1617,8 @@
 		        formdata.append("CompanyId", whereCompanyId);
 		        formdata.append("CategoryId", whereCategoryId);
 		        formdata.append("AssignedId", whereAssignedToId);
-		        formdata.append("Priority", wherePriorityListId);
-
+                formdata.append("Priority", wherePriorityListId);
+                formdata.append("Status", whereStatusListId);
 		        $.ajax({
 			    url: '@Url.Action("FilterLeadTablePartial", "LeadManagement")',
 			    type: 'POST',

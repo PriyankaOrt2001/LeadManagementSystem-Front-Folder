@@ -28,13 +28,73 @@ const chartInstance = new Chart(CategoryPricePieChart, {
     }
 });
 const filteredDataChart = document.getElementById('filteredDataChart');
+var hiddenPart = [];
+var original_Values = [];
 const filteredDataChartData = new Chart(filteredDataChart, {
     type: 'doughnut',
     data: {},
     options: {
         legend: {
             position: 'right',
+            onClick: function (e, legendItem) {
+                debugger;
+                function toggleLegendItemVisibility(legendItemIndex) {
+
+                    var datasetIndex = 0;
+                    var dataIndexToHide = legendItemIndex;
+                    var dataOfHiddenPart = 0;
+                    var remainingSum = 0
+                    legendItem.hidden = true;
+                    var meta = filteredDataChartData.getDatasetMeta(0);
+                    var currentLegendItem = meta.data[legendItemIndex];
+                    var totalAmountDiv = document.getElementById('show_total_amount');
+                    var totalFilteredAmountDiv = document.getElementById('show_total_filtered_amount');
+                    if (hiddenPart[dataIndexToHide] == true) {
+                        dataInFilteredChart.data[dataIndexToHide] = original_Values[dataIndexToHide];
+                        hiddenPart[dataIndexToHide] = false;
+                        dataOfHiddenPart = Number(original_Values[dataIndexToHide]);
+                        remainingSum = dataOfHiddenPart;
+                    } else {
+                        hiddenPart[dataIndexToHide] = true;
+                        original_Values[dataIndexToHide] = dataInFilteredChart.data[dataIndexToHide];
+                        dataInFilteredChart.data[dataIndexToHide] = null;
+                        legendItem.textDecoration = 'line-through';
+                        dataOfHiddenPart = remainingSum;
+                        remainingSum = 0;
+                    }
+                    var sumOfVisibleParts = 0;
+                    for (var j = 0; j < dataInFilteredChart.data.length; j++) {
+                        if (!hiddenPart[j]) {
+                            sumOfVisibleParts += Number(dataInFilteredChart.data[j]) || 0;
+                        }
+
+                    }
+                    totalFilteredAmountDiv.innerHTML = '';
+                    var formattedTotalAmount_Filtered = sumOfVisibleParts.toLocaleString('en-IN');
+                    var formattedTotalAmount = sumOfVisibleParts.toLocaleString('en-IN');
+                    totalAmountDiv.innerHTML = '';
+                    totalFilteredAmountDiv.innerHTML = '₹ ' + formattedTotalAmount_Filtered;
+                    totalAmountDiv.innerHTML = '₹ ' + formattedTotalAmount;
+                    currentLegendItem.hidden = !currentLegendItem.hidden; // Toggle visibility
+                    currentLegendItem["_model"].textDecoration = currentLegendItem.hidden ? 'line-through' : ''; // Apply line-through style
+                    if (sumOfVisibleParts == 0) {
+                        totalAmountDiv.innerHTML = '';
+                        totalFilteredAmountDiv.innerHTML = '';
+                    }
+                    filteredDataChartData.update();
+                }
+                toggleLegendItemVisibility(legendItem.index);
+
+            }
+
         },
+        cutout: '70%',
+        plugins: {
+            legend: {
+
+            }
+        },
+        animation: false,
         tooltips: {
             callbacks: {
                 label: function (tooltipItem, data) {
@@ -179,12 +239,16 @@ function showPreviousData() {
         $('#myPieChart').css('display', 'block');
         $('#show_total_amount').css('display', 'block');
         $('#show_total_filtered_amount').css('display', 'none');
+        $('#calendar-icon').css('display', 'block');
+        $('#clearable__clear').css('display', 'none')
     }
     else {
         $('#filteredDataChart').css('display', 'block');
         $('#myPieChart').css('display', 'none');
         $('#show_total_amount').css('display', 'none');
         $('#show_total_filtered_amount').css('display', 'block');
+        $('#clearable__clear').css('display', 'block')
+        $('#calendar-icon').css('display', 'none');
     }
 }
 function updateMinDate() {

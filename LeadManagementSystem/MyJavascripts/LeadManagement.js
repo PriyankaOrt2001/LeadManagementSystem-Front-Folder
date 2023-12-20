@@ -19,6 +19,7 @@ var comapnyIdsValues = [];
 var categoryIdValue = [];
 var assignedIdValue = [];
 var PriorityList = [];
+var StatusList = [];
 const fileInputforFrontImg = document.getElementById('FrontImgOfCard');
 fileInputforFrontImg.onchange = () => {
 	FrontImgOfCardFile = fileInputforFrontImg.files[0];
@@ -1255,6 +1256,9 @@ function showFilter() {
 				for (let i = 0; i < PriorityList.length; i++){
 					$('input.PriorityList[value="' + PriorityList[i] + '"]').prop('checked', true);
 				}
+				for (let i = 0; i < StatusList.length; i++) {
+					$('input.StatusList[value="' + StatusList[i] + '"]').prop('checked', true);
+                }
 			}
 		}
 	});
@@ -1858,7 +1862,7 @@ function nevigateToEditProjectDetails() {
 function showCompanyList() {
 	debugger;
 	var showCompanyIcon = document.getElementById('showCompanyIcon');
-	const iconIds = ['showCategoryIcon', 'showPriorityIcon', 'showAssignToIcon'];
+	const iconIds = ['showCategoryIcon', 'showPriorityIcon', 'showAssignToIcon', 'showStatusIcon'];
 	iconIds.forEach(id => {
 		const icon = document.getElementById(id);
 		if (icon) {
@@ -1866,6 +1870,7 @@ function showCompanyList() {
 			icon.classList.toggle('fa-angle-down');
 		}
 	});
+	$('#FilterByStatusBody').css('display', 'none');
 	$('#FilterByCategoryBody').css('display', 'none');
 	$('#FilterByPriorityBody').css('display', 'none');
 	$('#FilterByAssignedToBody').css('display', 'none');
@@ -1879,10 +1884,35 @@ function showCompanyList() {
 	}
 	$('#FilterByCompanyBody').toggle();
 }
+function showStatusList() {
+	debugger;
+	var showSatusIcon = document.getElementById('showStatusIcon');
+	const iconIds = ['showCategoryIcon', 'showPriorityIcon', 'showAssignToIcon', 'showCompanyIcon'];
+	iconIds.forEach(id => {
+		const icon = document.getElementById(id);
+		if (icon) {
+			icon.classList.toggle('fa-angle-up');
+			icon.classList.toggle('fa-angle-down');
+		}
+	});
+	$('#FilterByCategoryBody').css('display', 'none');
+	$('#FilterByPriorityBody').css('display', 'none');
+	$('#FilterByAssignedToBody').css('display', 'none');
+	$('#FilterByCompanyBody').css('display', 'none');
+	if (showSatusIcon.classList.contains('fa-angle-down')) {
+		showSatusIcon.classList.remove('fa-angle-down');
+		showSatusIcon.classList.add('fa-angle-up');
+	}
+	else {
+		showSatusIcon.classList.remove('fa-angle-up');
+		showSatusIcon.classList.add('fa-angle-down');
+	}
+	$('#FilterByStatusBody').toggle();
+}
 function showCategoryList() {
 	$('#FilterByCategoryBody').toggle();
 	var showCategoryIcon = document.getElementById('showCategoryIcon');
-	const iconIds = ['showCompanyIcon', 'showPriorityIcon', 'showAssignToIcon'];
+	const iconIds = ['showCompanyIcon', 'showPriorityIcon', 'showAssignToIcon','showStatusIcon'];
 	iconIds.forEach(id => {
 		const icon = document.getElementById(id);
 		if (icon) {
@@ -1890,6 +1920,7 @@ function showCategoryList() {
 			icon.classList.add('fa-angle-down');
 		}
 	});
+	$('#FilterByStatusBody').css('display', 'none');
 	$('#FilterByCompanyBody').css('display', 'none');
 	$('#FilterByPriorityBody').css('display', 'none');
 	$('#FilterByAssignedToBody').css('display', 'none');
@@ -1905,7 +1936,7 @@ function showCategoryList() {
 function showPriorityList() {
 	$('#FilterByPriorityBody').toggle();
 	var showPriorityIcon = document.getElementById('showPriorityIcon');
-	const iconIds = ['showCompanyIcon', 'showCategoryIcon', 'showAssignToIcon'];
+	const iconIds = ['showCompanyIcon', 'showCategoryIcon', 'showAssignToIcon', 'showStatusIcon'];
 	iconIds.forEach(id => {
 		const icon = document.getElementById(id);
 		if (icon) {
@@ -1913,6 +1944,7 @@ function showPriorityList() {
 			icon.classList.add('fa-angle-down');
 		}
 	});
+	$('#FilterByStatusBody').css('display', 'none');
 	$('#FilterByCompanyBody').css('display', 'none');
 	$('#FilterByCategoryBody').css('display', 'none');
 	$('#FilterByAssignedToBody').css('display', 'none');
@@ -1928,7 +1960,7 @@ function showPriorityList() {
 function showAssignedToList() {
 	$('#FilterByAssignedToBody').toggle();
 	var showAssignToIcon = document.getElementById('showAssignToIcon');
-	const iconIds = ['showCompanyIcon', 'showCategoryIcon', 'showPriorityIcon'];
+	const iconIds = ['showCompanyIcon', 'showCategoryIcon', 'showPriorityIcon', 'showStatusIcon'];
 	iconIds.forEach(id => {
 		const icon = document.getElementById(id);
 		if (icon) {
@@ -1936,6 +1968,7 @@ function showAssignedToList() {
 			icon.classList.add('fa-angle-down');
 		}
 	});
+	$('#FilterByStatusBody').css('display', 'none');
 	$('#FilterByCompanyBody').css('display', 'none');
 	$('#FilterByCategoryBody').css('display', 'none');
 	$('#FilterByPriorityBody').css('display', 'none');
@@ -1954,6 +1987,7 @@ function FilterLeadDetails() {
 	categoryIdValue = [];
 	assignedIdValue = [];
 	PriorityList = [];
+	StatusList = [];
 	$(".CompanyModelList:checked").each(function () {
 		comapnyIdsValues.push($(this).val());
 	});
@@ -1966,23 +2000,29 @@ function FilterLeadDetails() {
 	$(".PriorityList:checked").each(function () {
 		PriorityList.push('\''+$(this).val()+'\'');
 	});
+	$(".StatusList:checked").each(function () {
+		StatusList.push('\'' + $(this).val() + '\'');
+	});
 	var condition = "";
 	var whereCompanyId = comapnyIdsValues.join(",");
 	var whereCompanyId = comapnyIdsValues.join(","); 
 	var whereCategoryId = categoryIdValue.join(",");
 	var whereAssignedToId = assignedIdValue.join(",");
 	var wherePriorityListId = PriorityList.join(",");
-	FilterDataTable(whereCompanyId, whereCategoryId, whereAssignedToId, wherePriorityListId);
+	var whereStatusListId = StatusList.join(",");
+	FilterDataTable(whereCompanyId, whereCategoryId, whereAssignedToId, wherePriorityListId, whereStatusListId);
 }
 function resetFilter(){
 	$('.CompanyModelList').prop('checked', false);
 	$('.LeadCategoryDetails').prop('checked', false);
 	$('.AssignToDetails').prop('checked', false);
 	$('.PriorityList').prop('checked', false);
+	$('.StatusList').prop('checked', false);
 	comapnyIdsValues = [];
 	categoryIdValue = [];
 	assignedIdValue = [];
 	PriorityList = [];
+	StatusList = [];
 	$('#CountOfCompanyFilter').hide();
 	$('#CountOfCategoryFilter').hide();
 	$('#CountOfAssignToFilter').hide();
@@ -1993,6 +2033,7 @@ function resetFilter(){
 	countOfCheckedCategoryCheckbox = 0;
 	countOfCheckedAssignToCheckbox = 0;
 	countOfCheckedPriorityCheckbox = 0;
+	countOfCheckedStatusCheckbox = 0;
 	$('#TotalFilterCount').css('display', 'none');
 }
 var TotalFilterCount = 0;
@@ -2000,12 +2041,13 @@ var countOfCheckedCompanyCheckbox = 0;
 var countOfCheckedCategoryCheckbox = 0;
 var countOfCheckedAssignToCheckbox = 0;
 var countOfCheckedPriorityCheckbox = 0;
-TotalFilterCount = countOfCheckedCompanyCheckbox + countOfCheckedCategoryCheckbox + countOfCheckedAssignToCheckbox + countOfCheckedPriorityCheckbox;
+var countOfCheckedStatusCheckbox = 0;
+TotalFilterCount = countOfCheckedCompanyCheckbox + countOfCheckedCategoryCheckbox + countOfCheckedAssignToCheckbox + countOfCheckedPriorityCheckbox + countOfCheckedStatusCheckbox;
 function CompanyFilterCount() {
 	debugger;
 	var checkedCheckboxes = $('.CompanyModelList:checked');
 	countOfCheckedCompanyCheckbox = checkedCheckboxes.length;
-	TotalFilterCount = countOfCheckedCompanyCheckbox + countOfCheckedCategoryCheckbox + countOfCheckedAssignToCheckbox + countOfCheckedPriorityCheckbox;
+	TotalFilterCount = countOfCheckedCompanyCheckbox + countOfCheckedCategoryCheckbox + countOfCheckedAssignToCheckbox + countOfCheckedPriorityCheckbox + countOfCheckedStatusCheckbox;
 	$('#TotalFilterCount').text(TotalFilterCount);
 	$('#TotalFilterCount').css('display', 'initial');
 	if (checkedCheckboxes.length > 0) {
@@ -2023,7 +2065,7 @@ function CategoryFilterCount() {
 	debugger;
 	var checkedCheckboxes = $('.LeadCategoryDetails:checked');
 	countOfCheckedCategoryCheckbox = checkedCheckboxes.length;
-	TotalFilterCount = countOfCheckedCompanyCheckbox + countOfCheckedCategoryCheckbox + countOfCheckedAssignToCheckbox + countOfCheckedPriorityCheckbox;
+	TotalFilterCount = countOfCheckedCompanyCheckbox + countOfCheckedCategoryCheckbox + countOfCheckedAssignToCheckbox + countOfCheckedPriorityCheckbox + countOfCheckedStatusCheckbox;
 	$('#TotalFilterCount').text(TotalFilterCount);
 	$('#TotalFilterCount').css('display', 'initial');
 	if (checkedCheckboxes.length > 0) {
@@ -2040,7 +2082,7 @@ function AssignToFilterCount() {
 	debugger;
 	var checkedCheckboxes = $('.AssignToDetails:checked');
 	countOfCheckedAssignToCheckbox = checkedCheckboxes.length;
-	TotalFilterCount = countOfCheckedCompanyCheckbox + countOfCheckedCategoryCheckbox + countOfCheckedAssignToCheckbox + countOfCheckedPriorityCheckbox;
+	TotalFilterCount = countOfCheckedCompanyCheckbox + countOfCheckedCategoryCheckbox + countOfCheckedAssignToCheckbox + countOfCheckedPriorityCheckbox + countOfCheckedStatusCheckbox;
 	$('#TotalFilterCount').text(TotalFilterCount);
 	$('#TotalFilterCount').css('display', 'initial');
 	if (checkedCheckboxes.length > 0) {
@@ -2057,10 +2099,10 @@ function PriorityFilterCount() {
 	debugger;
 	var checkedCheckboxes = $('.PriorityList:checked');
 	countOfCheckedPriorityCheckbox = checkedCheckboxes.length;
-	TotalFilterCount = countOfCheckedCompanyCheckbox + countOfCheckedCategoryCheckbox + countOfCheckedAssignToCheckbox + countOfCheckedPriorityCheckbox;
+	TotalFilterCount = countOfCheckedCompanyCheckbox + countOfCheckedCategoryCheckbox + countOfCheckedAssignToCheckbox + countOfCheckedPriorityCheckbox + countOfCheckedStatusCheckbox;
 	$('#TotalFilterCount').text(TotalFilterCount);
 	$('#TotalFilterCount').css('display', 'initial');
-	TotalFilterCount = countOfCheckedCompanyCheckbox + countOfCheckedCategoryCheckbox + countOfCheckedAssignToCheckbox + countOfCheckedPriorityCheckbox;
+	TotalFilterCount = countOfCheckedCompanyCheckbox + countOfCheckedCategoryCheckbox + countOfCheckedAssignToCheckbox + countOfCheckedPriorityCheckbox + countOfCheckedStatusCheckbox;
 	if (checkedCheckboxes.length > 0) {
 		$('#CountOfPriorityFilter').text(countOfCheckedPriorityCheckbox);
 		$('#CountOfPriorityFilter').show();
@@ -2070,6 +2112,24 @@ function PriorityFilterCount() {
 	if (TotalFilterCount == 0) {
 		$('#TotalFilterCount').css('display', 'none');
     }
+}
+function StatusFilterCount() {
+	debugger;
+	var checkedCheckboxes = $('.StatusList:checked');
+	countOfCheckedStatusCheckbox = checkedCheckboxes.length;
+	TotalFilterCount = countOfCheckedCompanyCheckbox + countOfCheckedCategoryCheckbox + countOfCheckedAssignToCheckbox + countOfCheckedPriorityCheckbox + countOfCheckedStatusCheckbox;
+	$('#TotalFilterCount').text(TotalFilterCount);
+	$('#TotalFilterCount').css('display', 'initial');
+	TotalFilterCount = countOfCheckedCompanyCheckbox + countOfCheckedCategoryCheckbox + countOfCheckedAssignToCheckbox + countOfCheckedPriorityCheckbox + countOfCheckedStatusCheckbox;
+	if (checkedCheckboxes.length > 0) {
+		$('#CountOfStatusFilter').text(countOfCheckedStatusCheckbox);
+		$('#CountOfStatusFilter').show();
+	} else {
+		$('#CountOfStatusFilter').hide();
+	}
+	if (TotalFilterCount == 0) {
+		$('#TotalFilterCount').css('display', 'none');
+	}
 }
 
 function getCountOfUnseenNotification(UserId) {

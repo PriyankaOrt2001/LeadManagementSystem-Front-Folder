@@ -100,7 +100,7 @@
                             </div>
                             <div class="header-container">
                                 <div class="previous-row">
-                                    <div class="form-row">
+                                    <div class="form-row" id="showPreviousDataDiv" onclick="showPreviousData()">
                                         <span style="display:none;" id="showPreviousData" onclick="showPreviousData()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
@@ -114,7 +114,7 @@
                                 </div>
                             </div>
                             <div id="data_not_found" style="display:none;">
-                                <img src="~/ThemeContent/Img/No data-pana.svg" class="data_not_found"/>
+                                <img src="~/ThemeContent/Img/No data-pana.svg" class="data_not_found" />
                             </div>
                             <canvas id="filteredDataChart" height="220" width="600" style="display:none; height:235px; width:652px;"></canvas>
                             <canvas id="myPieChart" height="220" width="600" style="display:block; height:235px; width:652px;"></canvas>
@@ -149,6 +149,7 @@
             </div>
         </div>
     </div>
+    
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -216,6 +217,19 @@
             resize: true,
             parseTime: false
         });
+        document.getElementById("filteredDataChart").addEventListener("mousemove", function (event) {
+            var hoverElement = chart.getElementAtEvent(event);
+            document.getElementById("filteredDataChart").style.cursor = 'default';
+        });
+        document.getElementById("showPreviousDataDiv").addEventListener("mousemove", function (event) {
+            var hoverElement = chart.getElementAtEvent(event);
+            document.getElementById("showPreviousDataDiv").style.cursor = 'pointer';
+        });
+        document.getElementById("CategoryPricePieChart").addEventListener("mousemove", function (event) {
+            var hoverElement = chart.getElementAtEvent(event);
+            document.getElementById("CategoryPricePieChart").style.cursor = 'default';
+        });
+        
         const ctx = document.getElementById('myPieChart');
         var dataList = [];
         var newData = [];
@@ -273,7 +287,7 @@
         document.getElementById('chart-container').appendChild(totalFilteredAmountDiv);
         var hiddenStates = [];
         var originalValues = [];
-        var myChart=new Chart(ctx, {
+        let chart=new Chart(ctx, {
             type: 'doughnut',
             data: dataList,
             options: {
@@ -281,46 +295,58 @@
                     position: 'right',
                     onClick: function (e, legendItem) {
                         debugger;
-                        //var datasetIndex = 0; // Replace with the index of the dataset
-                        //var dataIndexToHide = legendItem.index; // Replace with the index of the data point to hide
-
-                        //// Set the specific data point to null
-                        //dataList.datasets[datasetIndex].data[dataIndexToHide] = null;
-
-                        //// Update the chart
-                        //myChart.update();
-
-                        // Assuming you have an array to keep track of hidden states for each legend item
-
-
-                        // Function to toggle the visibility of a legend item
                         function toggleLegendItemVisibility(legendItemIndex) {
-                            var datasetIndex = 0; // Replace with the index of the dataset
+                            
+                            var datasetIndex = 0;
                             var dataIndexToHide = legendItemIndex;
-                            var meta = myChart.getDatasetMeta(datasetIndex);
-
-                            if (hiddenStates[dataIndexToHide] == false) {
-                                // Show the part again by setting it back to the original value
+                            var dataOfHiddenPart = 0;
+                            var remainingSum = 0
+                            legendItem.hidden = true;
+                            if (hiddenStates[dataIndexToHide] == true) {
                                 dataList.datasets[datasetIndex].data[dataIndexToHide] = originalValues[dataIndexToHide];
-                                hiddenStates[dataIndexToHide] = true;
-                            } else {
-                                // Hide the part by setting the specific data point to null
                                 hiddenStates[dataIndexToHide] = false;
+                                dataOfHiddenPart = Number(originalValues[dataIndexToHide]);
+                                remainingSum = dataOfHiddenPart;
+                            } else {
+                                hiddenStates[dataIndexToHide] = true;
                                 originalValues[dataIndexToHide] = dataList.datasets[datasetIndex].data[dataIndexToHide];
                                 dataList.datasets[datasetIndex].data[dataIndexToHide] = null;
                                 legendItem.textDecoration = 'line-through';
+                                dataOfHiddenPart = remainingSum;
+                                remainingSum = 0;
                             }
+                            var sumOfVisibleParts = 0;
+                            for (var j = 0; j < dataList.datasets[datasetIndex].data.length; j++) {
+                                if (!hiddenStates[j]) {
+                                    sumOfVisibleParts += Number(dataList.datasets[datasetIndex].data[j]) || 0;
+                                }
+                                
+                            }
+                            var totalAmountDiv = document.getElementById('show_total_amount');
+                            var totalFilteredAmountDiv = document.getElementById('show_total_filtered_amount');
+                            totalFilteredAmountDiv.innerHTML = '';
+                            var formattedTotalAmount_Filtered = sumOfVisibleParts.toLocaleString('en-IN');
+                            var formattedTotalAmount = sumOfVisibleParts.toLocaleString('en-IN');
+                            totalAmountDiv.innerHTML = '';
+                            totalFilteredAmountDiv.innerHTML = '₹ ' + formattedTotalAmount_Filtered;
+                            totalAmountDiv.innerHTML = '₹ ' + formattedTotalAmount;
+                            var meta = chart.getDatasetMeta(0);
+                            var currentLegendItem = meta.data[legendItemIndex];
+                            if (sumOfVisibleParts == 0) {
+                                totalAmountDiv.innerHTML = '';
+                                totalFilteredAmountDiv.innerHTML = '';
+                            }
+                            currentLegendItem.hidden = !currentLegendItem.hidden; // Toggle visibility
+                            currentLegendItem["_model"].textDecoration = currentLegendItem.hidden ? 'line-through' : ''; // Apply line-through style
 
-                            myChart.update();
+                            chart.update();
                         }
-
-                        // Usage example: Call this function when a legend item is clicked
                         toggleLegendItemVisibility(legendItem.index);
 
                     }
 
                 },
-                cutout: '70%',
+                cutout: '0%',
                 plugins: {
                     legend: {
 
@@ -332,6 +358,12 @@
                         label: function (tooltipItem, data) {
                             debugger;
                             var label = data.labels[tooltipItem.index];
+                            if (label == 'Open' || label == 'On-Hold') {
+                                document.getElementById("myPieChart").style.cursor = 'pointer';
+                            }
+                            else {
+                                document.getElementById("myPieChart").style.cursor = 'default';
+                            }
                             var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
                             var total = TotalAmount;
                             var parsedValue = parseFloat(value);
@@ -339,10 +371,12 @@
                             var percentage = ((parsedValue / parsedTotal) * 100).toFixed(2);
                             var formattedNumber = parsedValue.toLocaleString('en-IN');
                             return label + ': ₹ ' + formattedNumber + ' (' + percentage + '%)';
+                            
                         }
                     }
                 },
                 onClick: function (event, elements) {
+                    debugger;
                     if (elements.length > 0) {
                         var clickedLabel = dataList.labels[elements[0]._index];
                         if (clickedLabel == 'Open' || clickedLabel == 'On-Hold') {
@@ -354,19 +388,6 @@
                 }
             }
         });
-        //document.getElementById('myPieChart').onclick = function (evt, legendItem, legend) {
-        //    debugger;
-        //    legendItem = myChart.getElementAtEvent(e)[0];
-
-        //    if (legendItem) {
-        //        var datasetIndex = legendItem._datasetIndex;
-        //        var meta = myChart.getDatasetMeta(datasetIndex);
-        //        meta.hidden = meta.hidden === null ? !myChart.data.datasets[datasetIndex].hidden : null;
-
-        //        // Update the chart
-        //        myChart.update();
-        //    }
-        //};
         var debounceTimeout;
         function debounce(func, delay) {
             clearTimeout(debounceTimeout);
