@@ -292,6 +292,36 @@
             data: dataList,
             options: {
                 legend: {
+                    labels: {
+                        generateLabels: function (chart) {
+                            debugger;
+                            var data = chart.data;
+                            if (data.labels.length && data.datasets.length) {
+                                return data.labels.map(function (label, i) {
+                                    var dataset = data.datasets[0];
+                                    var value = dataset.data[i];
+
+                                    var legendItem = {
+                                        text: label, // Display label and value
+                                        fillStyle: dataset.backgroundColor[i], // You can customize the color
+                                    };
+
+                                    if (value == 0) {
+                                        legendItem.hidden = true;
+                                        legendItem.textDecoration = 'line-through';
+                                        legendItem.index = i;
+                                    }
+                                    else {
+                                        legendItem.hidden = false;
+                                        legendItem.index = i;
+                                    }
+                                    return legendItem;
+                                });
+                            } else {
+                                return [];
+                            }
+                        }
+                    },
                     position: 'right',
                     onClick: function (e, legendItem) {
                         debugger;
@@ -301,7 +331,6 @@
                             var dataIndexToHide = legendItemIndex;
                             var dataOfHiddenPart = 0;
                             var remainingSum = 0
-                            legendItem.hidden = true;
                             if (hiddenStates[dataIndexToHide] == true) {
                                 dataList.datasets[datasetIndex].data[dataIndexToHide] = originalValues[dataIndexToHide];
                                 hiddenStates[dataIndexToHide] = false;
@@ -310,8 +339,7 @@
                             } else {
                                 hiddenStates[dataIndexToHide] = true;
                                 originalValues[dataIndexToHide] = dataList.datasets[datasetIndex].data[dataIndexToHide];
-                                dataList.datasets[datasetIndex].data[dataIndexToHide] = null;
-                                legendItem.textDecoration = 'line-through';
+                                dataList.datasets[datasetIndex].data[dataIndexToHide] = 0;
                                 dataOfHiddenPart = remainingSum;
                                 remainingSum = 0;
                             }
@@ -336,9 +364,7 @@
                                 totalAmountDiv.innerHTML = '';
                                 totalFilteredAmountDiv.innerHTML = '';
                             }
-                            currentLegendItem.hidden = !currentLegendItem.hidden; // Toggle visibility
-                            currentLegendItem["_model"].textDecoration = currentLegendItem.hidden ? 'line-through' : ''; // Apply line-through style
-
+                           
                             chart.update();
                         }
                         toggleLegendItemVisibility(legendItem.index);

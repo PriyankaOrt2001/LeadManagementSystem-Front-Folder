@@ -35,6 +35,36 @@ const filteredDataChartData = new Chart(filteredDataChart, {
     data: {},
     options: {
         legend: {
+            labels: {
+                generateLabels: function (chart) {
+                    debugger;
+                    var data = chart.data;
+                    if (data.labels.length && data.datasets.length) {
+                        return data.labels.map(function (label, i) {
+                            var dataset = data.datasets[0];
+                            var value = dataset.data[i];
+
+                            var legendItem = {
+                                text: label, // Display label and value
+                                fillStyle: dataset.backgroundColor[i], // You can customize the color
+                            };
+
+                            if (value == 0) {
+                                legendItem.hidden = true;
+                                legendItem.textDecoration = 'line-through';
+                                legendItem.index = i;
+                            }
+                            else {
+                                legendItem.hidden = false;
+                                legendItem.index = i;
+                            }
+                            return legendItem;
+                        });
+                    } else {
+                        return [];
+                    }
+                }
+            },
             position: 'right',
             onClick: function (e, legendItem) {
                 debugger;
@@ -44,7 +74,6 @@ const filteredDataChartData = new Chart(filteredDataChart, {
                     var dataIndexToHide = legendItemIndex;
                     var dataOfHiddenPart = 0;
                     var remainingSum = 0
-                    legendItem.hidden = true;
                     var meta = filteredDataChartData.getDatasetMeta(0);
                     var currentLegendItem = meta.data[legendItemIndex];
                     var totalAmountDiv = document.getElementById('show_total_amount');
@@ -57,8 +86,7 @@ const filteredDataChartData = new Chart(filteredDataChart, {
                     } else {
                         hiddenPart[dataIndexToHide] = true;
                         original_Values[dataIndexToHide] = dataInFilteredChart.data[dataIndexToHide];
-                        dataInFilteredChart.data[dataIndexToHide] = null;
-                        legendItem.textDecoration = 'line-through';
+                        dataInFilteredChart.data[dataIndexToHide] = 0;
                         dataOfHiddenPart = remainingSum;
                         remainingSum = 0;
                     }
