@@ -128,6 +128,13 @@ const filteredDataChartData = new Chart(filteredDataChart, {
                 label: function (tooltipItem, data) {
                     debugger;
                     var label = data.labels[tooltipItem.index];
+                    var label = data.labels[tooltipItem.index];
+                    if (label == 'Open' || label == 'On-Hold') {
+                        document.getElementById("myPieChart").style.cursor = 'pointer';
+                    }
+                    else {
+                        document.getElementById("myPieChart").style.cursor = 'default';
+                    }
                     var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
                     var total = TotalAmount;
                     var parsedValue = parseFloat(value);
