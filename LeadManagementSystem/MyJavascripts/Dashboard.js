@@ -130,10 +130,10 @@ const filteredDataChartData = new Chart(filteredDataChart, {
                     var label = data.labels[tooltipItem.index];
                     var label = data.labels[tooltipItem.index];
                     if (label == 'Open' || label == 'On-Hold') {
-                        document.getElementById("myPieChart").style.cursor = 'pointer';
+                        document.getElementById("filteredDataChart").style.cursor = 'pointer';
                     }
                     else {
-                        document.getElementById("myPieChart").style.cursor = 'default';
+                        document.getElementById("filteredDataChart").style.cursor = 'default';
                     }
                     var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
                     var total = TotalAmount;
