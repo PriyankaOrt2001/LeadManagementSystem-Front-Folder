@@ -42,10 +42,10 @@ function IsFavLead(id, IsFav) {
 	var value = element.className;
 	var alterMsg = "";
 	if (value =="fa fa-star-o") {
-		alterMsg = "Are You sure you want to add this lead as Favourite Lead ?";
+		alterMsg = "Are You sure you want to add this lead as favourite Lead ?";
 	}
 	else {
-		alterMsg = "Are You sure you want to remove this lead from Favourite Lead ?";
+		alterMsg = "Are You sure you want to remove this lead from favourite Lead ?";
     }
 	bootbox.confirm({
 		message: alterMsg,
