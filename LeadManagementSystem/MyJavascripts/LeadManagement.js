@@ -1350,7 +1350,7 @@ function SaveRemarkAndNotify(id,status) {
 	formdata.append("Remark", txtRemark);
 	formdata.append("Lead_Id", id);
 	formdata.append("Status", status);
-	formdata.append("RemarkStatus", "Saved and Notified");
+	formdata.append("RemarkStatus", "Saved & Notified");
 	document.body.style.paddingRight = '0px';
 	$.ajax({
 		type: "POST",
