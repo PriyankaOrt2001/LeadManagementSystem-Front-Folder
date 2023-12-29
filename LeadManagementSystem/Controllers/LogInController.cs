@@ -26,7 +26,7 @@ namespace LeadManagementSystem.Controllers
             crm.UserName = username;
             crm.Password = password;
             crm.DeviceId = DeviceId;
-            var result = JsonConvert.DeserializeObject<UserResponseModelViewModel>(LMSTransaction.post("APILogIn", crm, "","").Content);
+            var result = JsonConvert.DeserializeObject<UserResponseModelViewModel>(LMSTransaction.post("Login", crm, "","").Content);
             rm = result.response;
             rm.UserID = result.usermodel.UserID.ToString();
             rm.UserName = result.usermodel.UserName;
